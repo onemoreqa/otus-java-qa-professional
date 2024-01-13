@@ -1,7 +1,6 @@
 package otus.sliders;
 
 import anotations.Driver;
-import anotations.Page;
 import extensions.UIExtensions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
