@@ -14,15 +14,9 @@ public class CompaniesSlider_Test {
   @Driver
   private WebDriver driver;
 
-  @Page
-  private MainPage mainPage;
-
-/*  @Page
-  private MainPage mainPage; @TODO надо реализовать по аналогии с вэбДрайвером */
-
   @Test
-  public void testSliderCompanies() {
-    mainPage
-      .open();
+  public void openPage_Test(){
+    MainPage mainPage = new MainPage(driver);
+    mainPage.open();
   }
 }

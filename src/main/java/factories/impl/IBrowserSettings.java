@@ -1,7 +1,7 @@
 package factories.impl;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.MutableCapabilities;
 
 public interface IBrowserSettings {
-  WebDriver conigure();
+  MutableCapabilities conigure();
 }

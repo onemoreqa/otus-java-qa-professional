@@ -1,22 +1,22 @@
 package factories.impl;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ChromeConfigure implements IBrowserSettings {
 
-  private String browserVersion = System.getProperty("browser.version");
-
   @Override
-  public WebDriver conigure() {
+  public MutableCapabilities conigure() {
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--start-fullscreen");
+    chromeOptions.addArguments("--lang=ru");
+    chromeOptions.addArguments("--no-sandbox");
+    chromeOptions.addArguments("--remote-allow-origins=*");
+    chromeOptions.addArguments("start-maximized");
+    chromeOptions.addArguments("--no-first-run");
+    chromeOptions.addArguments("--enable-extensions");
     chromeOptions.addArguments("--homepage=about:blank");
+    chromeOptions.addArguments("--ignore-certificate-errors");
 
-    WebDriverManager.chromedriver().browserVersion(browserVersion).setup();
-
-    return new ChromeDriver(chromeOptions);
+    return chromeOptions;
   }
 }

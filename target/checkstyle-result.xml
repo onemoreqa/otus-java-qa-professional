@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.19">
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/pages/AbsPageObject.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/pages/AbsBasePage.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/pages/MainPage.java">
+<error line="6" column="51" severity="error" message="GenericWhitespace &apos;&gt;&apos; should followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.GenericWhitespaceCheck"/>
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/extensions/UIExtensions.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/exceptions/BrowserNotSupportedException.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/waiter/BaseWaiter.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/factories/WebDriverFactory.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/factories/impl/IBrowserSettings.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/factories/impl/ChromeConfigure.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/anotations/Driver.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/anotations/Component.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/anotations/UrlTemplate.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/anotations/Page.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/main/java/listeners/WebDriverListener.java">
+</file>
+<file name="/home/egor/Desktop/otus-java-qa-professional/src/test/java/otus/sliders/CompaniesSlider_Test.java">
+</file>
+</checkstyle>

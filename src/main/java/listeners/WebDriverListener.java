@@ -4,6 +4,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 public class WebDriverListener implements WebDriverEventListener {
+  protected WebDriver driver;
+  private String originalStyle;
+
+  public WebDriverListener(WebDriver driver) {
+    this.driver = driver;
+  }
+
+
   @Override
   public void beforeAlertAccept(WebDriver webDriver) {
 
@@ -75,13 +83,15 @@ public class WebDriverListener implements WebDriverEventListener {
   }
 
   @Override
-  public void beforeClickOn(WebElement webElement, WebDriver driver) {
-    ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red';", webElement);
+  public void beforeClickOn(WebElement webElement, WebDriver webDriver) {
+    saveElementBorderStyle(webElement);
+    ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='3px solid red'", webElement);
+
   }
 
   @Override
-  public void afterClickOn(WebElement webElement, WebDriver driver) {
-    ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='0px solid white';", webElement);
+  public void afterClickOn(WebElement webElement, WebDriver webDriver) {
+
   }
 
   @Override
@@ -138,4 +148,9 @@ public class WebDriverListener implements WebDriverEventListener {
   public void afterGetText(WebElement webElement, WebDriver webDriver, String s) {
 
   }
+
+  private void saveElementBorderStyle(WebElement webElement) {
+    originalStyle = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].style.border", webElement);
+  }
+
 }

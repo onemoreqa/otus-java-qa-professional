@@ -15,17 +15,18 @@
 
         <junit.version>5.8.1</junit.version>
         <selenium.java.version>3.141.59</selenium.java.version>
-        <webdriver.manager.version>4.2.0</webdriver.manager.version>
+        <webdriver.manager.version>5.6.3</webdriver.manager.version>
+        <surefire.plugin.version>2.22.2</surefire.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
+        <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
+        <spotbugs.version>4.8.3</spotbugs.version>
 
-        <base.url/>
+        <base.url>https://otus.ru</base.url>
         <browser.version/>
         <browser>chrome</browser>
 
-        <surefire.plugin.version>2.22.2</surefire.plugin.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-
-        <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
-        <spotbugs.version>4.8.3</spotbugs.version>
+        <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
 
     </properties>
 
@@ -47,17 +48,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <base.url>https://otus.ru</base.url>
-                <browser>${browser}</browser>
-                <browser.version>${browser.version}</browser.version>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -65,9 +55,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
-                    </systemProperties>
+                        <browser>${browser}</browser>
+                        <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -95,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${maven.checkstyle.plugin.version}</version>
                 <configuration>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <configLocation>${project.build.sourceDirectory}/../resources/checkstyle.xml</configLocation>
