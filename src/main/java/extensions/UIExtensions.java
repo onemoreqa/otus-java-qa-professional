@@ -1,6 +1,6 @@
 package extensions;
 
-import anotations.Driver;
+import anotations.*;
 import factories.WebDriverFactory;
 import listeners.WebDriverListener;
 import org.junit.jupiter.api.extension.AfterEachCallback;

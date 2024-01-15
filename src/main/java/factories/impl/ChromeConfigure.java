@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class ChromeConfigure implements IBrowserSettings {
 
   @Override
-  public MutableCapabilities conigure() {
+  public MutableCapabilities configure() {
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.addArguments("--lang=ru");
     chromeOptions.addArguments("--no-sandbox");

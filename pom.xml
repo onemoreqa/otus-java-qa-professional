@@ -21,6 +21,7 @@
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
         <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
         <spotbugs.version>4.8.3</spotbugs.version>
+        <lombok.version>1.18.20</lombok.version>
 
         <base.url>https://otus.ru</base.url>
         <browser.version/>
@@ -45,6 +46,12 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdriver.manager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

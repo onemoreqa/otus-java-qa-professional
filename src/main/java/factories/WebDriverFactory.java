@@ -2,12 +2,15 @@ package factories;
 
 import exceptions.BrowserNotSupportedException;
 import factories.impl.ChromeConfigure;
+import factories.impl.FirefoxConfigure;
 import factories.impl.IBrowserSettings;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -34,11 +37,11 @@ public class WebDriverFactory {
         IBrowserSettings chromeSettings = new ChromeConfigure();
         WebDriverManager.chromedriver().setup();
 
-        return new ChromeDriver((ChromeOptions) chromeSettings.conigure());
+        return new ChromeDriver((ChromeOptions) chromeSettings.configure());
       case "firefox":
-        IBrowserSettings firefoxSettings = new ChromeConfigure();
+        IBrowserSettings firefoxSettings = new FirefoxConfigure();
         WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver(/*(ChromeOptions) firefoxSettings.getCapabilities()*/);
+        return new FirefoxDriver((FirefoxOptions) firefoxSettings.configure());
       default:
         throw new BrowserNotSupportedException(browserName);
     }
