@@ -35,10 +35,6 @@ public class SpecializationsComponent extends CoursesComponent<SpecializationsCo
     return getTitleCourses(specializations);
   }
 
-  public List<CourseEntry> getCourseEntries() {
-    return getCourseEntries(specializations);
-  }
-
   /**
    * Получение списка CourseEntry, где будет храниться основная информация по карточке курса/специализации
    */

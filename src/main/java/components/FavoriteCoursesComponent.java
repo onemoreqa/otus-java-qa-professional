@@ -11,8 +11,10 @@ import pages.CoursePage;
 import java.util.List;
 
 public class FavoriteCoursesComponent extends CoursesComponent<FavoriteCoursesComponent> {
-  @FindBy(xpath = "//*[text()='Популярные курсы']/following-sibling::div/div")
-  private List<WebElement> favoriteCourses;
+  @FindBy(xpath = "(//h2 | //h3)/following-sibling::div/div")
+  private List<WebElement> allCourses;
+
+  private String courseSectionsLocator = "(//h2 | //h3)";
 
   @FindBy(xpath = "//section/*[text()='Популярные курсы']")
   private WebElement favoriteCoursesSection;
@@ -23,17 +25,12 @@ public class FavoriteCoursesComponent extends CoursesComponent<FavoriteCoursesCo
   }
 
   public List<String> getTitleCourses() {
-    return getTitleCourses(favoriteCourses);
-  }
-
-  public void searchCourseByTitle(String expectedCourseTitle) {
-    List<String> allCourses = getTitleCourses(favoriteCourses);
-    Assertions.assertTrue(allCourses.contains(expectedCourseTitle), String.format("На странице не найден курс %s", expectedCourseTitle));
+    return getTitleCourses(allCourses);
   }
 
   public CoursePage chooseCourse(String title) {
-    WebElement courseElement = favoriteCoursesSection.findElement(By.xpath("./following-sibling::div//*[text()='"
-            + title + "']"));
+    WebElement courseElement = driver.findElement(By.xpath(courseSectionsLocator + "/following-sibling::*//h5[contains(text(),'"
+            + title + "')]"));
     actions.moveToElement(courseElement).build().perform();
     courseElement.click();
     return new CoursePage(driver);

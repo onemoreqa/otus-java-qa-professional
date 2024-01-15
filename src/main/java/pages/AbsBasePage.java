@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class AbsBasePage<T> extends AbsPageObject {
 
   public static final String BASE_URL = System.getProperty("base.url");
-  public final int documentReadyStateTimeout = Integer.parseInt(System.getProperty("webdriver.timeouts.documentReadyState", "30"));
+  public final int documentReadyStateTimeout = Integer.parseInt(System.getProperty("pageLoadTimeout", "15"));
 
   public AbsBasePage(WebDriver driver) {
     super(driver);

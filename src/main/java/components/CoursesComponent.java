@@ -13,16 +13,10 @@ public abstract class CoursesComponent<T> extends BaseComponent<CoursesComponent
     super(driver);
   }
 
-  @FindBy(xpath = "//div/*[text()='Рекомендации для вас']/following-sibling::div/div")
-  private List<WebElement> recommendations;
-
   public List<String> getTitleCourses(List<WebElement> coursesElements) {
     return coursesElements.stream()
             .map(webElement -> webElement.findElement(By.xpath(".//img")).getAttribute("alt"))
             .collect(Collectors.toList());
   }
 
-  public List<String> getTitleCoursesByRecommendations() {
-    return getTitleCourses(recommendations);
-  }
 }

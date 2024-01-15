@@ -1,6 +1,8 @@
 package otus.sliders;
 
 import anotations.Driver;
+import components.CoursesComponent;
+import components.FavoriteCoursesComponent;
 import components.SpecializationsComponent;
 import extensions.UIExtensions;
 import org.junit.jupiter.api.Test;
@@ -15,15 +17,14 @@ public class SearchCourse_Test {
   private WebDriver driver;
 
   @Test
-  //Д/З №1 поиск курса среди всех на странице
   public void searchOtusCourseByTitle() {
     MainPage mainPage = new MainPage(driver);
     mainPage.open();
-    mainPage.searchCourseByTitle("MLOps");
+    //mainPage.getAllCourses();
+    new FavoriteCoursesComponent(driver).chooseCourse("ML");
   }
 
   @Test
-  //Д/З №1 поиск самого позднего курса среди специализаций
   public void searchLastOtusSpecializationByDate() {
     MainPage mainPage = new MainPage(driver);
     mainPage.open();
@@ -31,7 +32,6 @@ public class SearchCourse_Test {
   }
 
   @Test
-  //Д/З №1 поиск самого позднего курса среди специализаций
   public void searchFirstOtusSpecializationByDate() {
     MainPage mainPage = new MainPage(driver);
     mainPage.open();

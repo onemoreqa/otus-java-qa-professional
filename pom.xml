@@ -28,6 +28,7 @@
         <browser>chrome</browser>
 
         <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
+        <pageloadtimeout>15</pageloadtimeout>
 
     </properties>
 
@@ -50,7 +51,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>${lombok.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -66,6 +67,7 @@
                         <base.url>${base.url}</base.url>
                         <browser>${browser}</browser>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
+                        <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
