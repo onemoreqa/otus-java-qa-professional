@@ -16,12 +16,15 @@
         <junit.version>5.8.1</junit.version>
         <selenium.java.version>3.141.59</selenium.java.version>
         <webdriver.manager.version>5.6.3</webdriver.manager.version>
-        <surefire.plugin.version>2.22.2</surefire.plugin.version>
+        <surefire.plugin.version>3.0.0-M5</surefire.plugin.version> <!--3.0.0-M5 | 2.22.2-->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
         <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
         <spotbugs.version>4.8.3</spotbugs.version>
         <lombok.version>1.18.20</lombok.version>
+
+        <restassured.version>4.2.0</restassured.version>
+        <json.schema.validator.version>4.3.1</json.schema.validator.version>
 
         <base.url>https://otus.ru</base.url>
         <browser.version/>
@@ -54,6 +57,18 @@
             <version>${lombok.version}</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${json.schema.validator.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -63,6 +78,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+                    <!--console reporter-->
+                    <reportFormat>plain</reportFormat>
+                    <consoleOutputReporter>
+                        <disable>false</disable>
+                    </consoleOutputReporter>
+                    <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter"/>
+
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
                         <browser>${browser}</browser>
@@ -70,6 +92,15 @@
                         <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
                     </systemPropertyVariables>
                 </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>me.fabriciorby</groupId>
+                        <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
+                        <version>0.1.0</version>
+                    </dependency>
+                </dependencies>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
