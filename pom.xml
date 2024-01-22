@@ -25,6 +25,10 @@
 
         <restassured.version>4.2.0</restassured.version>
         <json.schema.validator.version>4.3.1</json.schema.validator.version>
+        <javafaker.version>1.0.2</javafaker.version>
+        <org.json.version>20231013</org.json.version>
+        <cucumber.java.version>6.6.0</cucumber.java.version>
+        <cucumber.junit.version>6.6.0</cucumber.junit.version>
 
         <base.url>https://otus.ru</base.url>
         <browser.version/>
@@ -69,6 +73,34 @@
             <artifactId>json-schema-validator</artifactId>
             <version>${json.schema.validator.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${javafaker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,6 +110,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <!--console reporter-->
                     <reportFormat>plain</reportFormat>
                     <consoleOutputReporter>

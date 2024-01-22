@@ -2,44 +2,39 @@ package api.petstore.services;
 
 import static io.restassured.RestAssured.given;
 
-import api.petstore.dto.User;
+import api.petstore.dto.UserRequestDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 
+public class UserApi extends PetstoreApi {
+  private static final String USER_ENDPOINT = "/user";
+  private static final String USER_BY_NAME_ENDPOINT = "/user/{userName}";
 
-public class UserApi {
-  private static final String BASE_URI = "https://petstore.swagger.io/v2/";
-  private RequestSpecification spec;
-  private static final String USER = "/user";
-
-  public void exampleTest() {
-    given()
-            .baseUri("https://petstore.swagger.io/v2")  //https://petstore.swagger.io/v2{userName}
-            .header("Content-Type", "application/json")
-            .basePath("user")
-            .param("userName", "testUser")
-            .log().all()
-            .body("")
-    .when()
-            .post()
-    .then()
-            .log().all();
-  }
-
-  public UserApi() {
+  public void createContext(String url) {
     spec = given()
-            .baseUri(BASE_URI)
-            .contentType(ContentType.JSON);
+            .contentType(ContentType.JSON)
+            .baseUri(url);
   }
 
-  public Response createUser(User user) {
-    return
-            given(spec)
-                    .with()
-                    .body(user)
-                    .log().all()
-                    .when()
-                    .post(USER);
+  public Response addUserRequest(String userJSON) {
+    return given(spec)
+            .with()
+            .body(userJSON)
+            .when()
+            .post(USER_ENDPOINT);
+  }
+
+  public Response getUserByName(String userName) {
+    return given(spec)
+            .with()
+            .pathParam("userName", userName)
+            .when()
+            .get(USER_BY_NAME_ENDPOINT);
+  }
+
+  public Response deleteUser(String name) {
+    return  given(spec)
+            .when()
+            .delete("/" + name);
   }
 }

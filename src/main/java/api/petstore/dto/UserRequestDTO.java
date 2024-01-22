@@ -1,20 +1,24 @@
 
 package api.petstore.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @AllArgsConstructor
-public class User {
+@NoArgsConstructor
+public class UserRequestDTO {
   private String email;
   private String firstName;
-  private Long id;
+  private Integer id;
   private String lastName;
   private String password;
   private String phone;
-  private Long userStatus;
+  private Integer userStatus;
   private String username;
 }
