@@ -8,7 +8,7 @@ import io.restassured.specification.RequestSpecification;
 public abstract class PetstoreApi {
   private static final String BASE_URL = "https://petstore.swagger.io/v2";
   protected RequestSpecification spec;
-  private boolean isDebug = Boolean.parseBoolean(System.getProperty("isDebug", "false"));
+  private boolean isDebug = Boolean.parseBoolean(System.getProperty("isDebug", "true"));
 
   public PetstoreApi() {
     spec =  given()

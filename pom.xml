@@ -110,8 +110,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+                    <skipTests>false</skipTests>
                     <includes>
-                        <include>**/*</include>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <!--console reporter-->
