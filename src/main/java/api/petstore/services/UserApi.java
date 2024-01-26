@@ -1,9 +1,15 @@
 package api.petstore.services;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
+import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
+
+import java.util.Map;
 
 public class UserApi extends PetstoreApi {
   private static final String USER_POST_ENDPOINT = "/user";

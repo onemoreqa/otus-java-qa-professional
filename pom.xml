@@ -31,6 +31,7 @@
         <cucumber.junit.version>6.6.0</cucumber.junit.version>
 
         <base.url>https://otus.ru</base.url>
+        <base.url.api>https://petstore.swagger.io/v2</base.url.api>
         <browser.version/>
         <browser>chrome</browser>
 
@@ -125,6 +126,7 @@
 
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
+                        <base.url.api>${base.url.api}</base.url.api>
                         <browser>${browser}</browser>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
                         <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
