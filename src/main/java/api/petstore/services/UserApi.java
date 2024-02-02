@@ -1,30 +1,28 @@
 package api.petstore.services;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
-import com.google.gson.Gson;
-import io.restassured.http.ContentType;
+import api.petstore.dto.UserRequestDTO;
 import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Assertions;
-
-import java.util.Map;
+import java.util.List;
 
 public class UserApi extends PetstoreApi {
   private static final String USER_POST_ENDPOINT = "/user";
+  private static final String USER_LIST_POST_ENDPOINT = "/user/createWithList";
   private static final String USER_GET_PUT_DELETE_ENDPOINT = "/user/{userName}";
 
-  public void createContext(String url) {
-    spec = given()
-            .contentType(ContentType.JSON)
-            .baseUri(url);
-  }
-
-  public Response addUserRequest(String userJSON) {
+  public Response addUsersWithList(List<UserRequestDTO> usersRequestBody) {
     return given(spec)
             .with()
-            .body(userJSON)
+            .body(usersRequestBody)
+            .when()
+            .post(USER_LIST_POST_ENDPOINT);
+  }
+
+  public Response addUserRequest(UserRequestDTO userRequestBody) {
+    return given(spec)
+            .with()
+            .body(userRequestBody)
             .when()
             .post(USER_POST_ENDPOINT);
   }
