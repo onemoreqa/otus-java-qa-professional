@@ -14,10 +14,6 @@ mvn clean test
 # Запуск произойдет на удаленном сервере, где уже стоит selenoid
 ```
 
-###### Инструкции по поднятию инфраструктуры:
-- [docker_run](infra/create_docker_run.md)
-- [docker_compose](infra/create_docker_compose.md)
-
 ---
 ###### Критерии оценки (из 10 баллов):
 - 4 балла за подключение Selenoid (локально)
