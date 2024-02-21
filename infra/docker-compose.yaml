@@ -1,0 +1,111 @@
+version: '3'
+networks:
+  selenoid:
+    external:
+      name: selenoid # This assumes network is already created
+  selenoid2:
+    external:
+      name: selenoid2 # This assumes network is already created
+  selenoid_ggr:
+    driver: bridge
+services:
+  selenoid:
+    image: "aerokube/selenoid:1.11.2"
+    container_name: selenoid
+    networks:
+      selenoid: null
+    ports:
+      - "4445:4444"
+    volumes:
+      - "./etc/browsers.json:/etc/selenoid/browsers.json"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - TZ=Asia/Yekaterinburg
+    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "12", "-cpu", "1.0", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid"]
+
+  selenoid2:
+    image: "aerokube/selenoid:1.11.2"
+    container_name: selenoid2
+    networks:
+      selenoid2: null
+    ports:
+      - "4446:4444"
+    volumes:
+      - "./etc/browsers.json:/etc/selenoid/browsers.json"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - TZ=Asia/Yekaterinburg
+    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "12", "-cpu", "1.0", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid2"]
+
+  selenoid-ui:
+    image: "aerokube/selenoid-ui:1.10.11"
+    container_name: selenoid-ui
+    #networks:
+    #  - selenoid_ggr
+    links:
+      - ggr-ui
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://ggr-ui:8888", "--status-uri", "http://ggr-ui:8888"]
+
+  nginx:
+    image: "nginx:stable-alpine"
+    container_name: nginx
+    #depends_on:
+    #- ggr
+    #networks:
+    #- selenoid_ggr
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+    - ./etc/nginx/ggr.conf:/etc/nginx/conf.d/ggr.conf:ro
+
+  ggr:
+    image: "aerokube/ggr:1.7.2"
+    container_name: ggr
+    #networks:
+    #- selenoid_ggr
+    ports:
+    - 4444:4444
+    restart: unless-stopped
+    volumes:
+    - ./etc/grid-router:/etc/grid-router:ro
+    command: ["-listen", ":4444", "-guests-allowed", "-guests-quota", "test", "-verbose", "-quotaDir", "./etc/grid-router/quota"]
+
+  ggr-ui:
+    image: "aerokube/ggr-ui:1.2.0"
+    container_name: ggr-ui
+    #networks:
+    #- selenoid_ggr
+    ports:
+    - 8888:8888
+    volumes:
+    - ./etc/grid-router/quota:/etc/grid-router/quota:ro
+
+  ngrok:
+    image: shkoliar/ngrok:latest
+    container_name: ngrok
+    network_mode: bridge
+    ports:
+      - 4551:4551
+    links:
+      - jenkins
+    environment:
+      - DOMAIN=jenkins
+      - PORT=8080
+  jenkins:
+    image: jenkins/jenkins:2.289.3-lts-jdk11
+    container_name: jenkins
+    network_mode: bridge
+    user: root
+    ports:
+      - "8083:8080"
+      - "50003:50000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    volumes_from:
+      - jenkins-data
+  jenkins-data:
+    image: liberstein1/jenkinsdata:1.1
+    container_name: jenkins-data
+    network_mode: bridge
