@@ -24,11 +24,13 @@
         <lombok.version>1.18.20</lombok.version>
 
         <base.url>https://otus.ru</base.url>
-        <browser.version/>
         <browser>chrome</browser>
+        <browser.version>121.0</browser.version>
+        <selenoid.enabled>true</selenoid.enabled>
+        <selenoid.url>http://95.181.151.41/wd/hub/</selenoid.url>
 
-        <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
-        <pageloadtimeout>15</pageloadtimeout>
+        <implicitlyWaitTimeout>20</implicitlyWaitTimeout>
+        <pageloadtimeout>30</pageloadtimeout>
 
     </properties>
 
@@ -63,9 +65,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+
+                    <systemProperties>
+                        <property>
+                            <name>junit.jupiter.extensions.autodetection.enabled</name>
+                            <value>true</value>
+                        </property>
+                    </systemProperties>
+
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
                         <browser>${browser}</browser>
+                        <browser.version>${browser.version}</browser.version>
+                        <selenoid.enabled>${selenoid.enabled}</selenoid.enabled>
+                        <selenoid.url>${selenoid.url}</selenoid.url>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
                         <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
                     </systemPropertyVariables>

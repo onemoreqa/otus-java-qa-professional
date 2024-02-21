@@ -7,10 +7,13 @@ import components.SpecializationsComponent;
 import extensions.UIExtensions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.WebDriver;
 import pages.MainPage;
 
 @ExtendWith(UIExtensions.class)
+@Execution(ExecutionMode.CONCURRENT)
 public class SearchCourse_Test {
 
   @Driver
