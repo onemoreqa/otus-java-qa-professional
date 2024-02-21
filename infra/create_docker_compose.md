@@ -1,24 +1,67 @@
-#### ДЗ #4: Разворачивание и подключение Selenoid:
+#### Поднимаем окружение через docker compose:
 
-###### Цель:
-- Необходимо подключить Selenoid, перенести существующие тесты на использование Selenoid.
-- Добавить возможность запускать тесты на mobile chrome.
+###### Вариант запуска selenoid + selenoid-ui:
+- Действие лучше выполнить в пустой (новой) папке
+<details>
+  <summary>Создаем файл docker-compose.yaml</summary>
 
-###### Описание/Пошаговая инструкция выполнения домашнего задания:
-- Необходимо реализовать возможность запуск тестов из первого домашнего задания (поиск курсов по с использованием Selenoid, а так же реализовать возможность запуска тестов на мобильном браузере (chrome mobile) посредствам Selenoid.
+```yaml
+version: '3'
+networks:
+  selenoid:
+    external:
+      name: selenoid
 
+services:
+  selenoid:
+    image: "aerokube/selenoid:1.11.2"
+    container_name: selenoid
+    networks:
+      selenoid: null
+    ports:
+      - "4444:4444"
+    volumes:
+      - "$PWD/selenoid/config:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "$PWD/selenoid/video:/opt/selenoid/video"
+      - "$PWD/selenoid/logs:/opt/selenoid/logs"
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/selenoid/video
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid"]
 
-###### Варианты запуска тестов:
-```bash
-mvn clean test
-# Запуск произойдет на удаленном сервере, где уже стоит selenoid
+  selenoid-ui:
+    image: "aerokube/selenoid-ui:1.10.11"
+    container_name: selenoid-ui
+    networks:
+      - selenoid
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
 ```
+</details>
+
+```bash
+# Находясь в одной директории с yaml файлом выполняем
+docker-compose up -d 
+```
+- Ожидается, что перейдя на http://127.0.0.1:8080 отобразится selenoid-ui
+- docker ps отобразит два поднятных контейнера
 
 ---
-###### Критерии оценки (из 10 баллов):
-- 4 балла за подключение Selenoid (локально)
-- 3 балла за использование Citrus
-- 2 балла за перенос ранее реализованных тестов
-- 1 балл за возможность запуска тестов на Chrome Mobile
-- 2 балла за не выполненное условие
-- 1 бал за каждое действие преподавателя для запуска тестов
+
+###### Основной запуск: selenoid, selenoid-ui, ggr, ggr-ui, nginx:
+```bash
+cd infra
+docker-compose up -d 
+```
+- Ожидается, что перейдя на http://127.0.0.1 отобразится selenoid-ui
+- docker ps отобразит поднятные контейнеры (больше чем два)
+- Возможна ругань на сети, либо уже существующие контейнеры. В этом случае удаляем их.
+
+---
+###### Быстрый вариант:
+- Пользуемся поднятой инфраструктурой по адресу http://95.181.151.41
+- Ожидается, что отобразится selenoid-ui
+- На удаленный хост можно направить свои автотесты
