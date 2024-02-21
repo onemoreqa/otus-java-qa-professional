@@ -2,14 +2,14 @@
 <browser name="chrome" defaultVersion="121.0">
     <version number="121.0">
         <region name="1">
-  		<host name="172.25.0.1" port="4445" count="1"/>
-                <host name="172.26.0.1" port="4446" count="2"/>
+  		<host name="172.18.0.1" port="4445" count="1"/>
+                <host name="172.19.0.1" port="4446" count="2"/>
 	 </region>
     </version>
     <version number="120.0">
         <region>
-                <host name="172.25.0.1" port="4445" count="1"/>
-                <host name="172.26.0.1" port="4446" count="2"/>
+                <host name="172.18.0.1" port="4445" count="1"/>
+                <host name="172.19.0.1" port="4446" count="2"/>
         </region>
     </version>
 </browser>

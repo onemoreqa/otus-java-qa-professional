@@ -6,8 +6,7 @@ networks:
   selenoid2:
     external:
       name: selenoid2 # This assumes network is already created
-  selenoid_ggr:
-    driver: bridge
+
 services:
   selenoid:
     image: "aerokube/selenoid:1.11.2"
@@ -40,8 +39,6 @@ services:
   selenoid-ui:
     image: "aerokube/selenoid-ui:1.10.11"
     container_name: selenoid-ui
-    #networks:
-    #  - selenoid_ggr
     links:
       - ggr-ui
     ports:
@@ -51,10 +48,6 @@ services:
   nginx:
     image: "nginx:stable-alpine"
     container_name: nginx
-    #depends_on:
-    #- ggr
-    #networks:
-    #- selenoid_ggr
     network_mode: host
     restart: unless-stopped
     volumes:
@@ -63,8 +56,6 @@ services:
   ggr:
     image: "aerokube/ggr:1.7.2"
     container_name: ggr
-    #networks:
-    #- selenoid_ggr
     ports:
     - 4444:4444
     restart: unless-stopped
@@ -75,8 +66,6 @@ services:
   ggr-ui:
     image: "aerokube/ggr-ui:1.2.0"
     container_name: ggr-ui
-    #networks:
-    #- selenoid_ggr
     ports:
     - 8888:8888
     volumes:
