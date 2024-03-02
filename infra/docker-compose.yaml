@@ -20,7 +20,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
       - TZ=Asia/Yekaterinburg
-    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "12", "-cpu", "1.0", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid"]
+    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4", "-cpu", "0.7", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid"]
 
   selenoid2:
     image: "aerokube/selenoid:1.11.2"
@@ -34,16 +34,17 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
       - TZ=Asia/Yekaterinburg
-    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "12", "-cpu", "1.0", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid2"]
+    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4", "-cpu", "0.7", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid2"]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui:1.10.11"
     container_name: selenoid-ui
     links:
+      - ggr
       - ggr-ui
     ports:
       - "8080:8080"
-    command: ["--selenoid-uri", "http://ggr-ui:8888", "--status-uri", "http://ggr-ui:8888"]
+    command: ["--selenoid-uri", "http://ggr-ui:8888"]
 
   nginx:
     image: "nginx:stable-alpine"
@@ -71,17 +72,6 @@ services:
     volumes:
     - ./etc/grid-router/quota:/etc/grid-router/quota:ro
 
-  ngrok:
-    image: shkoliar/ngrok:latest
-    container_name: ngrok
-    network_mode: bridge
-    ports:
-      - 4551:4551
-    links:
-      - jenkins
-    environment:
-      - DOMAIN=jenkins
-      - PORT=8080
   jenkins:
     image: jenkins/jenkins:2.289.3-lts-jdk11
     container_name: jenkins
