@@ -30,46 +30,10 @@ server {
       proxy_set_header        Connection "Upgrade";
       proxy_set_header        Host \$host;
       proxy_buffering         off;
-   }
 
-   location ~ /static/js/ {
-      proxy_pass http://selenoid_ui;
-   }
-
-   location ~ /static/css/ {
-      proxy_pass http://selenoid_ui;
-   }
-
-   location ~ /static/media/ {
-      proxy_pass http://selenoid_ui;
-   }
-
-   location /status {
-      proxy_pass http://selenoid_ui;
-   }
-
-   location /events {
-      proxy_pass http://selenoid_ui;
-   }
-
-   location ~ /vnc/ {
-      proxy_pass http://selenoid_ui;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade \$http_upgrade;
-      proxy_set_header Connection "upgrade";
-      proxy_set_header Host \$host;
-   }
-
-   location ~ /logs/ {
-      proxy_pass http://selenoid_ui;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade \$http_upgrade;
-      proxy_set_header Connection "Upgrade";
-      proxy_set_header Host \$host;
-   }
-
-   location ~ /wd/hub/ {
-      proxy_pass http://ggr;
+      location ~ /wd/hub/ {
+        proxy_pass http://ggr;
+      }
    }
 }
 EOM
