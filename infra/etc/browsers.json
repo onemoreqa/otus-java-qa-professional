@@ -11,11 +11,6 @@
                 "image": "selenoid/chrome:120.0",
                 "port": "4444",
                 "path": "/"
-            },
-            "mobile-75.0": {
-                "image": "selenoid/chrome-mobile:75.0",
-                "port": "4444",
-                "path": "/"
             }
         }
     },
@@ -29,21 +24,6 @@
             },
             "105.0": {
                 "image": "selenoid/opera:105.0",
-                "port": "4444",
-                "path": "/"
-            }
-        }
-    },
-    "firefox": {
-        "default": "121.0",
-        "versions": {
-            "121.0": {
-                "image": "selenoid/firefox:121.0",
-                "port": "4444",
-                "path": "/"
-            },
-            "120.0": {
-                "image": "selenoid/firefox:120.0",
                 "port": "4444",
                 "path": "/"
             }
