@@ -18,9 +18,18 @@ services:
     volumes:
       - "./etc/browsers.json:/etc/selenoid/browsers.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - "$PWD/video:/opt/selenoid/video"
+      - "./logs:/opt/selenoid/logs"
     environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
       - TZ=Asia/Yekaterinburg
-    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4", "-cpu", "0.7", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid"]
+    command: [
+      "-conf", "/etc/selenoid/browsers.json",
+      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
+      "-log-output-dir", "/opt/selenoid/logs",
+      "-video-output-dir", "/opt/selenoid/video",
+      "-container-network", "selenoid"
+    ]
 
   selenoid2:
     image: "aerokube/selenoid:1.11.2"
@@ -32,9 +41,18 @@ services:
     volumes:
       - "./etc/browsers.json:/etc/selenoid/browsers.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - "$PWD/video:/opt/selenoid/video"
+      - "./logs:/opt/selenoid/logs"
     environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
       - TZ=Asia/Yekaterinburg
-    command: ["-conf", "/etc/selenoid/browsers.json", "-limit", "4", "-cpu", "0.7", "-mem", "1024m", "-log-output-dir", "/opt/selenoid/logs", "-container-network", "selenoid2"]
+    command: [
+      "-conf", "/etc/selenoid/browsers.json",
+      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
+      "-log-output-dir", "/opt/selenoid/logs",
+      "-video-output-dir", "/opt/selenoid/video",
+      "-container-network", "selenoid2"
+    ]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui:1.10.11"
@@ -42,8 +60,8 @@ services:
     links:
       - ggr
       - ggr-ui
-    ports:
-      - "8080:8080"
+    #    ports:
+    #      - "8080:8080"
     command: ["--selenoid-uri", "http://ggr-ui:8888"]
 
   nginx:
@@ -62,7 +80,11 @@ services:
     restart: unless-stopped
     volumes:
     - ./etc/grid-router:/etc/grid-router:ro
-    command: ["-listen", ":4444", "-guests-allowed", "-guests-quota", "test", "-verbose", "-quotaDir", "./etc/grid-router/quota"]
+    command: [
+      "-listen", ":4444", "-guests-allowed",
+      "-guests-quota", "test", "-verbose",
+      "-quotaDir", "./etc/grid-router/quota"
+    ]
 
   ggr-ui:
     image: "aerokube/ggr-ui:1.2.0"

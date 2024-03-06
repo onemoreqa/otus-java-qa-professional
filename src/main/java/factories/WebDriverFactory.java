@@ -65,7 +65,7 @@ public class WebDriverFactory {
     selenoidOptions.put("browserName", browserName);
     selenoidOptions.put("browserVersion", System.getProperty("browser.version"));
     selenoidOptions.put("enableVNC", true);
-    selenoidOptions.put("enableVideo", false);
+    selenoidOptions.put("enableVideo", true);
     selenoidCapabilities.setCapability("selenoid:options", selenoidOptions);
 
     if (browserName.equals("chrome")) {

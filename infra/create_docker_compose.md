@@ -72,6 +72,7 @@ docker-compose up -d
 
 ###### Основной запуск: selenoid, selenoid-ui, ggr, ggr-ui, nginx:
 ```bash
+docker pull selenoid/video-recorder:latest-release
 cd infra
 docker-compose up -d 
 ```
