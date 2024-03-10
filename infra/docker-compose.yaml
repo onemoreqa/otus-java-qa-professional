@@ -110,3 +110,22 @@ services:
     image: liberstein1/jenkinsdata:1.1
     container_name: jenkins-data
     network_mode: bridge
+
+  allure:
+    image: "frankescobar/allure-docker-service"
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 30
+      KEEP_HISTORY: 1
+      KEEP_HISTORY_LATEST: 25
+    ports:
+      - "5050:5050"
+    volumes:
+      - ${PWD}/allure:/app/projects
+
+  allure-ui:
+    image: "frankescobar/allure-docker-service-ui"
+    environment:
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://95.181.151.41:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+    ports:
+      - "5252:5252"
