@@ -1,7 +1,8 @@
 package otus.sliders;
 
+import static io.qameta.allure.SeverityLevel.MINOR;
+
 import anotations.Driver;
-import components.CoursesComponent;
 import components.FavoriteCoursesComponent;
 import components.SpecializationsComponent;
 import extensions.UIExtensions;
@@ -17,7 +18,6 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.WebDriver;
 import pages.MainPage;
 
-import static io.qameta.allure.SeverityLevel.MINOR;
 
 @ExtendWith(UIExtensions.class)
 @Execution(ExecutionMode.CONCURRENT)

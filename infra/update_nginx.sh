@@ -22,6 +22,8 @@ EOM
 cat >> "${NGINX_CONF_PATH}" <<- EOM
 server {
     listen 80 default_server;
+    server_name localhost;
+    server_name 127.0.0.1;
 
     location / {
       proxy_pass http://selenoid_ui/;
@@ -31,9 +33,18 @@ server {
       proxy_set_header        Host \$host;
       proxy_buffering         off;
 
+      location ~ (login|simple|jenkins) {
+        proxy_pass http://localhost:8083;
+      }
+
       location ~ /wd/hub/ {
         proxy_pass http://ggr;
       }
+
+      location /video/ {
+        proxy_pass http://localhost:4445;
+      }
+
    }
 }
 EOM
