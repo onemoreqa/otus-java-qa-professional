@@ -132,3 +132,14 @@ services:
       ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
     ports:
       - "5252:5252"
+
+  wiremock:
+    image: "wiremock/wiremock:3.4.2"
+    container_name: wiremock
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./extensions:/var/wiremock/extensions
+      - ../src/test/resources/__files:/home/wiremock/__files
+      - ../src/test/resources/mappings:/home/wiremock/mappings
+    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
