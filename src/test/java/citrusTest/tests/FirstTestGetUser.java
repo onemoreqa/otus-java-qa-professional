@@ -1,13 +1,12 @@
 package citrusTest.tests;
 
-import citrusTest.behaviors.CreateUserBehavior;
-import citrusTest.pojo.Data;
-import citrusTest.pojo.Support;
-import citrusTest.pojo.User;
+import behaviors.CreateUserBehavior;
+import pojo.http.Data;
+import pojo.http.Support;
+import pojo.http.User;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;

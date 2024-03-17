@@ -6,7 +6,7 @@ import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.consol.citrus.testng.TestNGCitrusSupport;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Test;
-import citrusTest.pojo.CreateUserResponse;
+import pojo.http.CreateUserResponse;
 import static com.consol.citrus.actions.EchoAction.Builder.echo;
 import static com.consol.citrus.dsl.JsonPathSupport.jsonPath;
 import static com.consol.citrus.dsl.MessageSupport.MessageBodySupport.fromBody;

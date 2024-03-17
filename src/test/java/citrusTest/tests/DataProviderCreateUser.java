@@ -1,6 +1,6 @@
 package citrusTest.tests;
 
-import citrusTest.pojo.CreateUserResponse;
+import pojo.http.CreateUserResponse;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;

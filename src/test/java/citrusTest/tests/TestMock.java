@@ -6,9 +6,9 @@ import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.consol.citrus.testng.TestNGCitrusSupport;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Test;
-import citrusTest.pojo.Data;
-import citrusTest.pojo.Support;
-import citrusTest.pojo.User;
+import pojo.http.Data;
+import pojo.http.Support;
+import pojo.http.User;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 public class TestMock extends TestNGCitrusSupport {

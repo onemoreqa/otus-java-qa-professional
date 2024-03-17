@@ -1,11 +1,11 @@
-package citrusTest.behaviors;
+package behaviors;
 
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import org.springframework.http.HttpStatus;
-import citrusTest.pojo.CreateUserResponse;
+import pojo.http.CreateUserResponse;
 
 import static com.consol.citrus.actions.EchoAction.Builder.echo;
 import static com.consol.citrus.dsl.JsonSupport.json;
