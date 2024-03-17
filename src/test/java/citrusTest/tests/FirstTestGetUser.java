@@ -1,5 +1,6 @@
 package citrusTest.tests;
 
+import citrusTest.behaviors.CreateUserBehavior;
 import citrusTest.pojo.Data;
 import citrusTest.pojo.Support;
 import citrusTest.pojo.User;
@@ -32,6 +33,8 @@ public class FirstTestGetUser extends TestNGCitrusSpringSupport {
 //
 //        variable("now", "citrus:currentDate()");
 //        $(echo("Today is: ${now}"));
+
+        run(applyBehavior(new CreateUserBehavior("Mike", "Worker", context)));
 
         run(http()
                 .client("restClientReqres")
