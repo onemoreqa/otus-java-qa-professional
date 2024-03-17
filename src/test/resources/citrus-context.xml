@@ -41,6 +41,11 @@
                         content-type="application/json"
                         timeout="15000"/>
 
+    <citrus-http:client id="restClientNewMock"
+                        request-url="${urlNewMock}"
+                        content-type="application/json"
+                        timeout="15000"/>
+
     <citrus-ws:client id="soapClient"
                       request-url="${urlSOAP}"
                       timeout="15000"/>

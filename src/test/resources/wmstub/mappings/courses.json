@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/course/get/all"
+    },
+    "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"name\":\"QA java\",\n    \"price\": 15000\n  },\n  {\n    \"name\":\"Java\",\n    \"price\": 12000\n  }\n]",
+        "headers": {
+            "Content-Type": "text/plain"
+        }
+    }
+}

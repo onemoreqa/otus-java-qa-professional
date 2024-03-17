@@ -1,5 +1,5 @@
 
-package com.dataaccess.webservicesserver;
+package pojo.xml.com.dataaccess.webservicesserver;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

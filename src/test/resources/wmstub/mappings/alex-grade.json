@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/user/get/Alex"
+    },
+    "response": {
+        "status": 200,
+        "body": "{\n  \"name\":\"Alex\",\n  \"score\": 90\n}",
+        "headers": {
+            "Content-Type": "text/plain"
+        }
+    }
+}

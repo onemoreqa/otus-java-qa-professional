@@ -3,8 +3,8 @@ package helpers;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
-import com.dataaccess.webservicesserver.NumberToDollars;
-import com.dataaccess.webservicesserver.NumberToDollarsResponse;
+import pojo.xml.com.dataaccess.webservicesserver.NumberToDollars;
+import pojo.xml.com.dataaccess.webservicesserver.NumberToDollarsResponse;
 import feature.CustomMarshaller;
 import org.testng.annotations.Test;
 

@@ -1,12 +1,12 @@
-package com.dataaccess.webservicesserver;
+package pojo.xml.com.dataaccess.webservicesserver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.Service;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * The Number Conversion Web Service, implemented with Visual DataFlex, provides functions that convert numbers into words or dollar amounts.
@@ -78,7 +78,7 @@ public class NumberConversion extends Service {
     /**
      *
      * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     *     A list of {@link WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
      *     returns NumberConversionSoapType
      */
@@ -101,7 +101,7 @@ public class NumberConversion extends Service {
     /**
      *
      * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     *     A list of {@link WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
      *     returns NumberConversionSoapType
      */

@@ -1,6 +1,105 @@
-#### Изучение Citrus framework:
+#### ДЗ #5: Stub & Api Testing (API-helpers):
 
-###### Примеры кода:
-- https://github.com/reviol/QA-JAVA/tree/main/lesson_Citrus_Beginner_v3.2.1
-- https://github.com/reviol/QA-JAVA/tree/main/lesson_Citrus_Extended_v3.2.1
-- https://github.com/reviol/QA-JAVA/tree/main/lesson_Citrus_API_Helpers
+#### Цель:
+###### 1.Реализовать Stub сервер со следующими методами-заглушами
+- получение списка пользователей
+- получение списка курсов
+- оценка пользователя
+###### 2. Создать "хелперы" для работы с API.
+- API-helpers должны тестировать реальные сервисы в интернете или сервисы развернутые на вашей локальной машине:
+- http-helper
+- soap-helper
+- sql-helper (по желанию, для получения данных из БД)
+- mq-helper (по желанию, для отправки данных в менеджер сообщений)
+
+#### Описание/Пошаговая инструкция выполнения домашнего задания:
+<details>
+  <summary>Контракты и Endpoint'ы (Stub на Wiremock): </summary>
+
+- Для пользователей /user/get/all
+```json
+[
+  {
+    "name": "Oleg",
+    "course": "QA junior",
+    "email": "oleg@otus.test",
+    "age": 17
+  },
+  {
+    "name": "Ivan",
+    "course": "QA middle",
+    "email": "ivan@otus.com",
+    "age": 25
+  },
+  {
+    "name": "Alex",
+    "course": "QA senior",
+    "email": "alex@otus.net",
+    "age": 60
+  }
+]
+```
+
+- Для оценки /user/get/Oleg
+```json
+{
+  "name":"Oleg",
+  "score": 40
+}
+```
+- Для оценки /user/get/Ivan
+```json
+{
+  "name":"Ivan",
+  "score": 70
+}
+```
+- Для оценки /user/get/Alex
+```json
+{
+  "name":"Alex",
+  "score": 90
+}
+```
+
+
+- Для курсов /cource/get/all
+```json
+[
+  {
+    "name":"QA java",
+    "price": 15000
+  },
+  {
+    "name":"Java",
+    "price": 12000
+  }
+]
+```
+</details>
+
+- Подключить stub frontend, написать тесты для проверки json cхем.
+
+<details>
+  <summary>Написать тесты: </summary>
+
+- http-helper
+- soap-helper
+- sql-helper (по желанию)
+- mq-helper (по желанию)
+</details>
+
+---
+###### Критерии оценки (из 10 баллов):
+- +2 за реализованные метод для получения списка пользователей
+- +2 за реализованные метод для получения списка курсов
+- +2 за реализованные метод для получения оценки пользователя
+- +1 за подключенный stub frontend
+- +1 за подключенный Selenoid
+- +1 за реализацию тестов через Cucumber
+- +1 за написание тестов для проверки схем пользователей, оценки, курсов
+- +1 за работающий http-helper
+- +1 за работающий soap-helper
+- -1 за не реализованный метод stub backend
+- -1 за каждое действие преподавателя для запуска тестов
+- -0.5 баллов за не написанный тест

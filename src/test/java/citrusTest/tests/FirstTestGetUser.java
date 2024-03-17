@@ -60,8 +60,8 @@ public class FirstTestGetUser extends TestNGCitrusSpringSupport {
 //                        "    }\n" +
 //                        "}")
 
-//                        .body(new ObjectMappingPayloadBuilder(getJsonData(), "objectMapper"))
-                        .body(new ClassPathResource("json/user2.json"))
+                        //.body(new ObjectMappingPayloadBuilder(getJsonData(), "objectMapper"))
+                .body(new ClassPathResource("wmstub/json/janet.json"))
         );
     }
 
