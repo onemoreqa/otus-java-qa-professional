@@ -1,4 +1,4 @@
-package behaviors;
+package behaviors.rest;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 

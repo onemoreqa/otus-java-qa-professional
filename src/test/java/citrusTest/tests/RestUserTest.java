@@ -3,9 +3,10 @@ package citrusTest.tests;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.json.JsonPathMessageValidationContext.Builder.jsonPath;
 
-import behaviors.ClientGetRequest;
-import behaviors.MockGetResponse;
-import behaviors.MockGetResponseIfNotAllowed;
+import behaviors.rest.ClientGetRequest;
+import behaviors.rest.MockGetModifiedGradeResponse;
+import behaviors.rest.MockGetResponse;
+import behaviors.rest.MockGetResponseIfNotAllowed;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.testng.TestNGCitrusSupport;
@@ -13,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TestUser extends TestNGCitrusSupport {
+public class RestUserTest extends TestNGCitrusSupport {
 
     public TestContext context;
 
@@ -99,6 +100,29 @@ public class TestUser extends TestNGCitrusSupport {
                 .validate(jsonPath()
                         .expression("$.size()", "2")
                         .expression("$[?(@.name == '" + personName + "')]['score']", score)
+                        .expression("$.score", "@isNumber()@"))
+        );
+    }
+
+    @CitrusTest
+    @Test(testName = "Mock. Проверка получения измененной оценки")
+    public void testGetGradeByNameMockModified() {
+
+        String name = "anton";
+        int score = 100;
+
+        run(applyBehavior(new ClientGetRequest("user/get/" + name, context)));
+        run(applyBehavior(new MockGetModifiedGradeResponse("/user/get/" + name, name, score, context)));
+
+        run(http()
+                .client("restClientNewMock")
+                .receive()
+                .response(HttpStatus.OK)
+                .message()
+                .name("msg")
+                .validate(jsonPath()
+                        .expression("$.size()", "2")
+                        .expression("$[?(@.name == '" + name + "')]['score']", 100)
                         .expression("$.score", "@isNumber()@"))
         );
     }

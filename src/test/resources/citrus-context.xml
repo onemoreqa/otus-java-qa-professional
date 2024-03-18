@@ -79,6 +79,20 @@
                         auto-start="true"
                         timeout="15000"/>
 
+<!--    <citrus:message-validators>-->
+<!--        <citrus:validator ref="defaultXmlMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultXpathMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultGroovyXmlMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultPlaintextMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultBinaryBase64MessageValidator"/>-->
+<!--        <citrus:validator ref="defaultGzipBinaryBase64MessageValidator"/>-->
+<!--        <citrus:validator class="com.consol.citrus.validation.custom.CustomMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultJsonMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultJsonPathMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultGroovyJsonMessageValidator"/>-->
+<!--        <citrus:validator ref="defaultXhtmlMessageValidator"/>-->
+<!--    </citrus:message-validators>-->
+
     <!--Produser-Consumer-->
 <!--    <citrus-jms:endpoint-->
 <!--            id="mqHelperConsumer"-->

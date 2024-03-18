@@ -1,4 +1,4 @@
-package behaviors;
+package behaviors.rest;
 
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;

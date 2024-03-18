@@ -1,52 +1,60 @@
-package citrusTest.tests;
+package helpers;
 
-import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.TestActionRunner;
+import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
+import feature.CustomMarshaller;
 import pojo.xml.com.dataaccess.webservicesserver.NumberToDollars;
 import pojo.xml.com.dataaccess.webservicesserver.NumberToDollarsResponse;
-import feature.CustomMarshaller;
-import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 
 import static com.consol.citrus.ws.actions.SoapActionBuilder.soap;
 
-public class FirstTestSoap extends TestNGCitrusSpringSupport {
+public class MockSoapDollarsResponse implements TestBehavior {
 
-    public TestContext context;
+    private TestContext context;
+    public String namespaceUri;
+    public String dollarCount;
+    public String dollarString;
 
-    @Test(description = "Soap test")
-    @CitrusTest
-    public void getTestActions() {
-        this.context = citrus.getCitrusContext().createTestContext();
+    public MockSoapDollarsResponse(String namespaceUri, String dollarCount, String dollarString, TestContext context) {
+        this.context = context;
+        this.namespaceUri = namespaceUri;
+        this.dollarCount = dollarCount;
+        this.dollarString = dollarString;
+    }
+
+    @Override
+    public void apply(TestActionRunner testActionRunner) {
 
         CustomMarshaller<Class<NumberToDollars>> ptxRq = new CustomMarshaller<>();
         CustomMarshaller<Class<NumberToDollarsResponse>> ptxRs = new CustomMarshaller<>();
-        run(soap()
+        testActionRunner.run(soap()
                 .client("soapClient")
                 .send()
                 .message()
                 .body(ptxRq.convert(NumberToDollars.class, getNumberToDollarsRequest(),
-                        "http://www.dataaccess.com/webservicesserver/", "NumberToDollars")));
+                        namespaceUri, "NumberToDollars")));
 
-        run(soap()
+        testActionRunner.run(soap()
                 .client("soapClient")
                 .receive()
                 .message()
                 .body(ptxRs.convert(NumberToDollarsResponse.class, getNumberToDollarsResponse(),
-                        "http://www.dataaccess.com/webservicesserver/", "NumberToDollarsResponse")));
+                        namespaceUri, "NumberToDollarsResponse")));
     }
+
 
     public NumberToDollars getNumberToDollarsRequest() {
         NumberToDollars numberToDollars = new NumberToDollars();
-        numberToDollars.setDNum(new BigDecimal("15"));
+        numberToDollars.setDNum(new BigDecimal(dollarCount));
         return numberToDollars;
     }
 
     public NumberToDollarsResponse getNumberToDollarsResponse() {
         NumberToDollarsResponse numberToDollarsResponse = new NumberToDollarsResponse();
-        numberToDollarsResponse.setNumberToDollarsResult("fifteen dollars");
+        numberToDollarsResponse.setNumberToDollarsResult(dollarString);
         return numberToDollarsResponse;
     }
 
