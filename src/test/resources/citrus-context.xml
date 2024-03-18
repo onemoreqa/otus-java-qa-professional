@@ -36,11 +36,6 @@
                         content-type="application/json"
                         timeout="15000"/>
 
-    <citrus-http:client id="restClientMock"
-                        request-url="${urlMock}"
-                        content-type="application/json"
-                        timeout="15000"/>
-
     <citrus-http:client id="restClientNewMock"
                         request-url="${urlNewMock}"
                         content-type="application/json"
@@ -78,6 +73,15 @@
                         port="5555"
                         auto-start="true"
                         timeout="15000"/>
+
+    <!--SQL-Helper, Настройки БД Postgres-->
+    <bean id="sqlHelper" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="${db.server.name}"/>
+        <property name="portNumber" value="${db.server.port}"/>
+        <property name="databaseName" value="${db.name}"/>
+        <property name="user" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
 
 <!--    <citrus:message-validators>-->
 <!--        <citrus:validator ref="defaultXmlMessageValidator"/>-->

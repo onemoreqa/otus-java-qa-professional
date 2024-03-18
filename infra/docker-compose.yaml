@@ -142,3 +142,14 @@ services:
       - ./extensions:/var/wiremock/extensions
       - ../src/test/resources/wmstub:/home/wiremock
     entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
+
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "otustestdb"
+      POSTGRES_USER: "randomuser"
+      POSTGRES_PASSWORD: "randompassword12345!"
+    volumes:
+      - ./etc:/docker-entrypoint-initdb.d
+    ports:
+      - "54132:5432"

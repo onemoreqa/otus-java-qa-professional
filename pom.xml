@@ -15,6 +15,8 @@
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.15.0</log4j2.version>
     <lombok.version>1.18.20</lombok.version>
+    <postgresql.version>42.2.5</postgresql.version>
+    <javafaker.version>1.0.2</javafaker.version>
   </properties>
 
   <dependencies>
@@ -32,6 +34,11 @@
     <dependency>
       <groupId>com.consol.citrus</groupId>
       <artifactId>citrus-ws</artifactId>
+      <version>${citrus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.consol.citrus</groupId>
+      <artifactId>citrus-sql</artifactId>
       <version>${citrus.version}</version>
     </dependency>
     <dependency>
@@ -82,6 +89,16 @@
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>${javafaker.version}</version>
     </dependency>
   </dependencies>
 
