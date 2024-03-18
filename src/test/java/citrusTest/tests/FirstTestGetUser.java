@@ -1,6 +1,6 @@
 package citrusTest.tests;
 
-import behaviors.CreateUserBehavior;
+import behaviors.reqres.CreateUserRequest;
 import pojo.http.Data;
 import pojo.http.Support;
 import pojo.http.User;
@@ -33,7 +33,7 @@ public class FirstTestGetUser extends TestNGCitrusSpringSupport {
 //        variable("now", "citrus:currentDate()");
 //        $(echo("Today is: ${now}"));
 
-        run(applyBehavior(new CreateUserBehavior("Mike", "Worker", context)));
+        run(applyBehavior(new CreateUserRequest("Mike", "Worker", context)));
 
         run(http()
                 .client("restClientReqres")
@@ -46,42 +46,8 @@ public class FirstTestGetUser extends TestNGCitrusSpringSupport {
                 .response(HttpStatus.OK)
                 .message()
                 .type(MessageType.JSON)
-//                .body("{\n" +
-//                        "    \"data\": {\n" +
-//                        "        \"id\": 2,\n" +
-//                        "        \"email\": \"janet.weaver@reqres.in\",\n" +
-//                        "        \"first_name\": \"Janet\",\n" +
-//                        "        \"last_name\": \"Weaver\",\n" +
-//                        "        \"avatar\": \"https://reqres.in/img/faces/2-image.jpg\"\n" +
-//                        "    },\n" +
-//                        "    \"support\": {\n" +
-//                        "        \"url\": \"https://reqres.in/#support-heading\",\n" +
-//                        "        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\n" +
-//                        "    }\n" +
-//                        "}")
-
-                        //.body(new ObjectMappingPayloadBuilder(getJsonData(), "objectMapper"))
                 .body(new ClassPathResource("wmstub/json/janet.json"))
         );
     }
 
-    public User getJsonData() {
-        User user = new User();
-
-        Data data = new Data();
-        data.setId(Integer.valueOf(context.getVariable("userId")));
-        data.setEmail("janet.weaver@reqres.in");
-        data.setFirstName("Janet");
-        data.setLastName("Weaver");
-        data.setAvatar("https://reqres.in/img/faces/2-image.jpg");
-        user.setData(data);
-
-        Support support = new Support();
-        support.setUrl("https://reqres.in/#support-heading");
-        support.setText("To keep ReqRes free, contributions towards server costs are appreciated!");
-
-        user.setSupport(support);
-
-        return user;
-    }
 }

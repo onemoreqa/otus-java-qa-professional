@@ -1,4 +1,4 @@
-package behaviors;
+package behaviors.reqres;
 
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
@@ -11,12 +11,12 @@ import static com.consol.citrus.actions.EchoAction.Builder.echo;
 import static com.consol.citrus.dsl.JsonSupport.json;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
-public class CreateUserBehavior implements TestBehavior {
+public class CreateUserRequest implements TestBehavior {
     private TestContext context;
     public String name;
     public String job;
 
-    public CreateUserBehavior(String name, String job, TestContext context) {
+    public CreateUserRequest(String name, String job, TestContext context) {
         this.context = context;
         this.name = name;
         this.job = job;
