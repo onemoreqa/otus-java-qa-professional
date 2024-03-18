@@ -1,5 +1,7 @@
 package helpers;
 
+import static com.consol.citrus.ws.actions.SoapActionBuilder.soap;
+
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
@@ -8,8 +10,6 @@ import pojo.xml.com.dataaccess.webservicesserver.NumberToDollars;
 import pojo.xml.com.dataaccess.webservicesserver.NumberToDollarsResponse;
 
 import java.math.BigDecimal;
-
-import static com.consol.citrus.ws.actions.SoapActionBuilder.soap;
 
 public class MockSoapDollarsResponse implements TestBehavior {
 

@@ -14,9 +14,15 @@
     <citrus.version>3.2.1</citrus.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.15.0</log4j2.version>
+    <jakarta.xml.version>2.3.2</jakarta.xml.version>
     <lombok.version>1.18.20</lombok.version>
     <postgresql.version>42.2.5</postgresql.version>
     <javafaker.version>1.0.2</javafaker.version>
+    <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
+    <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
+    <spotbugs.version>4.8.3</spotbugs.version>
+    <surefire.plugin.version>2.22.2</surefire.plugin.version>
+    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
   </properties>
 
   <dependencies>
@@ -65,7 +71,7 @@
     <dependency>
       <groupId>jakarta.xml.ws</groupId>
       <artifactId>jakarta.xml.ws-api</artifactId>
-      <version>2.3.2</version>
+      <version>${jakarta.xml.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -108,14 +114,11 @@
         <groupId>com.consol.citrus.mvn</groupId>
         <artifactId>citrus-maven-plugin</artifactId>
         <version>${citrus.version}</version>
-        <configuration>
-            <!--<targetPackage>citrusTest</targetPackage>-->
-        </configuration>
       </plugin>
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${maven.compiler.plugin.version}</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
           <source>${java.version}</source>
@@ -125,7 +128,7 @@
 
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>${surefire.plugin.version}</version>
         <configuration>
           <failIfNoTests>false</failIfNoTests>
           <workingDirectory>${project.build.directory}</workingDirectory>
@@ -147,29 +150,37 @@
         </executions>
       </plugin>
 
-            <plugin>
-              <groupId>org.apache.cxf</groupId>
-              <artifactId>cxf-codegen-plugin</artifactId>
-              <version>3.3.4</version>
-              <executions>
-                <execution>
-                  <id>generate-sources-api</id>
-                  <phase>generate-sources</phase>
-                  <configuration>
-                    <sourceRoot>${basedir}/src/test/java</sourceRoot>
-                    <wsdlOptions>
-                      <wsdlOption>
-                        <wsdl>https://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL</wsdl>
-                      </wsdlOption>
-                    </wsdlOptions>
-                  </configuration>
-                  <goals>
-                    <goal>wsdl2java</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
 
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven.checkstyle.plugin.version}</version>
+        <configuration>
+          <includeTestSourceDirectory>false</includeTestSourceDirectory>
+          <configLocation>${project.build.sourceDirectory}/../resources/checkstyle.xml</configLocation>
+        </configuration>
+        <executions>
+          <execution>
+            <id>analyze-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

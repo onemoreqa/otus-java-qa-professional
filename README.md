@@ -14,7 +14,7 @@
 
 #### Описание/Пошаговая инструкция выполнения домашнего задания:
 <details>
-  <summary>Контракты и Endpoint'ы (Stub на Wiremock): </summary>
+  <summary>Контракты и Endpoint'ы: </summary>
 
 - Для пользователей /user/get/all
 ```json
@@ -88,6 +88,11 @@
 - sql-helper (по желанию)
 - mq-helper (по желанию)
 </details>
+
+###### Запуск тестов
+```bash
+mvn clean test
+```
 
 ---
 ###### Критерии оценки (из 10 баллов):

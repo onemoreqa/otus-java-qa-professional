@@ -1,16 +1,14 @@
 package helpers;
 
+import static com.consol.citrus.actions.ExecuteSQLQueryAction.Builder.query;
+
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
-import com.consol.citrus.actions.ExecuteSQLAction;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
-
-import static com.consol.citrus.actions.ExecuteSQLQueryAction.Builder.query;
-import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 public class SqlGetRequest implements TestBehavior {
 

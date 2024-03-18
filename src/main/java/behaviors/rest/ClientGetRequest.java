@@ -1,10 +1,10 @@
 package behaviors.rest;
 
+import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
-
-import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 /**
  * Общий класс для GET запросов вызова клиентом {

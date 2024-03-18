@@ -24,8 +24,8 @@ public class NumberConversion extends Service {
     public final static URL WSDL_LOCATION;
 
     public final static QName SERVICE = new QName("http://www.dataaccess.com/webservicesserver/", "NumberConversion");
-    public final static QName NumberConversionSoap = new QName("http://www.dataaccess.com/webservicesserver/", "NumberConversionSoap");
-    public final static QName NumberConversionSoap12 = new QName("http://www.dataaccess.com/webservicesserver/", "NumberConversionSoap12");
+    public final static QName NUMBER_CONVERSION_SOAP = new QName("http://www.dataaccess.com/webservicesserver/", "NumberConversionSoap");
+    public final static QName NUMBER_CONVERSION_SOAP_12 = new QName("http://www.dataaccess.com/webservicesserver/", "NumberConversionSoap12");
     static {
         URL url = null;
         try {
@@ -50,15 +50,15 @@ public class NumberConversion extends Service {
         super(WSDL_LOCATION, SERVICE);
     }
 
-    public NumberConversion(WebServiceFeature ... features) {
+    public NumberConversion(WebServiceFeature... features) {
         super(WSDL_LOCATION, SERVICE, features);
     }
 
-    public NumberConversion(URL wsdlLocation, WebServiceFeature ... features) {
+    public NumberConversion(URL wsdlLocation, WebServiceFeature... features) {
         super(wsdlLocation, SERVICE, features);
     }
 
-    public NumberConversion(URL wsdlLocation, QName serviceName, WebServiceFeature ... features) {
+    public NumberConversion(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
         super(wsdlLocation, serviceName, features);
     }
 
@@ -72,7 +72,7 @@ public class NumberConversion extends Service {
      */
     @WebEndpoint(name = "NumberConversionSoap")
     public NumberConversionSoapType getNumberConversionSoap() {
-        return super.getPort(NumberConversionSoap, NumberConversionSoapType.class);
+        return super.getPort(NUMBER_CONVERSION_SOAP, NumberConversionSoapType.class);
     }
 
     /**
@@ -84,7 +84,7 @@ public class NumberConversion extends Service {
      */
     @WebEndpoint(name = "NumberConversionSoap")
     public NumberConversionSoapType getNumberConversionSoap(WebServiceFeature... features) {
-        return super.getPort(NumberConversionSoap, NumberConversionSoapType.class, features);
+        return super.getPort(NUMBER_CONVERSION_SOAP, NumberConversionSoapType.class, features);
     }
 
 
@@ -95,7 +95,7 @@ public class NumberConversion extends Service {
      */
     @WebEndpoint(name = "NumberConversionSoap12")
     public NumberConversionSoapType getNumberConversionSoap12() {
-        return super.getPort(NumberConversionSoap12, NumberConversionSoapType.class);
+        return super.getPort(NUMBER_CONVERSION_SOAP_12, NumberConversionSoapType.class);
     }
 
     /**
@@ -107,7 +107,7 @@ public class NumberConversion extends Service {
      */
     @WebEndpoint(name = "NumberConversionSoap12")
     public NumberConversionSoapType getNumberConversionSoap12(WebServiceFeature... features) {
-        return super.getPort(NumberConversionSoap12, NumberConversionSoapType.class, features);
+        return super.getPort(NUMBER_CONVERSION_SOAP_12, NumberConversionSoapType.class, features);
     }
 
 }

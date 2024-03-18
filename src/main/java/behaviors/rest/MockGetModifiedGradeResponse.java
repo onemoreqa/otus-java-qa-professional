@@ -1,13 +1,13 @@
 package behaviors.rest;
 
+import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
 import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import pojo.http.GradeDto;
-
-import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 /**
  * Класс для GET запросов на измененную заглушку

@@ -1,4 +1,4 @@
-package citrusTest.tests;
+package tests;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.json.JsonPathMessageValidationContext.Builder.jsonPath;
@@ -78,9 +78,9 @@ public class RestUserTest extends TestNGCitrusSupport {
     @DataProvider(name = "personGrades")
     public Object[][] cardTypeProvider() {
         return new Object[][]{
-                new Object[]{"Alex", 90},
-                new Object[]{"Ivan", 70},
-                new Object[]{"Oleg", 40},
+            new Object[]{"Alex", 90},
+            new Object[]{"Ivan", 70},
+            new Object[]{"Oleg", 40},
         };
     }
 

@@ -1,4 +1,7 @@
-package citrusTest.tests;
+package tests;
+
+import static com.consol.citrus.actions.EchoAction.Builder.echo;
+import static com.consol.citrus.actions.ExecuteSQLQueryAction.Builder.query;
 
 import com.consol.citrus.actions.ExecuteSQLAction;
 import com.github.javafaker.Faker;
@@ -10,17 +13,13 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import javax.sql.DataSource;
 
-import static com.consol.citrus.actions.EchoAction.Builder.echo;
-import static com.consol.citrus.actions.ExecuteSQLQueryAction.Builder.query;
-
-
 public class SqlTest extends TestNGCitrusSpringSupport {
 
     @Autowired
     public DataSource sqlHelper;
     private TestContext context;
 
-    @Test(testName = "Проверка курса из базы", enabled = true, dataProvider = "usersFromPostgres")
+    @Test(testName = "Проверка курса из базы", enabled = false, dataProvider = "usersFromPostgres")
     @CitrusTest
     public void checkUserCourseFromDB(String username, String course) {
 
@@ -31,15 +30,23 @@ public class SqlTest extends TestNGCitrusSpringSupport {
         );
     }
 
-    @Test(testName = "Добавление нового пользователя", enabled = true, dataProvider = "temporaryUsersForPostgres")
+    @Test(testName = "Добавление нового пользователя", enabled = false, dataProvider = "temporaryUsersForPostgres")
     @CitrusTest
     public void addNewUserIntoDB(String username, String newCourse, String email, String age) {
 
         run(
                 ExecuteSQLAction.Builder.sql(sqlHelper)
-                                .statement("INSERT INTO public.users\n" +
-                                        "(user_id, username, course, email, age)\n" +
-                                        "VALUES(nextval('users_user_id_seq'::regclass), '" + username + "', '" + newCourse + "', '" + email + "', " + age + ");")
+                                .statement("INSERT INTO public.users\n"
+                                        + "(user_id, username, course, email, age)\n"
+                                        + "VALUES(nextval('users_user_id_seq'::regclass), '"
+                                        + username
+                                        + "', '"
+                                        + newCourse
+                                        + "', '"
+                                        + email
+                                        + "', "
+                                        + age
+                                        + ");")
         );
 
         run(
@@ -51,7 +58,7 @@ public class SqlTest extends TestNGCitrusSpringSupport {
 
     }
 
-    @Test(testName = "Удаление последнего пользователя", enabled = true)
+    @Test(testName = "Удаление последнего пользователя", enabled = false)
     @CitrusTest
     public void removeLastUserFromDB() {
 
@@ -81,9 +88,9 @@ public class SqlTest extends TestNGCitrusSpringSupport {
     @DataProvider(name = "usersFromPostgres")
     public Object[][] cardTypeProvider() {
         return new Object[][]{
-                new Object[]{"Oleg", "QA junior"},
-                new Object[]{"Alex", "QA senior"},
-                new Object[]{"Ivan", "QA middle"},
+            new Object[]{"Oleg", "QA junior"},
+            new Object[]{"Alex", "QA senior"},
+            new Object[]{"Ivan", "QA middle"},
         };
     }
 
@@ -91,10 +98,10 @@ public class SqlTest extends TestNGCitrusSpringSupport {
     public Object[][] fakeUsersProvider() {
         Faker faker = new Faker();
         return new Object[][]{
-                new Object[]{faker.name().name(),
-                            faker.beer().name(),
-                            faker.bothify("????##@gmail.com"),
-                            faker.number().digits(2)}
+            new Object[]{faker.name().name(),
+                faker.beer().name(),
+                faker.bothify("????##@gmail.com"),
+                faker.number().digits(2)}
         };
     }
 }

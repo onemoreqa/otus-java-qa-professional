@@ -1,13 +1,11 @@
 package behaviors.rest;
 
+import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+
 import com.consol.citrus.TestActionRunner;
 import com.consol.citrus.TestBehavior;
 import com.consol.citrus.context.TestContext;
-import com.consol.citrus.message.MessageType;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
-
-import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 public class MockGetResponseIfNotAllowed implements TestBehavior {
 
