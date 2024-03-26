@@ -1,13 +1,12 @@
 import com.google.inject.Inject;
 import components.ChatWindowComponent;
 import extensions.AndroidExtension;
-import jdk.tools.jmod.Main;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.MainPage;
 
 @ExtendWith(AndroidExtension.class)
-public class MainWidget_Test {
+public class MainWidgetTest {
 
     @Inject
     private MainPage mainPage;

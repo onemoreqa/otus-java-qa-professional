@@ -28,5 +28,17 @@
                 "path": "/"
             }
         }
+    },
+    "android": {
+        "default": "5.1",
+        "versions": {
+            "5.1": {
+                "image": "selenoid/android:5.1",
+                "port": "4444",
+                "path": "/wd/hub",
+                "priveleged": true,
+                "volumes": ["src/main/resources/Andy.apk:/home/ubuntu/Andy.apk"]
+            }
+        }
     }
 }

@@ -94,62 +94,62 @@ services:
     volumes:
     - ./etc/grid-router/quota:/etc/grid-router/quota:ro
 
-  jenkins:
-    image: jenkins/jenkins:2.289.3-lts-jdk11
-    container_name: jenkins
-    network_mode: bridge
-    user: root
-    ports:
-      - "8083:8080"
-      - "50003:50000"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    volumes_from:
-      - jenkins-data
-  jenkins-data:
-    image: liberstein1/jenkinsdata:1.1
-    container_name: jenkins-data
-    network_mode: bridge
-
-  allure:
-    image: "frankescobar/allure-docker-service:2.21.0"
-    container_name: allure
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 30
-      KEEP_HISTORY: 1
-      KEEP_HISTORY_LATEST: 25
-    ports:
-      - "5050:5050"
-    volumes:
-      - ./allure/allure-reports:/app/default-reports
-      - ../target/allure-results:/app/allure-results
-
-  allure-ui:
-    image: "frankescobar/allure-docker-service-ui:7.0.3"
-    container_name: allure-ui
-    environment:
-      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
-      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
-    ports:
-      - "5252:5252"
-
-  wiremock:
-    image: "wiremock/wiremock:3.4.2"
-    container_name: wiremock
-    ports:
-      - "8880:8080"
-    volumes:
-      - ./extensions:/var/wiremock/extensions
-      - ../src/test/resources/wmstub:/home/wiremock
-    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
-
-  postgres:
-    image: postgres:13.3
-    environment:
-      POSTGRES_DB: "otustestdb"
-      POSTGRES_USER: "randomuser"
-      POSTGRES_PASSWORD: "randompassword12345!"
-    volumes:
-      - ./etc:/docker-entrypoint-initdb.d
-    ports:
-      - "54132:5432"
+#  jenkins:
+#    image: jenkins/jenkins:2.289.3-lts-jdk11
+#    container_name: jenkins
+#    network_mode: bridge
+#    user: root
+#    ports:
+#      - "8083:8080"
+#      - "50003:50000"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#    volumes_from:
+#      - jenkins-data
+#  jenkins-data:
+#    image: liberstein1/jenkinsdata:1.1
+#    container_name: jenkins-data
+#    network_mode: bridge
+#
+#  allure:
+#    image: "frankescobar/allure-docker-service:2.21.0"
+#    container_name: allure
+#    environment:
+#      CHECK_RESULTS_EVERY_SECONDS: 30
+#      KEEP_HISTORY: 1
+#      KEEP_HISTORY_LATEST: 25
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - ./allure/allure-reports:/app/default-reports
+#      - ../target/allure-results:/app/allure-results
+#
+#  allure-ui:
+#    image: "frankescobar/allure-docker-service-ui:7.0.3"
+#    container_name: allure-ui
+#    environment:
+#      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
+#      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+#    ports:
+#      - "5252:5252"
+#
+#  wiremock:
+#    image: "wiremock/wiremock:3.4.2"
+#    container_name: wiremock
+#    ports:
+#      - "8880:8080"
+#    volumes:
+#      - ./extensions:/var/wiremock/extensions
+#      - ../src/test/resources/wmstub:/home/wiremock
+#    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
+#
+#  postgres:
+#    image: postgres:13.3
+#    environment:
+#      POSTGRES_DB: "otustestdb"
+#      POSTGRES_USER: "randomuser"
+#      POSTGRES_PASSWORD: "randompassword12345!"
+#    volumes:
+#      - ./etc:/docker-entrypoint-initdb.d
+#    ports:
+#      - "54132:5432"

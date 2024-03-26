@@ -30,7 +30,7 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
         // с selenoid не работает. т.к. композ будет каждый раз удалять директорию
         //options.setAppPackage();
         //options.setAppActivity();
-        options.setApp(System.getProperty("user.dir") + "src/main/resources/Andy.apk");
+        options.setApp("/home/ubuntu/Andy.apk");
 
         try {
             return new AndroidDriver(new URL(Configuration.remote), options);
