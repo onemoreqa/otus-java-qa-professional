@@ -2,77 +2,49 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>citrusTest</groupId>
+  <groupId>appiumTest</groupId>
   <artifactId>otus-java-qa-professional</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Citrus Integration Test</name>
+  <name>Appium Selenide Test</name>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <citrus.version>3.2.1</citrus.version>
+    <selenide.version>7.2.2</selenide.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.15.0</log4j2.version>
-    <jakarta.xml.version>2.3.2</jakarta.xml.version>
     <lombok.version>1.18.20</lombok.version>
-    <postgresql.version>42.2.5</postgresql.version>
     <javafaker.version>1.0.2</javafaker.version>
     <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
     <spotbugs.plugin.version>4.8.2.0</spotbugs.plugin.version>
     <spotbugs.version>4.8.3</spotbugs.version>
-    <surefire.plugin.version>2.22.2</surefire.plugin.version>
+    <surefire.plugin.version>3.2.5</surefire.plugin.version>
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+    <jupiter.version>5.10.2</jupiter.version>
+    <guice.version>7.0.0</guice.version>
   </properties>
 
   <dependencies>
-    <!-- Citrus -->
     <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-core</artifactId>
-      <version>${citrus.version}</version>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>${selenide.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-jms</artifactId>
-      <version>${citrus.version}</version>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide-appium</artifactId>
+      <version>${selenide.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-ws</artifactId>
-      <version>${citrus.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${jupiter.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-sql</artifactId>
-      <version>${citrus.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-http</artifactId>
-      <version>${citrus.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-validation-json</artifactId>
-      <version>${citrus.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-testng</artifactId>
-      <version>${citrus.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-websocket</artifactId>
-      <version>${citrus.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.xml.ws</groupId>
-      <artifactId>jakarta.xml.ws-api</artifactId>
-      <version>${jakarta.xml.version}</version>
-      <scope>test</scope>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${guice.version}</version>
     </dependency>
 
     <dependency>
@@ -97,11 +69,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>${postgresql.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
@@ -110,12 +77,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>com.consol.citrus.mvn</groupId>
-        <artifactId>citrus-maven-plugin</artifactId>
-        <version>${citrus.version}</version>
-      </plugin>
-
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven.compiler.plugin.version}</version>
@@ -127,6 +88,7 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.plugin.version}</version>
         <configuration>
@@ -134,22 +96,6 @@
           <workingDirectory>${project.build.directory}</workingDirectory>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.2</version>
-        <executions>
-          <execution>
-            <id>integration-tests</id>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
 
       <plugin>
         <groupId>com.github.spotbugs</groupId>
