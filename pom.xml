@@ -8,10 +8,11 @@
   <name>Appium Selenide Test</name>
 
   <properties>
-    <java.version>8</java.version>
+    <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <selenide.version>7.2.2</selenide.version>
+    <selenide.appium.version>2.1.3</selenide.appium.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.15.0</log4j2.version>
     <lombok.version>1.18.20</lombok.version>
@@ -34,7 +35,12 @@
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide-appium</artifactId>
-      <version>${selenide.version}</version>
+      <version>${selenide.appium.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${jupiter.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -94,6 +100,19 @@
         <configuration>
           <failIfNoTests>false</failIfNoTests>
           <workingDirectory>${project.build.directory}</workingDirectory>
+          <systemProperties>
+            <property>
+              <name>junit.jupiter.extensions.autodetection.enabled</name>
+              <value>true</value>
+            </property>
+          </systemProperties>
+          <systemPropertyVariables>
+            <webdriver.timeouts.implicitlywait>10</webdriver.timeouts.implicitlywait>
+            <remote.url>http://0.0.0.0:4723/wd/hub</remote.url>
+            <platform.name>Android</platform.name>
+            <device.name>test</device.name>
+            <platfrom.version>5.1</platfrom.version>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
 

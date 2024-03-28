@@ -7,7 +7,7 @@ public abstract class AbsBasePage<T> {
     public T open() {
         Selenide.open();
 
-        return  (T)this;
+        return  (T) this;
     }
 
 }

@@ -2,10 +2,11 @@
 GGR_IP=`docker inspect ggr -f {{.NetworkSettings.Networks.infra_default.IPAddress}}`
 SELENOID_UI_IP=`docker inspect selenoid-ui -f {{.NetworkSettings.Networks.infra_default.IPAddress}}`
 
-echo $GGR_IP ' = new ggr ip address'
-echo $SELENOID_UI_IP ' = new selenoid_ui ip address'
 
-NGINX_CONF_PATH="./etc/nginx/ggr.conf"
+echo $GGR_IP ' = ggr ip address'
+echo $SELENOID_UI_IP ' = selenoid_ui ip address'
+
+NGINX_CONF_PATH="$PWD/etc/nginx/ggr.conf"
 
 cat > "${NGINX_CONF_PATH}" <<- EOM
 upstream selenoid_ui {
@@ -48,5 +49,3 @@ server {
    }
 }
 EOM
-
-docker-compose restart nginx

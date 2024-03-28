@@ -1,7 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.google.inject.Inject;
 
@@ -11,7 +10,7 @@ public class MainPage extends AbsBasePage<MainPage> {
 
     @Inject
     private ChatPage chatPage;
-    private SelenideElement nextButton = $("[text='next']");
+    public SelenideElement nextButton = $("[text='next']");
 
 
     public MainPage clickNextButton() {
