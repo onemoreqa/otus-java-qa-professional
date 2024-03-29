@@ -6,22 +6,7 @@
 - Тесты должны отрабатывать на локали (Appium server) и на selenoid
 
 #### Описание/Пошаговая инструкция выполнения домашнего задания:
-<details>
-  <summary>Рекомендации:</summary>
-
-```json
-[
-  {
-    "name": "Oleg",
-    "course": "QA junior",
-    "email": "oleg@otus.test",
-    "age": 17
-  }
-]
-```
-
-</details>
-
+- Свериться с [инструкцией](infra/docs/appium_local_install.md) 
 
 ###### Запуск тестов
 ```bash

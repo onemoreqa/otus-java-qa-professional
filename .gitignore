@@ -6,3 +6,6 @@ infra/logs
 infra/allure
 infra/etc/nginx/ggr.conf
 .allure
+.attach_*
+build
+/build/

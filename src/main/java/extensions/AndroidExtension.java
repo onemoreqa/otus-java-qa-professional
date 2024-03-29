@@ -16,7 +16,6 @@ public class AndroidExtension implements BeforeAllCallback {
         Guice.createInjector(new GuicePagesModule(), new GuiceComponentsModule());
 
         Configuration.browserSize = null;
-        Configuration.remote = System.getProperty("remote.url");
         Configuration.browser = AndroidWebDriverProvider.class.getName();
     }
 }

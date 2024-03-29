@@ -1,20 +1,26 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import com.google.inject.Inject;
-
 import static com.codeborne.selenide.Selenide.$;
+
+import com.codeborne.selenide.Condition;
+import com.google.inject.Inject;
 
 public class MainPage extends AbsBasePage<MainPage> {
 
     @Inject
     private ChatPage chatPage;
-    public SelenideElement nextButton = $("[text='next']");
 
+    public MainPage goToMainPage() {
+        clickAll("Next", "Next", "Skip >", "OK")
+                .isPresent("Chat")
+                .isPresent("Exercise")
+                .isPresent("Grammar")
+                .isPresent("Stats");
+        return this;
+    }
 
-    public MainPage clickNextButton() {
-        nextButton.should(Condition.visible).click();
+    public MainPage click(String locator) {
+        super.click(locator);
         return this;
     }
 

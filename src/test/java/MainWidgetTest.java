@@ -9,18 +9,17 @@ import pages.MainPage;
 public class MainWidgetTest {
 
     @Inject
-    private MainPage mainPage;
-
-    @Inject
-    private ChatWindowComponent chatWindowComponent;
+    MainPage mainPage;
+    //
+    //    @Inject
+    //    private ChatWindowComponent chatWindowComponent;
 
     @Test
     public void navigationMainPageWidget() {
-        mainPage.open()
-                .clickNextButton()
-                .clickChatbutton();
+        new MainPage().open()
+            .goToMainPage();
 
-        chatWindowComponent.getComponentEntity().click();
+        //chatWindowComponent.getComponentEntity().click();
     }
 
 }

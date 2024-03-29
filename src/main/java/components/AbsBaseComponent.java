@@ -1,5 +1,7 @@
 package components;
 
+import static com.codeborne.selenide.Selenide.$;
+
 import annotations.Component;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -7,8 +9,6 @@ import org.openqa.selenium.By;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.codeborne.selenide.Selenide.$;
 
 public abstract class AbsBaseComponent<T> {
 
