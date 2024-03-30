@@ -3,57 +3,65 @@ package pages;
 import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.google.inject.Inject;
-import data.MenuSections;
 import data.WelcomePageItems;
+import modules.GuicePagesModule;
 
-import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainPage extends AbsBasePage<MainPage> {
 
     @Inject
-    private ChatPage chatPage;
+    ChatPage chatPage = new GuicePagesModule().getChatPage();
 
     {
         super.open();
     }
 
-    public MainPage goToMainPage() {
-        for (WelcomePageItems step : WelcomePageItems.values()) {
-            isPresent(step.getPageTitle());
-            click(step.getButtonName());
-        }
-        //clickAll("Next", "Next", "Skip >", "OK")
-        //        .isPresentAll("Chat", "Exercise", "Grammar", "Stats");
-        return this;
+    /**
+     * Мы могли бы вернуть new ChatPage(), но для слабо-связанного кода это не годится
+     * Почему: если меняется процедура создания ChatPage, потребуется найти все методы интерфейса,
+     * где создается обьект этой страницы.
+     * После инжекта, сам обьект chatPage будет создан. Selenide элементы страницы chatPage будут проинициализированы,
+     * но поиск эл-та инициирован не будет, потому можно безопасо инжектить.
+     *
+     * В чистом селениуме так не получилось бы, т.к. при статическом локаторе инициировался бы поиск элемента.
+     * решение в чистом selenium:
+     *
+     * private Injector injector;
+     * Injector = Guice.createInjector(new GuicePagesModule());
+     * return injector.getProvider(ChatPageee.class).get();
+     *
+     */
+    public ChatPage goToMainPage() {
+        Stream.of(WelcomePageItems.values())
+            .map(items -> {
+                isPresent(items.getPageTitle());
+                click(items.getButtonName());
+                return this;
+            })
+            .collect(Collectors.toList());
+
+        // 2-ой вариант, через перебор enum
+        //  for (WelcomePageItems step : WelcomePageItems.values()) {
+        //      isPresent(step.getPageTitle());
+        //      click(step.getButtonName());
+        //  }
+        // 1-ый вариант
+        // clickAll("Next", "Next", "Skip >", "OK")
+        return chatPage;
     }
 
-    public MainPage click(String locator) {
-        super.click(locator);
+    @Override
+    public MainPage click(String text) {
+        super.click(text);
         return this;
     }
 
     public ChatPage clickChatbutton() {
         $("[text='chat']").shouldBe(Condition.visible).click();
-
-        // return new ChatPage();
-        // для слабо-связанного кода не хорошо писать return new ChatPage();
-        // Если меняется процедура создания ChatPage, потребуется найти все методы интерфейса
-        // где создается обьект этой страницы
-
         return chatPage;
-        // Получается, что после инжекта, сам обьект chatPage будет создан
-        // selenide элементы страницы chatPage будут проинициализированы, но поиск эл-та инициирован не будет
-        // можно безопасо инжектить, в чистом селениуме так не получилось бы
-        // при статическом локаторе инициировался бы поиск элемента
-
-        // в чистом selenium решение:
-        // private Injector injector;
-        // Injector = Guice.createInjector(new GuicePagesModule());
-        // return injector.getProvider(ChatPageee.class).get();
-        //
-
 
     }
 

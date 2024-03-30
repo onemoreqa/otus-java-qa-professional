@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import pages.ChatPage;
 import pages.MainPage;
 
 public class GuicePagesModule extends AbstractModule {
@@ -14,10 +15,10 @@ public class GuicePagesModule extends AbstractModule {
         return new MainPage();
     }
 
-    //    @Provides
-    //    @Singleton //для параллелизации по сьютам
-    //    public ChatPage getChatPage() {
-    //        return new ChatPage();
-    //    }
+    @Provides
+    @Singleton
+    public ChatPage getChatPage() {
+        return new ChatPage();
+    }
 
 }

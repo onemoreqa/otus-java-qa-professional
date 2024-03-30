@@ -6,23 +6,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.MainPage;
 
 @ExtendWith(AndroidExtension.class)
-public class MainWidgetTest {
+public class ChatTest {
 
     @Inject
     MainPage mainPage = new GuicePagesModule().getMainPage();
-    //
-    //    @Inject
-    //    private ChatWindowComponent chatWindowComponent;
 
     @Test
-    public void navigationMainPageWidget() {
-        mainPage.goToMainPage();
-    }
-
-    @Test
-    public void checkSections() {
-        new MainPage().open()
-                .goToMainPage();
+    public void checkChatIsWorking() {
+        mainPage.goToMainPage()
+               .sendMessage("I found a bug!")
+               .checkStatement("I will speak English now. I hope it’s okay, we learn English here after all")
+               .sendMessage("ahaha");
     }
 
 }
