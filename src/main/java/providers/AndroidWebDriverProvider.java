@@ -28,12 +28,12 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
         options.setPlatformName(System.getProperty("platform.name"));
         options.setDeviceName(System.getProperty("device.name"));
         options.setPlatformVersion(System.getProperty("platform.version"));
-        //options.setAvd("big_android_14.0");
+        options.setAvd(System.getProperty("avd.name"));
 
         // если мы владеем *.apk и можем распаковать или узнали о разработке
         // с selenoid не работает. т.к. композ будет каждый раз удалять директорию
-        options.setAppPackage("com.pyankoff.andy");
-        options.setAppActivity(".MainActivity");
+        options.setAppPackage(System.getProperty("app.package"));
+        options.setAppActivity(System.getProperty("app.activity"));
         //options.setApp("/home/ubuntu/Andy.apk");
 
         try {

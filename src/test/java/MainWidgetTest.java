@@ -1,6 +1,6 @@
 import com.google.inject.Inject;
-import components.ChatWindowComponent;
 import extensions.AndroidExtension;
+import modules.GuicePagesModule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.MainPage;
@@ -9,17 +9,20 @@ import pages.MainPage;
 public class MainWidgetTest {
 
     @Inject
-    MainPage mainPage;
+    MainPage mainPage = new GuicePagesModule().getMainPage();
     //
     //    @Inject
     //    private ChatWindowComponent chatWindowComponent;
 
     @Test
     public void navigationMainPageWidget() {
-        new MainPage().open()
-            .goToMainPage();
+        mainPage.goToMainPage();
+    }
 
-        //chatWindowComponent.getComponentEntity().click();
+    @Test
+    public void checkSections() {
+        new MainPage().open()
+                .goToMainPage();
     }
 
 }

@@ -3,19 +3,29 @@ package pages;
 import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.google.inject.Inject;
+import data.MenuSections;
+import data.WelcomePageItems;
+
+import java.util.Arrays;
 
 public class MainPage extends AbsBasePage<MainPage> {
 
     @Inject
     private ChatPage chatPage;
 
+    {
+        super.open();
+    }
+
     public MainPage goToMainPage() {
-        clickAll("Next", "Next", "Skip >", "OK")
-                .isPresent("Chat")
-                .isPresent("Exercise")
-                .isPresent("Grammar")
-                .isPresent("Stats");
+        for (WelcomePageItems step : WelcomePageItems.values()) {
+            isPresent(step.getPageTitle());
+            click(step.getButtonName());
+        }
+        //clickAll("Next", "Next", "Skip >", "OK")
+        //        .isPresentAll("Chat", "Exercise", "Grammar", "Stats");
         return this;
     }
 

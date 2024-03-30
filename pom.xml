@@ -101,6 +101,10 @@
             <platform.name>Android</platform.name>
             <device.name>emulator-5554</device.name>
             <platfrom.version>14.0</platfrom.version>
+            <avd.name>small_android_8.1</avd.name>
+            <app.package>com.pyankoff.andy</app.package>
+            <app.activity>.MainActivity</app.activity>
+            <apk.path>/home/ubuntu/Andy.apk</apk.path>
           </systemPropertyVariables>
         </configuration>
       </plugin>
