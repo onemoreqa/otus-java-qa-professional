@@ -1,8 +1,5 @@
 package pages;
 
-import static com.codeborne.selenide.Selenide.$;
-
-import com.codeborne.selenide.Condition;
 import com.google.inject.Inject;
 import data.WelcomePageItems;
 import modules.GuicePagesModule;
@@ -10,7 +7,7 @@ import modules.GuicePagesModule;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MainPage extends AbsBasePage<MainPage> {
+public class WelcomePage extends AbsBasePage<WelcomePage> {
 
     @Inject
     ChatPage chatPage = new GuicePagesModule().getChatPage();
@@ -54,15 +51,9 @@ public class MainPage extends AbsBasePage<MainPage> {
     }
 
     @Override
-    public MainPage click(String text) {
+    public WelcomePage click(String text) {
         super.click(text);
         return this;
-    }
-
-    public ChatPage clickChatbutton() {
-        $("[text='chat']").shouldBe(Condition.visible).click();
-        return chatPage;
-
     }
 
 }

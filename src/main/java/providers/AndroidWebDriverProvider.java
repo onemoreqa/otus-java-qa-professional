@@ -1,6 +1,5 @@
 package providers;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverProvider;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -11,11 +10,8 @@ import org.openqa.selenium.WebDriver;
 import javax.annotation.Nonnull;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
 
 public class AndroidWebDriverProvider implements WebDriverProvider {
-    private final long implicitlyWaitSecond = Integer.parseInt(System.getProperty("webdriver.timeouts.implicitlywait", "30"));
-
 
     @Nonnull
     @Override
@@ -30,18 +26,17 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
         options.setPlatformVersion(System.getProperty("platform.version"));
         options.setAvd(System.getProperty("avd.name"));
 
-        // если мы владеем *.apk и можем распаковать или узнали о разработке
-        // с selenoid не работает. т.к. композ будет каждый раз удалять директорию
-        options.setAppPackage(System.getProperty("app.package"));
-        options.setAppActivity(System.getProperty("app.activity"));
-        //options.setApp("/home/ubuntu/Andy.apk");
+        if (!System.getProperty("remote.url").equals("http://0.0.0.0:4723/wd/hub")) {
+            options.setApp(System.getProperty("apk.path"));
+            options.setAvd("android8.1-1");
+        } else {
+            options.setAvd(System.getProperty("avd.name"));
+            options.setAppPackage(System.getProperty("app.package"));
+            options.setAppActivity(System.getProperty("app.activity"));
+        }
 
         try {
-            WebDriver driver = new AndroidDriver(new URL(System.getProperty("remote.url")), (Capabilities) options);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitSecond));
-
-            //return new AndroidDriver(new URL(Configuration.remote), options);
-            return driver;
+            return new AndroidDriver(new URL(System.getProperty("remote.url")), options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

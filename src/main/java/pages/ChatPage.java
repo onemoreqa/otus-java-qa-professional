@@ -1,38 +1,36 @@
 package pages;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
-
-import com.codeborne.selenide.Condition;
-
-import java.util.Arrays;
-import java.util.stream.Stream;
+import com.google.inject.Inject;
+import components.ChatWindowComponent;
+import components.MainMenuComponent;
+import data.MenuSections;
+import modules.GuiceComponentsModule;
+import modules.GuicePagesModule;
 
 public class ChatPage extends AbsBasePage<ChatPage> {
 
-    private String defaultMessage = "[text='Type a message...']";
+    @Inject
+    MainMenuComponent mainMenuComponent = new GuiceComponentsModule().getMainMenuComponent();
+
+    @Inject
+    ChatWindowComponent chatWindowComponent = new GuiceComponentsModule().getChatWindowComponent();
+
+    @Inject
+    ExercisePage exercisePage = new GuicePagesModule().getExercisePage();
 
     public ChatPage sendMessage(String text) {
-        $(defaultMessage).shouldBe(Condition.visible);
-        $(defaultMessage).sendKeys(text);
-        isPresent(text)
-            .click("Send")
-            .isPresent(text);
-        return this;
-    }
-
-    public ChatPage checkResponse(String expectedResponse) {
-        $(defaultMessage).shouldBe(Condition.visible);
-        System.out.println($x("//android.widget.TextView[@text='" + expectedResponse + "']").shouldBe(Condition.visible).text());
+        chatWindowComponent.sendMessage(text);
         return this;
     }
 
     public ChatPage checkStatement(String statement) {
-        String[] words = statement.split(" ");
-        System.out.println(Arrays.toString(words));
-
-        Stream.of(words).forEach(i -> checkResponse(i));
+        chatWindowComponent.checkStatement(statement);
         return this;
+    }
+
+    public ExercisePage navigateToExercisePage() {
+        mainMenuComponent.select(MenuSections.EXERCISE);
+        return exercisePage;
     }
 
 

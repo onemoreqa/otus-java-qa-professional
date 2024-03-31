@@ -19,6 +19,7 @@ public class AndroidExtension implements BeforeAllCallback, AfterAllCallback {
 
         Configuration.browserSize = null;
         Configuration.browser = AndroidWebDriverProvider.class.getName();
+        Configuration.timeout = 20000L;
     }
 
     @Override

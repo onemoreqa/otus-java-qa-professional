@@ -24,6 +24,8 @@ public abstract class AbsBaseComponent<T> {
             switch (matcher.group(1)) {
                 case "id":
                     return By.id(matcher.group(2));
+                case "css":
+                    return By.cssSelector(matcher.group(2));
             }
         }
 

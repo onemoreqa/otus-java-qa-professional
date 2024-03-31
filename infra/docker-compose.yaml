@@ -25,7 +25,8 @@ services:
       - TZ=Asia/Yekaterinburg
     command: [
       "-conf", "/etc/selenoid/browsers.json",
-      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
+      "-limit", "4", "-cpu", "0.7", "-mem", "2048m",
+      "-timeout", "5m0s", "-session-attempt-timeout", "300s",
       "-log-output-dir", "/opt/selenoid/logs",
       "-video-output-dir", "/opt/selenoid/video",
       "-container-network", "selenoid"
@@ -60,8 +61,6 @@ services:
     links:
       - ggr
       - ggr-ui
-    #    ports:
-    #      - "8080:8080"
     command: ["--selenoid-uri", "http://ggr-ui:8888"]
 
   nginx:
@@ -82,6 +81,7 @@ services:
     - ./etc/grid-router:/etc/grid-router:ro
     command: [
       "-listen", ":4444", "-guests-allowed",
+      "-timeout", "300s",
       "-guests-quota", "test", "-verbose",
       "-quotaDir", "./etc/grid-router/quota"
     ]

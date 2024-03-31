@@ -30,14 +30,23 @@
         }
     },
     "android": {
-        "default": "5.1",
+        "default": "8.1",
         "versions": {
-            "5.1": {
-                "image": "selenoid/android:5.1",
+            "8.1": {
+                "image": "selenoid/android:8.1",
                 "port": "4444",
                 "path": "/wd/hub",
-                "priveleged": true,
-                "volumes": ["/root/Andy.apk:/home/ubuntu/Andy.apk"]
+                "privileged": true,
+                "volumes": ["/home/egor/appium/Andy.apk:/Andy.apk"],
+                "env": [
+                    "VERBOSE=true",
+                    "APPIUM_ARGS=--log-level debug"
+                ],
+                "selenoid:options": {
+                    "enableVNC": "true",
+                    "enableLog": "true",
+                    "enableVideo": "true"
+                }
             }
         }
     }

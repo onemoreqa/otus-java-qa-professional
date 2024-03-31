@@ -96,7 +96,6 @@
             </property>
           </systemProperties>
           <systemPropertyVariables>
-            <webdriver.timeouts.implicitlywait>10</webdriver.timeouts.implicitlywait>
             <remote.url>http://0.0.0.0:4723/wd/hub</remote.url>
             <platform.name>Android</platform.name>
             <device.name>emulator-5554</device.name>

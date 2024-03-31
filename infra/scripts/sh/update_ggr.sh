@@ -37,8 +37,8 @@ EOM
 
 cat > "${GGR_CONF_PATH}" <<- EOM
 <qa:browsers xmlns:qa="urn:config.gridrouter.qatools.ru">
-    <browser name="android" defaultVersion="5.1">
-        <version number="5.1">
+    <browser name="android" defaultVersion="8.1">
+        <version number="8.1">
             <region name="1">
                 <host name="$SELENOID_1" port="$SELENOID_1_PORT" count="1"/>
             </region>

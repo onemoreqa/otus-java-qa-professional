@@ -3,18 +3,17 @@ import extensions.AndroidExtension;
 import modules.GuicePagesModule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pages.MainPage;
+import pages.WelcomePage;
 
 @ExtendWith(AndroidExtension.class)
 public class WelcomePageTest {
 
     @Inject
-    MainPage mainPage = new GuicePagesModule().getMainPage();
+    WelcomePage welcomePage = new GuicePagesModule().getWelcomePage();
 
     @Test
     public void navigationMainPageWidget() {
-        mainPage.goToMainPage();
+        welcomePage.goToMainPage();
     }
-
 
 }

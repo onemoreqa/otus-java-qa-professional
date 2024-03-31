@@ -6,17 +6,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.WelcomePage;
 
 @ExtendWith(AndroidExtension.class)
-public class ChatTest {
+public class ExerciseTest {
 
     @Inject
     WelcomePage welcomePage = new GuicePagesModule().getWelcomePage();
 
     @Test
-    public void checkChatIsWorking() {
+    public void checkExercisePage() {
         welcomePage.goToMainPage()
-               .sendMessage("I found a bug!")
-               .checkStatement("I will speak English now. I hope it’s okay, we learn English here after all")
-               .sendMessage("ahaha");
+            .navigateToExercisePage()
+            .isPresent("Learn 5 new words today")
+            .clickStart()
+            .sendMessage("Welcome to QA");
     }
 
 }
