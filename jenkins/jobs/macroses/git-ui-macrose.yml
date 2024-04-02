@@ -1,0 +1,10 @@
+---
+    
+- scm:
+    name: git-ui-macrose
+    scm:
+    - git:
+        url: https://github.com/myrepo.git
+        branches:
+        - FETCH_HEAD
+        refspec: ${BRANCH}

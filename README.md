@@ -12,3 +12,16 @@
 - 4 балла за джобу с запуском Selenium
 - 4 балла за джобу с appium
 - 2 балла за читаемые отчеты
+
+```shell
+pip install --user jenkins-job-builder
+jenkins-jobs --conf ./jobs/jobs.ini update ./jobs
+
+#build slave:
+docker build -f ./Dockerfile.maven -t localhost:5005/maven_slave:1.0.0 .
+#push to registry
+docker push -t localhost:5005/maven_slave:1.0.0
+# check slave state: {"repositories":['maven']}
+curl -v -X GET http://127.0.0.1:5005/v2/_catalog
+
+```

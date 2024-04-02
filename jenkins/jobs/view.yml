@@ -1,0 +1,18 @@
+---
+- view:
+    name: QA
+    view-type: list
+    description: |
+      QA Jobs
+    filter-executors: true
+    filter-queue: true
+    job-name:
+      - 'test'
+    columns:
+      - status
+      - weather
+      - job
+      - last-success
+      - last-failure
+      - last-duration
+      - build-button

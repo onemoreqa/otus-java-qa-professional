@@ -1,0 +1,24 @@
+- job-template:
+    name: 'test'
+    description: '<h3 style="color: red;">test job</h3>'
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BROWSER_NAME: chrome
+      - string:
+          name: BRANCH
+          default: main
+          description: Branch for test
+    pipeline-scm:
+      scm:
+      - git-ui-macrose
+      script-path: jenkins/ui-tests.groovy
+            
+        
+    

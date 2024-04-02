@@ -9,3 +9,4 @@ infra/etc/nginx/ggr.conf
 .attach_*
 build
 /build/
+lib
