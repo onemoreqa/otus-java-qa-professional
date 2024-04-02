@@ -1,0 +1,6 @@
+FROM jenkins/slave
+
+USER root
+
+RUN apt-get update -y \
+    && apt-get install maven -y
