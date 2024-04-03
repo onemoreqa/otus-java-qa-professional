@@ -10,3 +10,4 @@ infra/etc/nginx/ggr.conf
 build
 /build/
 lib
+/jenkins/registry/
