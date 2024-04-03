@@ -1,0 +1,34 @@
+- job-template:
+    name: 'runner-tests'
+    description: 'Running autotests'
+    project-type: pipeline
+    concurrent: true
+    logrotate:
+      daysToKeep: 30
+      numToKeep: 10
+    properties:
+      - build-discarder:
+          num-to-keep: 100
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BASE_URL: https://otus.ru
+            BROWSER: chrome
+            BROWSER_VERSION: 112.0
+            GRID_URL: http://127.0.0.1:4445
+            TEST_VERSION: 1.0.0
+            TEST_TYPES:
+              - api
+              - ui
+              - mobile
+      - string:
+          name: BRANCH
+          default: main
+          description: "Branch"
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/runner-tests.groovy
+
+

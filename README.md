@@ -20,8 +20,10 @@ jenkins-jobs --conf ./jobs/jobs.ini update ./jobs
 #build slave:
 docker build -f ./Dockerfile.maven -t localhost:5005/maven_slave:1.0.0 .
 #push to registry
-docker push -t localhost:5005/maven_slave:1.0.0
-# check slave state: {"repositories":['maven']}
+docker push localhost:5005/maven_slave:1.0.0
+# check slave state: {"repositories":['maven_slave']}
 curl -v -X GET http://127.0.0.1:5005/v2/_catalog
 
 ```
+
+- Плагины: docker, git, allure, Build user vars
