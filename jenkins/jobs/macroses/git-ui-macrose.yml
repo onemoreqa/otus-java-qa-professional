@@ -4,7 +4,9 @@
     name: git-ui-macrose
     scm:
     - git:
-        url: https://github.com/myrepo.git
+        url: https://github.com/onemoreqa/otus-java-qa-professional.git
+        credentials-id: jenkins
         branches:
         - FETCH_HEAD
-        refspec: ${BRANCH}
+        #refspec: ${BRANCH}
+        refspec: hw-7

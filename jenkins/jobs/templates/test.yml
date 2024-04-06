@@ -13,12 +13,12 @@
             BROWSER_NAME: chrome
       - string:
           name: BRANCH
-          default: main
+          default: hw-7
           description: Branch for test
     pipeline-scm:
       scm:
       - git-ui-macrose
-      script-path: jenkins/ui-tests.groovy
+      script-path: jenkins/ui.groovy
             
         
     
