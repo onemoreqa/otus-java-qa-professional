@@ -1,4 +1,4 @@
-timeout(60) {
+timeout(3) {
     node("maven-slave") {
 
         wrap([$class: 'BuildUser']) {

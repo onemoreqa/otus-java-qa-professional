@@ -2,7 +2,7 @@ import com.google.inject.Stage
 import groovy.json.JsonSlurperClassic
 import org.apache.groovy.io.StringBuilderWriter
 
-timeout(60) {
+timeout(3) {
     node("maven-slave") {
         wrap([$class: 'BuildUser']) {
             currentBuild.description = """
