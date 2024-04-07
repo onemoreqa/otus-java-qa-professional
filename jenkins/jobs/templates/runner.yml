@@ -8,7 +8,7 @@
       numToKeep: 10
     properties:
       - build-discarder:
-          num-to-keep: 100
+          num-to-keep: 10
     parameters:
       - text:
           name: YAML_CONFIG

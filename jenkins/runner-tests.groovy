@@ -30,7 +30,7 @@ branch: $REFSPEC
 
     for(type in testTypes) {
         jobs[type] = {
-            node('maven') {
+            node('maven-slave') {
                 stage("Running $type tests") {
                     triggerdJobs[type] = build(job: "$type-tests", parameters: [
                             text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
