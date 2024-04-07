@@ -12,9 +12,11 @@
 
 ###### Варианты запуска тестов:
 ```bash
-mvn clean test -Dgroups=api
+mvn clean test -Dgroups=api -Dparallel=4
 #mvn clean test -Dgroups=ui
 ```
+- Ожидается, что в target/allure-results появятся артефакты *.json для отчета
+- Локальный запуск аллюра: IDE -> Plugins -> allure -> allure:serve
 
 ---
 ###### Критерии оценки (из 10 баллов):

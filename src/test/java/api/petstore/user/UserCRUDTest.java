@@ -1,10 +1,15 @@
 package api.petstore.user;
 
 import api.petstore.steps.UserSteps;
+import io.qameta.allure.Owner;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 
 @Tag("api")
+@Owner("yigorbu4")
+@Execution(ExecutionMode.CONCURRENT)
 public class UserCRUDTest {
 
   UserSteps steps;

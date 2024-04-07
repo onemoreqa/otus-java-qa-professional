@@ -29,11 +29,15 @@
         <org.json.version>20231013</org.json.version>
         <cucumber.java.version>6.6.0</cucumber.java.version>
         <cucumber.junit.version>6.6.0</cucumber.junit.version>
+        <allure.version>2.13.2</allure.version>
+        <allure-junit5.version>2.6.0</allure-junit5.version>
+        <aspectj.version>1.9.4</aspectj.version>
 
         <base.url>https://otus.ru</base.url>
         <base.url.api>https://petstore.swagger.io/v2</base.url.api>
         <browser.version/>
         <browser>chrome</browser>
+        <parallel>2</parallel>
 
         <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
         <pageloadtimeout>15</pageloadtimeout>
@@ -102,6 +106,12 @@
             <version>${cucumber.junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,6 +121,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
+                    <parallel>classesAndMethods</parallel>
+                    <threadCount>${parallel}</threadCount>
                     <skipTests>false</skipTests>
                     <includes>
                         <include>**/Test*.java</include>
@@ -123,6 +135,10 @@
                         <disable>false</disable>
                     </consoleOutputReporter>
                     <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter"/>
+                    <argLine>
+                        -Dfile.encoding=UTF-8
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
 
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
@@ -130,6 +146,8 @@
                         <browser>${browser}</browser>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
                         <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <junit.jupiter.execution.parallel.config.fixed.parallelism>${parallel}</junit.jupiter.execution.parallel.config.fixed.parallelism>
                     </systemPropertyVariables>
                 </configuration>
 
@@ -138,6 +156,11 @@
                         <groupId>me.fabriciorby</groupId>
                         <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
                         <version>0.1.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
                     </dependency>
                 </dependencies>
 
@@ -181,6 +204,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!--Этот плагин нужен только, чтоб аллюр в плагинах IDE отображался, можно грохнуть-->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version><!--2.13.2-->
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure.version}/allure-commandline-${allure.version}.zip</allureDownloadUrl>
+                </configuration>
             </plugin>
         </plugins>
     </build>

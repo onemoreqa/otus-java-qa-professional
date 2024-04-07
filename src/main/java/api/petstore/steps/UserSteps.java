@@ -10,6 +10,7 @@ import api.petstore.dto.UserRequestDTO;
 import api.petstore.dto.UserResponseDTO;
 import api.petstore.services.UserApi;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Step;
 import org.apache.http.HttpStatus;
 
 public class UserSteps {
@@ -60,6 +61,7 @@ public class UserSteps {
     removeUser(secondUserBody);
   }
 
+  @Step("Пользователь создан -> 200")
   public void checkUserIsCreated() {
     userApi.getUserByName(userBody.getUsername())
             .then()
@@ -68,6 +70,8 @@ public class UserSteps {
             .body("username", equalTo(userBody.getUsername()))
             .body("id", equalTo(userBody.getId()));
   }
+
+  @Step("Пользователь не существует -> 404")
   public void checkUserNotExisted() {
     userApi.getUserByName(userBody.getUsername())
             .then()
@@ -76,7 +80,7 @@ public class UserSteps {
             .body("message", equalTo("User not found"))
             .extract()
             .body()
-            .as(UserResponseDTO.class);;
+            .as(UserResponseDTO.class);
   }
 
   public void removeUser() {
@@ -90,6 +94,7 @@ public class UserSteps {
     //не привязываюсь тут к коду ответа, для более гарантированного удаления
   }
 
+  @Step("Удаление пользователя. Ожидаемый статус = {expectedStatusCode}")
   public void removeUserCondition(String expectedStatusCode) {
     userApi.deleteUser(userBody.getUsername())
             .then().log().all()
