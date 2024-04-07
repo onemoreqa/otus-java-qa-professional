@@ -15,7 +15,7 @@
 
 ###### Варианты запуска тестов:
 ```bash
-mvn clean test
+mvn clean test -Dparallel=1
 ```
 
 ---

@@ -1,6 +1,7 @@
 package pages;
 
 import anotations.UrlTemplate;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +28,7 @@ public abstract class AbsBasePage<T> extends AbsPageObject {
     return "";
   }
 
+  @Step("Открытие главной страницы otus")
   public T open() {
     String url = BASE_URL;
     driver.get(url + getPath());
@@ -36,6 +38,7 @@ public abstract class AbsBasePage<T> extends AbsPageObject {
     return (T)this;
   }
 
+  @Step("Принимаем cookie")
   public void okForAgreement() {
     List<WebElement> elements = driver.findElements(By.xpath("//span[text()='Посещая наш сайт, вы принимаете']/following-sibling::div/button"));
     if (!elements.isEmpty()) {

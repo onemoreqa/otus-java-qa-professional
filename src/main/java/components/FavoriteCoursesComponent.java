@@ -1,5 +1,6 @@
 package components;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,7 @@ public class FavoriteCoursesComponent extends CoursesComponent<FavoriteCoursesCo
     return getTitleCourses(allCourses);
   }
 
+  @Step("Выбор курса. Клик по курсу = {title}")
   public CoursePage chooseCourse(String title) {
     WebElement courseElement = driver.findElement(By.xpath(courseSectionsLocator + "/following-sibling::*//h5[contains(text(),'"
             + title + "')]"));
