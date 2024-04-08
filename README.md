@@ -43,6 +43,12 @@ docker run --rm --network=host -v /home/egor/.m2:/root/.m2 -it uitests:0.0.1 1 c
 docker run --rm --network=host -v /home/egor/.m2:/root/.m2 -it uitests:0.0.1 1 chrome http://95.181.151.41/wd/hub 120.0
 ```
 
+###### Пушим образ в registry
+```shell
+docker build -t localhost:5005/uitests:0.0.1 .
+docker push localhost:5005/uitests:0.0.1
+```
+
 ---
 ###### Критерии оценки (из 10 баллов):
 - 2 Балла за реализацию фабрики
