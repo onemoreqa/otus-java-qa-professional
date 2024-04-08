@@ -32,6 +32,12 @@ docker build -t apitests:0.0.1 .
 docker run --rm --network=host -v /home/egor/.m2:/root/.m2 -it apitests:0.0.1 4
 ```
 
+###### Пушим образ в registry
+```shell
+docker build -t localhost:5005/apitests:0.0.1 .
+docker push localhost:5005/apitests:0.0.1
+```
+
 ---
 ###### Критерии оценки (из 10 баллов):
 - +2 есть тест кейсы
