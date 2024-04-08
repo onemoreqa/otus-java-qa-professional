@@ -22,7 +22,25 @@ mvn clean test -Dparallel=1
 cd infra && ./restart.sh
 cd ..
 mvn clean test -Dparallel=1 -Dwebdriver.remote.url=http://0.0.0.0/wd/hub
+```
 
+###### Сбилдить тесты и запустить в докере:
+```shell
+docker build -t uitests:0.0.1 .
+#docker run --rm --network=host -it uitests:0.0.1 <THREADS> <BROWSER> <SELENOID_URL> <BROWSER_VERSION>
+docker run --rm --network=host -it uitests:0.0.1 1 chrome http://0.0.0.0/wd/hub 121.0
+
+
+# с переопределением entrypoint'a для отладки:
+docker run --rm --entrypoint=/bin/bash --network=host -it uitests:0.0.1
+# ВАЖНЫЙ момент! без --network=host докер направляя тесты в 0.0.0.0 передаст их не на селеноид, а себе же в контейнер
+```
+
+###### Запуск в докере с папкой m2:
+```shell
+docker build -t uitests:0.0.1 .
+docker run --rm --network=host -v /home/egor/.m2:/root/.m2 -it uitests:0.0.1 1 chrome http://0.0.0.0/wd/hub 121.0
+docker run --rm --network=host -v /home/egor/.m2:/root/.m2 -it uitests:0.0.1 1 chrome http://95.181.151.41/wd/hub 120.0
 ```
 
 ---

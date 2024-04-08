@@ -1,0 +1,9 @@
+**/target
+**/lib
+**/jenkins
+**/.idea
+**/.allure
+**/infra
+.Dockerfile
+.gitignore
+.README.md
