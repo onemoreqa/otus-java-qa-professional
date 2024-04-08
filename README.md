@@ -15,7 +15,14 @@
 
 ###### Варианты запуска тестов:
 ```bash
+# локальный браузер ОС
 mvn clean test -Dparallel=1
+
+# в браузере селеноида
+cd infra && ./restart.sh
+cd ..
+mvn clean test -Dparallel=1 -Dwebdriver.remote.url=http://0.0.0.0/wd/hub
+
 ```
 
 ---

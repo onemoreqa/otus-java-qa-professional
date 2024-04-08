@@ -4,12 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 public class WebDriverListener implements WebDriverEventListener {
-  protected WebDriver driver;
-
-  public WebDriverListener(WebDriver driver) {
-    this.driver = driver;
-  }
-
 
   @Override
   public void beforeAlertAccept(WebDriver webDriver) {

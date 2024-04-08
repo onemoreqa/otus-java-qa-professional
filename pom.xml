@@ -25,11 +25,15 @@
         <aspectj.version>1.9.4</aspectj.version>
         <allure.version>2.13.2</allure.version>
         <allure-junit5.version>2.6.0</allure-junit5.version>
-        <parallel>3</parallel>
 
         <base.url>https://otus.ru</base.url>
-        <browser.version/>
+        <webdriver.remote.url></webdriver.remote.url> <!--http://0.0.0.0/wd/hub-->
         <browser>chrome</browser>
+        <browser.version>121.0</browser.version>
+
+        <!--parallel params:-->
+        <parallel>3</parallel>
+        <thread.count>8</thread.count>
 
         <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
         <pageloadtimeout>15</pageloadtimeout>
@@ -72,8 +76,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.plugin.version}</version>
                 <configuration>
-                    <parallel>classesAndMethods</parallel>
-                    <threadCount>${parallel}</threadCount>
+                    <parallel>${parallel}</parallel>
+                    <threadCountMethods>${thread.count}</threadCountMethods>
+
                     <testFailureIgnore>true</testFailureIgnore>
                     <!--console reporter-->
                     <reportFormat>plain</reportFormat>
@@ -88,6 +93,8 @@
                     <systemPropertyVariables>
                         <base.url>${base.url}</base.url>
                         <browser>${browser}</browser>
+                        <browser.version>${browser.version}</browser.version>
+                        <webdriver.remote.url>${webdriver.remote.url}</webdriver.remote.url>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
                         <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>

@@ -1,6 +1,7 @@
 package extensions;
 
 import anotations.*;
+import factories.DriverFactory;
 import factories.WebDriverFactory;
 import listeners.WebDriverListener;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -18,17 +19,15 @@ import java.util.List;
 
 public class UIExtensions implements BeforeEachCallback, AfterEachCallback {
 
-  private WebDriver driver = null;
+  //private WebDriver driver = null;
+  private EventFiringWebDriver driver = null;
   public AllureMethods allure;
 
   @Override
   public void beforeEach(ExtensionContext extensionContext) {
-    ThreadLocal<WebDriver> thread = new ThreadLocal<WebDriver>();
-    WebDriver initDriver = new WebDriverFactory().getWebDriver();
-    WebDriverEventListener listener = new WebDriverListener(initDriver);
-    driver = new EventFiringWebDriver(initDriver).register(listener);
+    driver = new DriverFactory().getDriver();
+    driver.register(new WebDriverListener());
     allure = new AllureMethods(driver);
-    thread.set(driver); // @TODO нужно положить driver в thread, но пока не отрабатывает
 
     List<Field> fields = getAnnotatedFields(Driver.class, extensionContext);
     for (Field field : fields) {
