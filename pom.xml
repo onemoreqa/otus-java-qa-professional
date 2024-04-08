@@ -15,7 +15,6 @@
 
         <junit.version>5.8.1</junit.version>
         <selenium.java.version>3.141.59</selenium.java.version>
-        <webdriver.manager.version>5.6.3</webdriver.manager.version>
         <surefire.plugin.version>3.0.0-M5</surefire.plugin.version> <!--3.0.0-M5 | 2.22.2-->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
@@ -27,20 +26,14 @@
         <json.schema.validator.version>4.3.1</json.schema.validator.version>
         <javafaker.version>1.0.2</javafaker.version>
         <org.json.version>20231013</org.json.version>
-        <cucumber.java.version>6.6.0</cucumber.java.version>
-        <cucumber.junit.version>6.6.0</cucumber.junit.version>
         <allure.version>2.13.2</allure.version>
         <allure-junit5.version>2.6.0</allure-junit5.version>
         <aspectj.version>1.9.4</aspectj.version>
 
-        <base.url>https://otus.ru</base.url>
         <base.url.api>https://petstore.swagger.io/v2</base.url.api>
-        <browser.version/>
-        <browser>chrome</browser>
         <parallel>2</parallel>
 
         <implicitlyWaitTimeout>5</implicitlyWaitTimeout>
-        <pageloadtimeout>15</pageloadtimeout>
 
     </properties>
 
@@ -54,11 +47,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.java.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdriver.manager.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -94,19 +82,6 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.java.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
@@ -141,11 +116,8 @@
                     </argLine>
 
                     <systemPropertyVariables>
-                        <base.url>${base.url}</base.url>
                         <base.url.api>${base.url.api}</base.url.api>
-                        <browser>${browser}</browser>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
-                        <pageloadtimeout>${pageloadtimeout}</pageloadtimeout>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                         <junit.jupiter.execution.parallel.config.fixed.parallelism>${parallel}</junit.jupiter.execution.parallel.config.fixed.parallelism>
                     </systemPropertyVariables>
