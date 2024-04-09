@@ -66,31 +66,17 @@ BRANCH: $REFSPEC
             reportBuildPolicy: ALWAYS
         }
     }*/
-    Stage("Send notification") {
-        def message = "+++++++++++ Test Result ++++++++++++\n"
-        message += "Test running ${String.join(", ", jobs.setKeys())}"
-        message += "BRANCH: ${BRANCH}\n"
-
-        def slurper = new JsonSlurperClassic().parseText("./allure-reports/widgets/summary.json")
-        if (slurper['Failed'] > 0) {
-            message += "🔴 Status: FAILED"
-            message += "\n@${BUILD_USER_EMAIL}"
-        } else if ((slurper['skipped'] as Integer) > 0 && (slurper['TOTAL'] as Integer) == 0) {
-            message += "⚪️ Status: SKIPPED"
-        } else {
-            message += "🟢 Status: PASSED"
+    stage("Send to Telegram") {
+        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
+        resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
+        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
+        withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
+            httpRequest httpMode: 'POST',
+                    requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED\n$resultText\nAllure report - $allureReportUrl\"}""",
+                    contentType: 'APPLICATION_JSON',
+                    url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
+                    validResponseCodes: '200'
         }
-
-        withCredentials([string(credentialsId: telegram_token, valueVar: "TELEGRAM_TOKEN")])
-
-        def stringBuilder = new StringBuilderWriter()
-        def url = "https://api.telegram.org/bot${TELEGRAM_TOKEN}"
-        stringBuilder.append(url)
-        def urlConnection = new Url(stringBuilder.toString()).openConnection() as HttpURLConnection
-
-        urlConnection.setRequestMethod("GET")
-        urlConnection.setDoOutput(true)
-
     }
 
 }
