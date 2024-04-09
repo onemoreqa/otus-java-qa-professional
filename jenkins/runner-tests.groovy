@@ -67,6 +67,11 @@ branch: $BRANCH
             reportBuildPolicy: ALWAYS
         }
     }*/
+
+        stage("Api tests") {
+            sh "docker run --rm --network=host -it localhost:5005/apitests:0.0.1"
+        }
+
         stage("Send to Telegram") {
 //        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
 //        resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
