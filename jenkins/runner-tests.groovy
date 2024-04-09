@@ -73,7 +73,7 @@ branch: $BRANCH
 //        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
                 httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED\n$resultText\nAllure report - $allureReportUrl\"}""",
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED\n\"}""",
                         contentType: 'APPLICATION_JSON',
                         url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
                         validResponseCodes: '200'
