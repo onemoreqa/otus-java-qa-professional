@@ -69,7 +69,17 @@ branch: $BRANCH
     }*/
 
         stage("Api tests") {
-            sh "docker run --rm --network=host -it localhost:5005/apitests:0.0.1"
+            sh "pwd"
+            sh "ls -al"
+            sh "mvn -v"
+            docker.withRegistry('localhost:5005') {
+
+                docker.image('apitests:0.0.1').inside {
+                    sh 'mvn test'
+                }
+            }
+
+            //sh "docker run --rm --network=host -it localhost:5005/apitests:0.0.1"
         }
 
         stage("Send to Telegram") {
