@@ -1,7 +1,7 @@
 ---
     
 - scm:
-    name: git-ui-macrose
+    name: git-runner
     scm:
     - git:
         url: git@github.com:onemoreqa/otus-java-qa-professional.git

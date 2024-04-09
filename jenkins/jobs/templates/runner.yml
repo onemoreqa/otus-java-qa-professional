@@ -1,6 +1,6 @@
 - job-template:
     name: 'runner-tests'
-    description: 'Running autotests'
+    description: '<h3 style="color: red;">Running tests</h3>'
     project-type: pipeline
     concurrent: true
     logrotate:

@@ -5,7 +5,7 @@
     parameters:
       - string:
           name: BRANCH
-          default: main
+          default: hw-7
           description: Branch
     pipeline-scm:
       scm:

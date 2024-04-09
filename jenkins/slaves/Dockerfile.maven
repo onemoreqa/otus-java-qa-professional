@@ -1,6 +1,6 @@
-FROM jenkins/slave
+FROM jenkins/agent
 
 USER root
 
 RUN apt-get update -y
-RUN apt-get install ca-certificates-java openjdk-11-jre-headless maven -y
+RUN apt-get install maven -y

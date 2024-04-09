@@ -7,7 +7,7 @@
     filter-executors: true
     filter-queue: true
     job-name:
-      - 'test'
+      - 'runner-tests'
     columns:
       - status
       - weather

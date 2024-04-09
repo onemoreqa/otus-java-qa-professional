@@ -3,4 +3,4 @@
     name: 'OTUS autotests'
     job-description: 'autotests for OTUS'
     jobs:
-      - 'test'
+      - 'runner-tests'
