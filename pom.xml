@@ -23,6 +23,13 @@
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     <jupiter.version>5.10.2</jupiter.version>
     <guice.version>7.0.0</guice.version>
+    <aspectj.version>1.9.4</aspectj.version>
+    <allure.version>2.13.2</allure.version>
+    <allure-junit5.version>2.6.0</allure-junit5.version>
+
+    <!--parallel params:-->
+    <parallel>1</parallel>
+    <thread.count>8</thread.count>
   </properties>
 
   <dependencies>
@@ -68,6 +75,11 @@
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>${allure.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -87,6 +99,21 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.plugin.version}</version>
         <configuration>
+          <parallel>${parallel}</parallel>
+          <threadCountMethods>${thread.count}</threadCountMethods>
+
+          <testFailureIgnore>true</testFailureIgnore>
+          <!--console reporter-->
+          <reportFormat>plain</reportFormat>
+          <consoleOutputReporter>
+            <disable>false</disable>
+          </consoleOutputReporter>
+          <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter"/>
+          <argLine>
+            -Dfile.encoding=UTF-8
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+          </argLine>
+
           <failIfNoTests>false</failIfNoTests>
           <workingDirectory>${project.build.directory}</workingDirectory>
           <systemProperties>
@@ -100,12 +127,28 @@
             <platform.name>Android</platform.name>
             <device.name>emulator-5554</device.name>
             <platfrom.version>14.0</platfrom.version>
-            <avd.name>small_android_8.1</avd.name>
+            <avd.name>big_android_14.0</avd.name>
             <app.package>com.pyankoff.andy</app.package>
             <app.activity>.MainActivity</app.activity>
             <apk.path>/home/ubuntu/Andy.apk</apk.path>
+
+            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+            <junit.jupiter.execution.parallel.config.fixed.parallelism>${parallel}</junit.jupiter.execution.parallel.config.fixed.parallelism>
           </systemPropertyVariables>
         </configuration>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>me.fabriciorby</groupId>
+            <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
+            <version>0.1.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>
@@ -137,6 +180,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- Плагин нужен только для локального запуска отчета в IDE-->
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.10.0</version><!--2.13.2-->
+        <configuration>
+          <reportVersion>${allure.version}</reportVersion>
+          <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+          <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure.version}/allure-commandline-${allure.version}.zip</allureDownloadUrl>
+        </configuration>
       </plugin>
     </plugins>
   </build>

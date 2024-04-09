@@ -33,7 +33,7 @@
         "default": "8.1",
         "versions": {
             "8.1": {
-                "image": "selenoid/android:8.1",
+                "image": "selenoid/android:8.1.2",
                 "port": "4444",
                 "path": "/wd/hub",
                 "privileged": true,

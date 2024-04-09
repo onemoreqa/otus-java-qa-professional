@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import javax.annotation.Nonnull;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 
 public class AndroidWebDriverProvider implements WebDriverProvider {
 
@@ -17,6 +18,7 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
 
+        Duration duration = Duration.ofMinutes(10);
         UiAutomator2Options options = new UiAutomator2Options();
         options.merge(capabilities);
 
@@ -28,12 +30,23 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
 
         if (!System.getProperty("remote.url").equals("http://0.0.0.0:4723/wd/hub")) {
             options.setApp(System.getProperty("apk.path"));
-            options.setAvd("android8.1-1");
+            //options.setAvd("android8.1-1");
         } else {
             options.setAvd(System.getProperty("avd.name"));
             options.setAppPackage(System.getProperty("app.package"));
             options.setAppActivity(System.getProperty("app.activity"));
         }
+
+        options.setAdbExecTimeout(duration);
+        options.setAndroidInstallTimeout(duration);
+        options.setAvdLaunchTimeout(duration);
+        options.setAvdReadyTimeout(duration);
+        options.setAutoWebviewTimeout(duration);
+        options.setNewCommandTimeout(duration);
+        options.setUnlockSuccessTimeout(duration);
+        options.setUiautomator2ServerInstallTimeout(duration);
+        options.setUiautomator2ServerLaunchTimeout(duration);
+        options.setUiautomator2ServerReadTimeout(duration);
 
         try {
             return new AndroidDriver(new URL(System.getProperty("remote.url")), options);

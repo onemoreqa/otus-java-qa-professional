@@ -94,6 +94,27 @@ services:
     volumes:
     - ./etc/grid-router/quota:/etc/grid-router/quota:ro
 
+  # https://github.com/budtmo/docker-android/blob/master/docker-compose.yml
+  android:
+    image: budtmo/docker-android:emulator_10.0
+    privileged: true
+    container_name: android-container
+    ports:
+      - "5555:5555"
+      - "5554:5554"
+      - "6080:6080"
+      - "4723:4723"
+    volumes:
+      - /home/egor/Desktop/otus-java-qa-professional/src/main/resources/Andy.apk:/tmp/app-to-test.apk
+    environment:
+      - DEVICE=Nexus 5
+      #- CONNECT_TO_GRID=true
+      #- APPIUM=true
+      #- SELENIUM_HOST=selenium_hub
+      #- AUTO_RECORD=true
+      - ADB_INSTALL_PATH=/home/egor/Android/Sdk/platform-tools/adb
+    command: sh -c "pm install /tmp/app-to-test.apk"
+
 #  jenkins:
 #    image: jenkins/jenkins:2.289.3-lts-jdk11
 #    container_name: jenkins

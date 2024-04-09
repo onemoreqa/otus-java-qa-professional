@@ -9,3 +9,5 @@ infra/etc/nginx/ggr.conf
 .attach_*
 build
 /build/
+jenkins/registry
+lib
