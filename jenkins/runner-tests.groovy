@@ -7,7 +7,7 @@ timeout(3) {
         wrap([$class: 'BuildUser']) {
             currentBuild.description = """
 user: $BUILD_USER
-branch: $REFSPEC
+BRANCH: $REFSPEC
 """
         }
 
@@ -60,12 +60,12 @@ branch: $REFSPEC
         }
     }
 
-    stage("Publish allure reports") {
+/*    stage("Publish allure reports") {
         dir("allure-results") {
             result: ["."],
             reportBuildPolicy: ALWAYS
         }
-    }
+    }*/
     Stage("Send notification") {
         def message = "+++++++++++ Test Result ++++++++++++\n"
         message += "Test running ${String.join(", ", jobs.setKeys())}"
