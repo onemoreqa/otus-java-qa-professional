@@ -2,12 +2,12 @@ import com.google.inject.Stage
 import groovy.json.JsonSlurperClassic
 import org.apache.groovy.io.StringBuilderWriter
 
-timeout(3) {
+timeout(2) {
     node("maven-slave") {
         wrap([$class: 'BuildUser']) {
             currentBuild.description = """
 user: $BUILD_USER
-BRANCH: $REFSPEC
+branch: $BRANCH
 """
         }
 
@@ -46,6 +46,7 @@ BRANCH: $REFSPEC
         dir("allure-results") {
             sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
             sh "echo TEST_VERSION=${env.getProperty('TEST_VERSION')} >> environments.txt"
+            sh "cat environments.txt"
         }
     }
 
