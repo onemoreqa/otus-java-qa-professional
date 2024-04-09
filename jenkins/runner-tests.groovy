@@ -67,9 +67,9 @@ BRANCH: $REFSPEC
         }
     }*/
     stage("Send to Telegram") {
-        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
-        resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
-        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
+//        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
+//        resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
+//        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
         withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
             httpRequest httpMode: 'POST',
                     requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED\n$resultText\nAllure report - $allureReportUrl\"}""",
