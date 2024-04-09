@@ -72,12 +72,12 @@ branch: $BRANCH
             sh "pwd"
             sh "ls -al"
             sh "mvn -v"
-            docker.withRegistry('localhost:5005') {
+            //docker.withRegistry('localhost:5005') {
 
-                docker.image('apitests:0.0.1').inside {
-                    sh 'mvn test'
-                }
+            docker.image('localhost:5005/apitests:0.0.1').inside {
+                sh 'mvn test'
             }
+            //}
 
             //sh "docker run --rm --network=host -it localhost:5005/apitests:0.0.1"
         }
