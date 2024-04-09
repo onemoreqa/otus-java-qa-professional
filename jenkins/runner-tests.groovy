@@ -11,55 +11,55 @@ branch: $BRANCH
 """
         }
 
-        config = readYaml text: env.YAML_CONFIG
-        BUILD_USER_EMAIL = $BUILD_USER_EMAIL
-
-        if (config != null) {
-            for(param in config.entrySet()) {
-                env.setProperty(param.getKey(), param.getValue())
-            }
-        }
-
-        testTypes = env.getProperty("TEST_TYPES").replace("[", "").replace("]", "").split(",\\s*") //["ui", "mobile", "api"]
-
-    }
-
-    def jobs = [:]
-
-    def triggerdJobs = [:]
-
-    for(type in testTypes) {
-        jobs[type] = {
-            node('maven-slave') {
-                stage("Running $type tests") {
-                    triggerdJobs[type] = build(job: "$type-tests", parameters: [
-                            text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
-                    ])
-                }
-            }
-        }
-    }
-
-    parallel jobs
-
-    stage("Create additional allure report artifacts") {
-        dir("allure-results") {
-            sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
-            sh "echo TEST_VERSION=${env.getProperty('TEST_VERSION')} >> environments.txt"
-            sh "cat environments.txt"
-        }
-    }
-
-    stage("Copy allure results") {
-        dir("allure-results") {
-
-            for(type in testTypes) {
-                copyArtifacts filter: "allure-report.zip", projectName: "${triggerdJobs[type].projecName}", selector: LastSucceful(), optional: true
-                sh "unzip ./allure-report -d ."
-                sh "rm -rf ./allure-report"
-            }
-        }
-    }
+//        config = readYaml text: env.YAML_CONFIG
+//        BUILD_USER_EMAIL = $BUILD_USER_EMAIL
+//
+//        if (config != null) {
+//            for(param in config.entrySet()) {
+//                env.setProperty(param.getKey(), param.getValue())
+//            }
+//        }
+//
+//        testTypes = env.getProperty("TEST_TYPES").replace("[", "").replace("]", "").split(",\\s*") //["ui", "mobile", "api"]
+//
+//    }
+//
+//    def jobs = [:]
+//
+//    def triggerdJobs = [:]
+//
+//    for(type in testTypes) {
+//        jobs[type] = {
+//            node('maven-slave') {
+//                stage("Running $type tests") {
+//                    triggerdJobs[type] = build(job: "$type-tests", parameters: [
+//                            text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
+//                    ])
+//                }
+//            }
+//        }
+//    }
+//
+//    parallel jobs
+//
+//    stage("Create additional allure report artifacts") {
+//        dir("allure-results") {
+//            sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
+//            sh "echo TEST_VERSION=${env.getProperty('TEST_VERSION')} >> environments.txt"
+//            sh "cat environments.txt"
+//        }
+//    }
+//
+//    stage("Copy allure results") {
+//        dir("allure-results") {
+//
+//            for(type in testTypes) {
+//                copyArtifacts filter: "allure-report.zip", projectName: "${triggerdJobs[type].projecName}", selector: LastSucceful(), optional: true
+//                sh "unzip ./allure-report -d ."
+//                sh "rm -rf ./allure-report"
+//            }
+//        }
+//    }
 
 /*    stage("Publish allure reports") {
         dir("allure-results") {
