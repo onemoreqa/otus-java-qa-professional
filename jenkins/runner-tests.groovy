@@ -78,7 +78,8 @@ branch: $BRANCH
 //                sh 'mvn test'
 //            }
             //}
-
+            sh "docker -v"
+            sh "sudo dockerd"
             sh "docker run localhost:5005/apitests:0.0.1"
         }
 
