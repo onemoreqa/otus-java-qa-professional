@@ -20,8 +20,8 @@
             TEST_VERSION: 0.0.1
             TEST_TYPES:
               - api
-              - ui
-              - mobile
+#              - ui
+#              - mobile
       - string:
           name: BRANCH
           default: hw-7

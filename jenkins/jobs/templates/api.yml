@@ -1,0 +1,23 @@
+- job-template:
+    name: 'api'
+    description: '<h3 style="color: red;">Api job</h3>'
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    triggers:
+      - timed: 'H 0 * * *'
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BROWSER_NAME: chrome
+      - string:
+          name: BRANCH
+          default: homework-3
+          description: Api tests
+    pipeline-scm:
+      scm:
+        - git-ui-macrose
+      script-path: jenkins/api.groovy

@@ -11,44 +11,42 @@ branch: $BRANCH
 """
         }
 
-//        config = readYaml text: env.YAML_CONFIG
-//        BUILD_USER_EMAIL = $BUILD_USER_EMAIL
-//
-//        if (config != null) {
-//            for(param in config.entrySet()) {
-//                env.setProperty(param.getKey(), param.getValue())
-//            }
-//        }
-//
-//        testTypes = env.getProperty("TEST_TYPES").replace("[", "").replace("]", "").split(",\\s*") //["ui", "mobile", "api"]
-//
-//    }
-//
-//    def jobs = [:]
-//
-//    def triggerdJobs = [:]
-//
-//    for(type in testTypes) {
-//        jobs[type] = {
-//            node('maven-slave') {
-//                stage("Running $type tests") {
-//                    triggerdJobs[type] = build(job: "$type-tests", parameters: [
-//                            text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
-//                    ])
-//                }
-//            }
-//        }
-//    }
+        config = readYaml text: env.YAML_CONFIG
+
+        if (config != null) {
+            for(param in config.entrySet()) {
+                env.setProperty(param.getKey(), param.getValue())
+            }
+        }
+
+        testTypes = env.getProperty("TEST_TYPES").replace("[", "").replace("]", "").split(",\\s*") //["ui", "mobile", "api"]
+
+
+        def jobs = [:]
+
+        def triggerdJobs = [:]
+
+        for(type in testTypes) {
+            jobs[type] = {
+                node('maven-slave') {
+                    stage("Running $type tests") {
+                        triggerdJobs[type] = build(job: "$type-tests", parameters: [
+                                text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
+                        ])
+                    }
+                }
+            }
+        }
 //
 //    parallel jobs
 //
-//    stage("Create additional allure report artifacts") {
-//        dir("allure-results") {
-//            sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
-//            sh "echo TEST_VERSION=${env.getProperty('TEST_VERSION')} >> environments.txt"
-//            sh "cat environments.txt"
-//        }
-//    }
+        stage("Create additional allure report artifacts") {
+            dir("allure-results") {
+                sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
+                sh "echo TEST_VERSION=${env.getProperty('TEST_VERSION')} >> environments.txt"
+                sh "cat environments.txt"
+            }
+        }
 //
 //    stage("Copy allure results") {
 //        dir("allure-results") {
@@ -81,14 +79,14 @@ branch: $BRANCH
             //    sh 'mvn test'
             //}
 
-            docker.image('localhost:5005/apitests:0.0.1').withRun('-d') { c ->
-                def dockerHost = "unix:///var/run/docker.sock"
-                env.DOCKER_HOST = dockerHost
+            // docker.image('localhost:5005/apitests:0.0.1').withRun('-d') { c ->
+            //     def dockerHost = "unix:///var/run/docker.sock"
+            //     env.DOCKER_HOST = dockerHost
 
-                // Run your Docker commands here
-                sh 'docker info'
-                sh 'docker run hello-world'
-            }
+            //     // Run your Docker commands here
+            //     sh 'docker info'
+            //     sh 'docker run hello-world'
+            // }
         }
 
 
@@ -99,7 +97,7 @@ branch: $BRANCH
 //        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
                 httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED\n\"}""",
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED:\nrunning by ${BUILD_USER_EMAIL}\"}""",
                         contentType: 'APPLICATION_JSON',
                         url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
                         validResponseCodes: '200'
