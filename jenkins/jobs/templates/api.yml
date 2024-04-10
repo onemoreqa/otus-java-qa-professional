@@ -19,5 +19,5 @@
           description: Api tests
     pipeline-scm:
       scm:
-        - git-ui-macrose
+        - git-runner
       script-path: jenkins/api.groovy
