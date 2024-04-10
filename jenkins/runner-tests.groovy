@@ -74,7 +74,7 @@ branch: $BRANCH
             sh "mvn -v"
             //docker.withRegistry('localhost:5005') {
 
-            sh "usermod -a -G docker jenkins"
+            sh "usermod -a -G docker admin"
             docker.image('localhost:5005/apitests:0.0.1').inside {
                 sh 'mvn test'
             }
