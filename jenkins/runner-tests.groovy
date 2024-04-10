@@ -74,16 +74,16 @@ branch: $BRANCH
             sh "mvn -v"
             //docker.withRegistry('localhost:5005') {
 
-//            docker.image('localhost:5005/apitests:0.0.1').inside {
-//                sh 'mvn test'
-//            }
+            docker.image('localhost:5005/apitests:0.0.1').inside {
+                sh 'mvn test'
+            }
             //}
             sh "docker -v"
-            sh "dockerd"
+            //sh "dockerd" // не хватает прав
 //            systemctl start docker
 //            systemctl enable docker
 //            systemctl restart docker
-            sh "docker run localhost:5005/apitests:0.0.1"
+            //sh "docker run localhost:5005/apitests:0.0.1"
         }
 
         stage("Send to Telegram") {
