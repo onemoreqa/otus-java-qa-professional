@@ -70,17 +70,28 @@ branch: $BRANCH
 
         stage("Api tests") {
             sh "pwd"
-            sh "export DOCKER_HOST=unix:///var/run/docker.sock"
+            //sh "export DOCKER_HOST=unix:///var/run/docker.sock"
             sh "ls -al"
             sh "mvn -v"
 
             sh "usermod -a -G docker root"
             sh "docker -v"
-            sh "docker run localhost:5005/apitests:0.0.1"
+            //sh "docker run localhost:5005/apitests:0.0.1"
             //docker.image('localhost:5005/apitests:0.0.1').inside {
             //    sh 'mvn test'
             //}
+
+            docker.image('localhost:5005/apitests:0.0.1').withRun('-d') { c ->
+                def dockerHost = "unix:///var/run/docker.sock"
+                env.DOCKER_HOST = dockerHost
+
+                // Run your Docker commands here
+                sh 'docker info'
+                sh 'docker run hello-world'
+            }
         }
+
+
 
         stage("Send to Telegram") {
 //        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
