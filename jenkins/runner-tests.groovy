@@ -68,23 +68,23 @@ branch: $BRANCH
         }
     }*/
 
+        tools {
+            'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+        }
+        environment {
+            DOCKER_HOST = "unix:///var/run/docker.sock"
+        }
         stage("Api tests") {
             sh "pwd"
             sh "ls -al"
             sh "mvn -v"
-            //docker.withRegistry('localhost:5005') {
 
-            sh "usermod -a -G docker admin"
-            docker.image('localhost:5005/apitests:0.0.1').inside {
-                sh 'mvn test'
-            }
-            //}
+            sh "usermod -a -G docker root"
             sh "docker -v"
-            //sh "dockerd" // не хватает прав
-//            systemctl start docker
-//            systemctl enable docker
-//            systemctl restart docker
-            //sh "docker run localhost:5005/apitests:0.0.1"
+            sh "docker run localhost:5005/apitests:0.0.1"
+            //docker.image('localhost:5005/apitests:0.0.1').inside {
+            //    sh 'mvn test'
+            //}
         }
 
         stage("Send to Telegram") {
