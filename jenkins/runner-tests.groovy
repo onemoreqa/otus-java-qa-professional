@@ -79,7 +79,10 @@ branch: $BRANCH
 //            }
             //}
             sh "docker -v"
-            sh "sudo dockerd"
+            sh "dockerd"
+//            systemctl start docker
+//            systemctl enable docker
+//            systemctl restart docker
             sh "docker run localhost:5005/apitests:0.0.1"
         }
 
