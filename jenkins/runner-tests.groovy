@@ -79,7 +79,7 @@ branch: $BRANCH
 //            }
             //}
 
-            sh "docker run --rm --network=host -it localhost:5005/apitests:0.0.1"
+            sh "docker run localhost:5005/apitests:0.0.1"
         }
 
         stage("Send to Telegram") {
