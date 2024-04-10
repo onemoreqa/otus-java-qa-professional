@@ -68,14 +68,9 @@ branch: $BRANCH
         }
     }*/
 
-        tools {
-            'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
-        }
-        environment {
-            DOCKER_HOST = "unix:///var/run/docker.sock"
-        }
         stage("Api tests") {
             sh "pwd"
+            sh "export DOCKER_HOST=unix:///var/run/docker.sock"
             sh "ls -al"
             sh "mvn -v"
 
