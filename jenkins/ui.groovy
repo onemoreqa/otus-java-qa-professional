@@ -17,7 +17,7 @@ branch: $BRANCH
         }
 
         stage("UI tests in docker image") {
-            sh "docker run -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/api_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/api_tests/target/allure-results localhost:5005/uitests:0.0.1 1 chrome http://95.181.151.41/wd/hub 120.0"
+            sh "docker run -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/ui_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/ui_tests/target/allure-results localhost:5005/uitests:0.0.1 1 chrome http://95.181.151.41/wd/hub 120.0"
             //sh "sleep 300"
         }
 
