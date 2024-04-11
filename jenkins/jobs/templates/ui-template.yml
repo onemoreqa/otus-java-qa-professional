@@ -1,0 +1,28 @@
+- job-template:
+    name: 'ui'
+    description: 'Ui tests'
+    project-type: pipeline
+    concurrent: true
+    logrotate:
+      daysToKeep: 30
+      numToKeep: 10
+    parameters:
+      - string:
+          name: BRANCH
+          default: homework-1
+          description: "Branch"
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BASE_URL: https://otus.ru
+            BROWSER_NAME: chrome
+            BROWSER_VERSION: 121.0
+            SELENOID_ENABLED: true
+            SELENOID_URL: http://0.0.0.0/wd/hub/
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/runner-tests.groovy
+            
+        
+    

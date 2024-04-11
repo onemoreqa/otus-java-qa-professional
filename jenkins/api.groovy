@@ -8,38 +8,31 @@ branch: $BRANCH
         """
         }
 
-        params = readYaml text: env.YAML_CONFIG ?: null
-        if (params != null) {
-            for(param in params.entrySet()) {
-                env.setProperty(param.getKey(), param.getValue())
-            }
+        stage("Api tests in docker image") {
+            sh "docker run -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/api_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/api_tests/target/allure-results localhost:5005/apitests:${env.getProperty('TEST_VERSION')}"
+            //sh "sleep 300"
         }
 
-        stage("checkout") {
-            checkout scm
-        }
-
-        stage("Create configurations") {
-            dir("selenium-otus") {
-                //sh "echo BROWSER=${env.getProperty('BROWSER')} > ./.env"
-                //sh "echo BROWSER_VERSION=${env.getProperty('BROWSER_VERSION')} >> ./.env"
-                //sh "echo REMOTE_URL=${env.getProperty('REMOTE_URL')} >> ./.env"
-            }
-        }
-
-        stage("Run UI tests") {
-            sh "mkdir ./reports"
-            sh "mvn clean test"
-            //sh "docker run --rm --env-file ./.env -v ./reports:/root/ui_tests/allure_results -t ui_tests:${env.getProperty('TEST_VERSION')}"
-        }
-
-        stage("Publish allure report") {
-            REPORT_DISABLE = Boolean.parseBoolean(env.getProperty('REPORT_DISABLE')) ?: false
+        stage("Publish Allure Reports") {
             allure([
-                    results: ["target/allure-results"],
-                    disabled: REPORT_DISABLE,
-                    reportBuildPolicy: ALWAYS
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: './allure-results']]
             ])
+        }
+
+        stage("Send to Telegram") {
+            summary = junit testResults: "**/surefire-reports/*.xml", skipPublishingChecks: true
+            resultText = "Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
+            withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
+                httpRequest httpMode: 'POST',
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"🔤🔤🔤 tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/ \"}""",
+                        contentType: 'APPLICATION_JSON',
+                        url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
+                        validResponseCodes: '200'
+            }
         }
     }
 }
