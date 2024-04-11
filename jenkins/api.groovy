@@ -36,7 +36,7 @@ branch: $BRANCH
             resultText = "Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
                 httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"🔤🔤🔤 tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/ \"}""",
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"🅰🅿🅸 tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/ \"}""",
                         contentType: 'APPLICATION_JSON',
                         url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
                         validResponseCodes: '200'
