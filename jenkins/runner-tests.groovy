@@ -2,7 +2,7 @@ import com.google.inject.Stage
 import groovy.json.JsonSlurperClassic
 import org.apache.groovy.io.StringBuilderWriter
 
-timeout(2) {
+timeout(10) {
     node("maven-slave") {
         wrap([$class: 'BuildUser']) {
             currentBuild.description = """
@@ -40,6 +40,7 @@ branch: $BRANCH
 //
 //    parallel jobs
 //
+
         stage("Create additional allure report artifacts") {
             dir("allure-results") {
                 sh "echo BROWSER=${env.getProperty('BROWSER')} > environments.txt"
@@ -59,45 +60,30 @@ branch: $BRANCH
 //        }
 //    }
 
-/*    stage("Publish allure reports") {
-        dir("allure-results") {
-            result: ["."],
-            reportBuildPolicy: ALWAYS
+
+        stage("Api tests in docker image") {
+            sh "docker run -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/api_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/api_tests/target/allure-results localhost:5005/apitests:${env.getProperty('TEST_VERSION')}"
+            //sh "sleep 300"
         }
-    }*/
 
-        stage("Api tests") {
-            sh "pwd"
-            //sh "export DOCKER_HOST=unix:///var/run/docker.sock"
-            sh "ls -al"
-            sh "mvn -v"
-
-            sh "usermod -a -G docker root"
-            sh "docker -v"
-            //sh "docker run localhost:5005/apitests:0.0.1"
-            //docker.image('localhost:5005/apitests:0.0.1').inside {
-            //    sh 'mvn test'
-            //}
-
-            // docker.image('localhost:5005/apitests:0.0.1').withRun('-d') { c ->
-            //     def dockerHost = "unix:///var/run/docker.sock"
-            //     env.DOCKER_HOST = dockerHost
-
-            //     // Run your Docker commands here
-            //     sh 'docker info'
-            //     sh 'docker run hello-world'
-            // }
+        stage("Publish Allure Reports") {
+            allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: './allure-results']]
+            ])
         }
 
 
 
         stage("Send to Telegram") {
-//        summary = junit testResults: "**/target/surefire-reports/*.xml", skipPublishingChecks: true
-//        resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
-//        allureReportUrl = "${env.BUILD_URL.replace('localhost', '127.0.0.1')}allure/"
+            summary = junit testResults: "**/surefire-reports/*.xml", skipPublishingChecks: true
+            resultText = "RESULTS - Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
                 httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"AUTOTESTS RUNNING FINISHED:\nrunning by ${BUILD_USER_EMAIL}\"}""",
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"Tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/ \"}""",
                         contentType: 'APPLICATION_JSON',
                         url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
                         validResponseCodes: '200'
