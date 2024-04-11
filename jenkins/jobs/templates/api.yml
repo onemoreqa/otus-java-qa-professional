@@ -1,6 +1,6 @@
 - job-template:
     name: 'api'
-    description: '<h3 style="color: red;">Api job</h3>'
+    description: '<h3 style="color: blue;">Api job</h3>'
     project-type: pipeline
     concurrent: true
     properties:
@@ -12,12 +12,12 @@
       - text:
           name: YAML_CONFIG
           default: |
-            BROWSER_NAME: chrome
+            TEST_VERSION: 0.0.1
       - string:
           name: BRANCH
           default: homework-3
           description: Api tests
     pipeline-scm:
-      scm:
-        - git-runner
+#      scm:
+#        - git-runner
       script-path: jenkins/api.groovy
