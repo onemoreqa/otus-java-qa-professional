@@ -33,10 +33,10 @@ branch: $BRANCH
 
         stage("Send to Telegram") {
             summary = junit testResults: "**/surefire-reports/*.xml", skipPublishingChecks: true
-            resultText = "Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
+            resultText = "🟢 Passed: ${summary.passCount} \n🔴 Failed: ${summary.failCount} \n⚪️ Skipped: ${summary.skipCount}"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
                 httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"API tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \"}""",
+                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"API tests result:\n\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \"}""",
                         contentType: 'APPLICATION_JSON',
                         url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
                         validResponseCodes: '200'
