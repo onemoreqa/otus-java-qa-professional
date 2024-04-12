@@ -87,6 +87,11 @@
             <artifactId>allure-junit5</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.automatedowl</groupId>
+            <artifactId>allure-environment-writer</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -118,6 +123,8 @@
                     <systemPropertyVariables>
                         <base.url.api>${base.url.api}</base.url.api>
                         <implicitlyWaitTimeout>${implicitlyWaitTimeout}</implicitlyWaitTimeout>
+                        <java.version>${maven.compiler.source}</java.version>
+                        <restassured.version>${restassured.version}</restassured.version>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                         <junit.jupiter.execution.parallel.config.fixed.parallelism>${parallel}</junit.jupiter.execution.parallel.config.fixed.parallelism>
                     </systemPropertyVariables>

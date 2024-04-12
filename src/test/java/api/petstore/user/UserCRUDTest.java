@@ -1,6 +1,9 @@
 package api.petstore.user;
 
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
+
 import api.petstore.steps.UserSteps;
+import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
@@ -13,6 +16,17 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 public class UserCRUDTest {
 
   UserSteps steps;
+
+  @BeforeAll
+  public static void setAllureEnvironment() {
+    allureEnvironmentWriter(
+            ImmutableMap.<String, String>builder()
+                    .put("BASE_URL", System.getProperty("base.url.api"))
+                    .put("PARALLEL", System.getProperty("junit.jupiter.execution.parallel.config.fixed.parallelism"))
+                    .put("JAVA_VERSION", System.getProperty("java.version"))
+                    .put("REST_ASSURED_VERSION", System.getProperty("restassured.version"))
+                    .build());
+  }
 
   /**
    * Проверяем, что тестовый пользователь не создан
