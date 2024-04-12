@@ -13,6 +13,7 @@
           name: YAML_CONFIG
           default: |
             TEST_VERSION: 0.0.1
+            PARALLEL: 4
       - string:
           name: BRANCH
           default: hw-7
