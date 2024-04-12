@@ -33,11 +33,11 @@
         "default": "8.1",
         "versions": {
             "8.1": {
-                "image": "selenoid/android:8.1.2",
+                "image": "alruslan/androidemulators:8.1",
                 "port": "4444",
                 "path": "/wd/hub",
                 "privileged": true,
-                "volumes": ["/home/egor/appium/Andy.apk:/Andy.apk"],
+                "volumes": ["/root/otus-java-qa-professional/infra/appium/Andy.apk:/Andy.apk"],
                 "env": [
                     "VERBOSE=true",
                     "APPIUM_ARGS=--log-level debug"
