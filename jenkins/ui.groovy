@@ -33,13 +33,9 @@ branch: $BRANCH
 
         stage("Send to Telegram") {
             summary = junit testResults: "**/surefire-reports/*.xml", skipPublishingChecks: true
-            resultText = "Total: ${summary.totalCount} Passed: ${summary.passCount} Failed: ${summary.failCount} Skipped: ${summary.skipCount}"
+            resultText = "\u2705 Passed: ${summary.passCount} \n\uD83D\uDD34 Failed: ${summary.failCount} \n\u26AA Skipped: ${summary.skipCount}"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
-                httpRequest httpMode: 'POST',
-                        requestBody: """{\"chat_id\": ${CHAT_ID}, \"text\": \"UI tests result:\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \"}""",
-                        contentType: 'APPLICATION_JSON',
-                        url: "https://api.telegram.org/bot${TOKEN_BOT}/sendMessage",
-                        validResponseCodes: '200'
+                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": ${CHAT_ID}, \"text\": \"UI tests result:\n\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \", \"disable_notification\": true}'      https://api.telegram.org/bot${TOKEN_BOT}/sendMessage"
             }
         }
     }
