@@ -20,7 +20,7 @@
             TEST_VERSION: 0.0.1
             TEST_TYPES:
               - api
-#              - ui
+              - ui
 #              - mobile
       - string:
           name: BRANCH
