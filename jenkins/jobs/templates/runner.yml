@@ -14,9 +14,10 @@
           name: YAML_CONFIG
           default: |
             BASE_URL: https://otus.ru
-            BROWSER: chrome
+            BROWSER_NAME: chrome
             BROWSER_VERSION: 121.0
-            GRID_URL: http://0.0.0.0/wd/hub
+            SELENOID_ENABLED: true
+            SELENOID_URL: http://95.181.151.41/wd/hub
             TEST_VERSION: 0.0.1
             PARALLEL: 1
             TEST_TYPES:
