@@ -1,15 +1,17 @@
 package extensions;
 
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
+
 import anotations.*;
+import com.google.common.collect.ImmutableMap;
 import factories.DriverFactory;
-import factories.WebDriverFactory;
 import listeners.WebDriverListener;
 import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.events.WebDriverEventListener;
 import utils.AllureMethods;
 
 import java.lang.annotation.Annotation;
@@ -17,11 +19,24 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UIExtensions implements BeforeEachCallback, AfterEachCallback {
+public class UIExtensions implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback {
 
   //private WebDriver driver = null;
   private EventFiringWebDriver driver = null;
   public AllureMethods allure;
+
+  @Override
+  public void beforeAll(ExtensionContext extensionContext) throws Exception {
+    allureEnvironmentWriter(
+            ImmutableMap.<String, String>builder()
+                    .put("BROWSER_NAME", System.getProperty("browser"))
+                    .put("BROWSER_VERSION", System.getProperty("browser.version"))
+                    .put("SELENOID_URL", System.getProperty("webdriver.remote.url"))
+                    .put("JAVA_VERSION", System.getProperty("java.version"))
+                    .put("BASE_URL", System.getProperty("base.url"))
+                    .put("PARALLEL", System.getProperty("junit.jupiter.execution.parallel.config.fixed.parallelism"))
+                    .build());
+  }
 
   @Override
   public void beforeEach(ExtensionContext extensionContext) {
