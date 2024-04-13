@@ -1,11 +1,11 @@
 package extensions;
 
-import static com.codeborne.selenide.Selenide.screenshot;
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
-import com.codeborne.selenide.logevents.SelenideLogger;
+import com.google.common.collect.ImmutableMap;
 import com.google.inject.Guice;
 import modules.GuiceComponentsModule;
 import modules.GuicePagesModule;
@@ -33,7 +33,19 @@ public class AndroidExtension implements BeforeAllCallback, AfterAllCallback {
 
     @Override
     public void afterAll(ExtensionContext extensionContext) {
-        //screenshot(extensionContext.getDisplayName());
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("REMOTE_URL", System.getProperty("remote.url"))
+                        .put("PLATFORM_NAME", System.getProperty("platform.name"))
+                        .put("PLATFORM_VERSION", System.getProperty("platfrom.version"))
+                        .put("DEVICE_NAME", System.getProperty("device.name"))
+                        .put("AVD_NAME", System.getProperty("avd.name"))
+                        .put("APP_PACKAGE", System.getProperty("app.package"))
+                        .put("APP_ACTIVITY", System.getProperty("app.activity"))
+                        .put("APP_PATH", System.getProperty("apk.path"))
+                        .build(), System.getProperty("user.dir")
+                        + "/allure-results/");
+
         //allure.createScreenshot("Final screenshot");
         Selenide.closeWebDriver();
     }
