@@ -11,14 +11,14 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.WelcomePage;
 
 @Owner("yigorbu4")
-//@Execution(ExecutionMode.CONCURRENT)
+@Execution(ExecutionMode.CONCURRENT)
 @ExtendWith(AndroidExtension.class)
 public class ChatTest {
 
     @Inject
     WelcomePage welcomePage = new GuicePagesModule().getWelcomePage();
 
-    //@Test
+    @Test
     @DisplayName("Проверка первого ответа от чат-бота")
     public void checkChatIsWorking() {
         welcomePage.goToMainPage()

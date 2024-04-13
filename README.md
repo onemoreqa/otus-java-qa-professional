@@ -25,3 +25,16 @@ cd infra
 cd ..
 mvn clean test -Dremote.url=http://0.0.0.0/wd/hub -Ddevice.name=android -Dplatform.name=8.1 -Dapk.path=/Andy.apk
 ```
+
+###### Пушим образ в registry
+```shell
+docker build -t localhost:5005/mobiletests:0.0.1 .
+docker push localhost:5005/mobiletests:0.0.1
+```
+
+###### Запуск тестов в докере:
+```shell
+# docker run --rm --network=host -v /home/egor/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./results:/home/ubuntu/mobile_tests/target/allure-results --entrypoint=/bin/bash -it localhost:5005/mobiletests:0.0.1
+# bash entrypoint.sh
+docker run --rm --network=host -v /home/egor/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./results:/home/ubuntu/mobile_tests/target/allure-results localhost:5005/mobiletests:0.0.1
+```

@@ -34,7 +34,7 @@ public class AndroidExtension implements BeforeAllCallback, AfterAllCallback {
     @Override
     public void afterAll(ExtensionContext extensionContext) {
         //screenshot(extensionContext.getDisplayName());
-        //allure.createScreenshot();
+        //allure.createScreenshot("Final screenshot");
         Selenide.closeWebDriver();
     }
 }

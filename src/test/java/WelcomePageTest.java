@@ -11,7 +11,7 @@ import pages.WelcomePage;
 import utils.AllureMethods;
 
 @Owner("yigorbu4")
-//@Execution(ExecutionMode.CONCURRENT)
+@Execution(ExecutionMode.CONCURRENT)
 @ExtendWith(AndroidExtension.class)
 public class WelcomePageTest {
 

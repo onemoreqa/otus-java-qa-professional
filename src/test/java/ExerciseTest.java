@@ -11,7 +11,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.WelcomePage;
 
 @Owner("yigorbu4")
-//@Execution(ExecutionMode.CONCURRENT)
+@Execution(ExecutionMode.CONCURRENT)
 @ExtendWith(AndroidExtension.class)
 public class ExerciseTest {
 
@@ -19,7 +19,7 @@ public class ExerciseTest {
     WelcomePage welcomePage = new GuicePagesModule().getWelcomePage();
 
     //@Test
-    @Disabled("временно выключен")
+    @Test
     @DisplayName("Проверка старта Упражнений")
     public void checkExercisePage() {
         welcomePage.goToMainPage()

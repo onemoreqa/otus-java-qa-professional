@@ -65,7 +65,7 @@ services:
 
   nginx:
     image: "nginx:stable-alpine"
-    container_name: nginx
+    container_name: nginx-ggr
     network_mode: host
     restart: unless-stopped
     volumes:

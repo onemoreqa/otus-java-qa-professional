@@ -56,15 +56,10 @@ cat > "${GGR_CONF_PATH}" <<- EOM
             </region>
         </version>
     </browser>
-    <browser name="opera" defaultVersion="106.0">
-        <version number="106.0">
-            <region name="1">
-                <host name="$SELENOID_1" port="$SELENOID_1_PORT" count="1"/>
-            </region>
-        </version>
+    <browser name="opera" defaultVersion="105.0">
         <version number="105.0">
             <region>
-                <host name="$SELENOID_2" port="$SELENOID_2_PORT" count="1"/>
+                <host name="$SELENOID_1" port="$SELENOID_1_PORT" count="1"/>
             </region>
         </version>
     </browser>

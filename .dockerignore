@@ -8,3 +8,6 @@ Dockerfile
 .gitignore
 .dockerignore
 README.md
+**/surefire-reports
+**/results
+**/build

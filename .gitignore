@@ -11,3 +11,7 @@ build
 /build/
 jenkins/registry
 lib
+surefire-reports
+results
+/surefire-reports/
+/results/

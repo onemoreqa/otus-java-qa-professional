@@ -15,13 +15,8 @@
         }
     },
     "opera": {
-        "default": "106.0",
+        "default": "105.0",
         "versions": {
-            "106.0": {
-                "image": "selenoid/opera:106.0",
-                "port": "4444",
-                "path": "/"
-            },
             "105.0": {
                 "image": "selenoid/opera:105.0",
                 "port": "4444",
@@ -37,7 +32,7 @@
                 "port": "4444",
                 "path": "/wd/hub",
                 "privileged": true,
-                "volumes": ["/root/otus-java-qa-professional/infra/appium/Andy.apk:/Andy.apk"],
+                "volumes": ["/home/egor/appium/Andy.apk:/Andy.apk"],
                 "env": [
                     "VERBOSE=true",
                     "APPIUM_ARGS=--log-level debug"

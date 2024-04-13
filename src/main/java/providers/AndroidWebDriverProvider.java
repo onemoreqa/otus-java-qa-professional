@@ -27,9 +27,11 @@ public class AndroidWebDriverProvider implements WebDriverProvider {
         options.setDeviceName(System.getProperty("device.name"));
         options.setPlatformVersion(System.getProperty("platform.version"));
         options.setAvd(System.getProperty("avd.name"));
+        System.out.println("Берем apk по пути=" + System.getProperty("apk.path"));
 
         if (!System.getProperty("remote.url").equals("http://0.0.0.0:4723/wd/hub")) {
             options.setApp(System.getProperty("apk.path"));
+            System.out.println("Берем apk по пути=" + System.getProperty("apk.path"));
             //options.setAvd("android8.1-1");
         } else {
             options.setAvd(System.getProperty("avd.name"));

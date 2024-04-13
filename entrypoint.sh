@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-command="mvn clean test"
+command="mvn test"
 
 echo "Run: " $command
 eval $command

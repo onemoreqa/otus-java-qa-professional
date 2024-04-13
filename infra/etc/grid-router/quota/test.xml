@@ -18,15 +18,10 @@
             </region>
         </version>
     </browser>
-    <browser name="opera" defaultVersion="106.0">
-        <version number="106.0">
-            <region name="1">
-                <host name="172.18.0.1" port="4445" count="1"/>
-            </region>
-        </version>
+    <browser name="opera" defaultVersion="105.0">
         <version number="105.0">
             <region>
-                <host name="172.19.0.1" port="4446" count="1"/>
+                <host name="172.18.0.1" port="4445" count="1"/>
             </region>
         </version>
     </browser>
