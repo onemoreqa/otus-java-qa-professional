@@ -22,6 +22,9 @@ mvn clean test -Dparallel=1
 cd infra && ./restart.sh
 cd ..
 mvn clean test -Dparallel=1 -Dwebdriver.remote.url=http://0.0.0.0/wd/hub
+mvn clean test -Dparallel=1 -Dbrowser=opera -Dwebdriver.remote.url=http://95.181.151.41/wd/hub -Dbrowser.version=105.0
+mvn clean test -Dparallel=1 -Dbrowser=chrome -Dwebdriver.remote.url=http://95.181.151.41/wd/hub -Dbrowser.version=120.0
+
 ```
 
 ###### Сбилдить тесты и запустить в докере:
