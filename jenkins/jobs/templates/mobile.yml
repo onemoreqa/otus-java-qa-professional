@@ -1,0 +1,23 @@
+- job-template:
+    name: 'mobile'
+    description: '<h3 style="color: blue;">Mobile job from hw-6</h3>'
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    triggers:
+      - timed: 'H 0 * * *'
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            TEST_VERSION: 0.0.1
+      - string:
+          name: BRANCH
+          default: hw-7
+          description: Mobile tests
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/mobile.groovy
