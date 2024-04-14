@@ -22,7 +22,7 @@ EOM
 
 cat >> "${NGINX_CONF_PATH}" <<- EOM
 server {
-    listen 8001 default_server;
+    listen 80 default_server;
     server_name localhost;
     server_name 127.0.0.1;
 

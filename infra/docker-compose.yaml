@@ -26,7 +26,8 @@ services:
     command: [
       "-conf", "/etc/selenoid/browsers.json",
       "-limit", "4", "-cpu", "0.7", "-mem", "2048m",
-      "-timeout", "5m0s", "-session-attempt-timeout", "300s",
+      "-timeout", "5m0s", "-service-startup-timeout", "5m0s",
+      "-session-attempt-timeout", "5m0s", "-session-delete-timeout", "5m0s",
       "-log-output-dir", "/opt/selenoid/logs",
       "-video-output-dir", "/opt/selenoid/video",
       "-container-network", "selenoid"
@@ -93,6 +94,9 @@ services:
     - 8888:8888
     volumes:
     - ./etc/grid-router/quota:/etc/grid-router/quota:ro
+    command: [
+      "-timeout", "300s", "-response-time", "300s"
+    ]
 
 #
 #  wiremock:
