@@ -27,22 +27,17 @@ branch: $BRANCH
 
         testTypes = env.getProperty("TEST_TYPES").replace("[", "").replace("]", "").split(",\\s*") //["ui", "mobile", "api"]
 
-        def jobs = [:]
         def triggerdJobs = [:]
 
-        for(type in testTypes) {
-            jobs[type] = {
-                node('maven-slave') {
-                    stage("Running $type tests") {
-                        triggerdJobs[type] = build(job: "$type", parameters: [
-                                text(name: "YAML_CONFIG", value: env.YAML_CONFIG)
-                        ])
-                    }
-                }
+        for (i = 0; i < testTypes.size(); i+= 1){
+            def type = testTypes[i]
+            sh "echo add ${type}"
+            triggerdJobs[type]={
+                build wait: true, job: type, parameters: [text(name: "YAML_CONFIG", value: env.YAML_CONFIG)]
             }
         }
 
-        parallel jobs
+        parallel triggerdJobs
 
     }
 }

@@ -23,7 +23,7 @@
             TEST_TYPES:
               - api
               - ui
-#              - mobile
+              - mobile
       - string:
           name: BRANCH
           default: hw-7
