@@ -13,6 +13,14 @@
           name: YAML_CONFIG
           default: |
             TEST_VERSION: 0.0.1
+            REMOTE_URL: http://0.0.0.0:4723/wd/hub
+            PLATFORM_NAME: Android
+            PLATFORM_VERSION: 8.1
+            DEVICE_NAME: emulator-5554
+            AVD_NAME: nexus
+            APP_PACKAGE: com.pyankoff.andy
+            APP_ACTIVITY: .MainActivity
+            APP_PATH: /home/ubuntu/mobile_tests/src/main/java/resources/Andy.apk
       - string:
           name: BRANCH
           default: hw-7
