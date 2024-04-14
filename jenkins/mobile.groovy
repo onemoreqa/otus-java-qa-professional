@@ -17,7 +17,7 @@ branch: $BRANCH
         }
 
         stage("Mobile tests in docker image") {
-            sh "docker run --network=host -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/mobile_tests/target/allure-results localhost:5005/mobiletests:${env.getProperty('TEST_VERSION')} ${env.getProperty('REMOTE_URL')} ${env.getProperty('PLATFORM_NAME')} ${env.getProperty('PLATFORM_VERSION')} ${env.getProperty('DEVICE_NAME')} ${env.getProperty('AVD_NAME')} ${env.getProperty('APP_PACKAGE')} ${env.getProperty('APP_ACTIVITY')} ${env.getProperty('APP_PATH')}"
+            sh "docker run --network=host -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/mobile_tests/target/allure-results localhost:5005/mobiletests:${env.getProperty('TEST_VERSION')} ${env.getProperty('REMOTE_URL')} ${env.getProperty('PLATFORM_NAME')} ${env.getProperty('PLATFORM_VERSION')} ${env.getProperty('AVD_NAME')} ${env.getProperty('DEVICE_NAME')} ${env.getProperty('APP_PACKAGE')} ${env.getProperty('APP_ACTIVITY')} ${env.getProperty('APP_PATH')}"
         }
 
         stage("Publish Allure Reports") {

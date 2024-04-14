@@ -16,8 +16,8 @@
             REMOTE_URL: http://0.0.0.0:4723/wd/hub
             PLATFORM_NAME: Android
             PLATFORM_VERSION: 8.1
-            DEVICE_NAME: emulator-5554
             AVD_NAME: nexus
+            DEVICE_NAME: emulator-5554
             APP_PACKAGE: com.pyankoff.andy
             APP_ACTIVITY: .MainActivity
             APP_PATH: /home/ubuntu/mobile_tests/src/main/java/resources/Andy.apk
