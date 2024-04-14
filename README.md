@@ -36,5 +36,5 @@ docker push localhost:5005/mobiletests:0.0.1
 ```shell
 # docker run --rm --network=host -v /home/egor/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./results:/home/ubuntu/mobile_tests/target/allure-results --entrypoint=/bin/bash -it localhost:5005/mobiletests:0.0.1
 # bash entrypoint.sh
-docker run --rm --network=host -v /home/egor/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./results:/home/ubuntu/mobile_tests/target/allure-results localhost:5005/mobiletests:0.0.1
+docker run --rm --network=host -v /home/egor/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports -v ./results:/home/ubuntu/mobile_tests/target/allure-results localhost:5005/mobiletests:0.0.1 http://0.0.0.0:4723/wd/hub Android 8.1 nexus emulator-5554 com.pyankoff.andy .MainActivity /home/egor/Desktop/otus-java-qa-professional/src/main/java/resources/Andy.apk
 ```

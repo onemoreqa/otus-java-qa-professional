@@ -30,6 +30,15 @@
     <!--parallel params:-->
     <parallel>1</parallel>
     <thread.count>8</thread.count>
+
+    <remote.url>http://0.0.0.0:4723/wd/hub</remote.url>
+    <platform.name>Android</platform.name>
+    <device.name>emulator-5554</device.name>
+    <platfrom.version>8.1</platfrom.version>
+    <avd.name>nexus</avd.name>
+    <app.package>com.pyankoff.andy</app.package>
+    <app.activity>.MainActivity</app.activity>
+    <apk.path>${project.build.sourceDirectory}/resources/Andy.apk</apk.path>
   </properties>
 
   <dependencies>
@@ -128,15 +137,14 @@
             </property>
           </systemProperties>
           <systemPropertyVariables>
-            <remote.url>http://0.0.0.0:4723/wd/hub</remote.url>
-            <platform.name>Android</platform.name>
-            <device.name>emulator-5554</device.name>
-            <platfrom.version>8.1</platfrom.version>
-            <avd.name>nexus</avd.name>
-            <app.package>com.pyankoff.andy</app.package>
-            <app.activity>.MainActivity</app.activity>
-            <!--<apk.path>/home/ubuntu/Andy.apk</apk.path>-->
-            <apk.path>${project.build.sourceDirectory}/resources/Andy.apk</apk.path>
+            <remote.url>${remote.url}</remote.url>
+            <platform.name>${platform.name}</platform.name>
+            <device.name>${device.name}</device.name>
+            <platfrom.version>${platfrom.version}</platfrom.version>
+            <avd.name>${avd.name}</avd.name>
+            <app.package>${app.package}</app.package>
+            <app.activity>${app.activity}</app.activity>
+            <apk.path>${apk.path}</apk.path>
 
             <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
             <junit.jupiter.execution.parallel.config.fixed.parallelism>${parallel}</junit.jupiter.execution.parallel.config.fixed.parallelism>
