@@ -1,10 +1,13 @@
-timeout(60) {
-    node('jobs-uploader') {
+timeout(5) {
+    node("maven-slave") {
         stage("Checkout") {
             checkout scm
         }
         stage("Deploy changes to jenkins") {
-            sh "jenkins-jobs --conf ${WORKSPACE}/jobs/conf/jenkins-job-builder.ini update ./jobs"
+            dir("jenkins") {
+                //Не заработает если на агент не накатывали бинарь jenkins-jobs
+                sh "jenkins-jobs --conf ./jobs/jobs.ini update ./jobs"
+            }
         }
     }
 }

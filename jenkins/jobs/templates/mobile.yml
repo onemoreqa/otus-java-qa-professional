@@ -1,6 +1,6 @@
 - job-template:
     name: 'mobile'
-    description: '<h3 style="color: blue;">Mobile job from hw-6</h3>'
+    description: '<h3 style="color: yellow;">MOBILE job from hw-6</h3>'
     project-type: pipeline
     concurrent: true
     properties:

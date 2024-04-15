@@ -1,6 +1,6 @@
 - job-template:
     name: 'api'
-    description: '<h3 style="color: blue;">Api job from homework-3</h3>'
+    description: '<h3 style="color: yellow;">Api job from homework-3</h3>'
     project-type: pipeline
     concurrent: true
     properties:

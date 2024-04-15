@@ -1,6 +1,6 @@
 - job-template:
     name: 'ui'
-    description: 'Ui tests'
+    description: '<h3 style="color: yellow;">UI job from homework-1</h3>'
     project-type: pipeline
     concurrent: true
     logrotate:
@@ -9,7 +9,7 @@
     parameters:
       - string:
           name: BRANCH
-          default: homework-1
+          default: hw-7
           description: "Branch"
       - text:
           name: YAML_CONFIG
