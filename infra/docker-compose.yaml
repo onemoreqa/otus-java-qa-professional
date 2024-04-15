@@ -26,7 +26,8 @@ services:
     command: [
       "-conf", "/etc/selenoid/browsers.json",
       "-limit", "4", "-cpu", "0.7", "-mem", "2048m",
-      "-timeout", "5m0s", "-session-attempt-timeout", "300s",
+      "-timeout", "5m0s", "-service-startup-timeout", "5m0s",
+      "-session-attempt-timeout", "5m0s", "-session-delete-timeout", "5m0s",
       "-log-output-dir", "/opt/selenoid/logs",
       "-video-output-dir", "/opt/selenoid/video",
       "-container-network", "selenoid"
@@ -69,16 +70,16 @@ services:
     network_mode: host
     restart: unless-stopped
     volumes:
-    - ./etc/nginx/ggr.conf:/etc/nginx/conf.d/ggr.conf:ro
+      - ./etc/nginx/ggr.conf:/etc/nginx/conf.d/ggr.conf:ro
 
   ggr:
     image: "aerokube/ggr:1.7.2"
     container_name: ggr
     ports:
-    - 4444:4444
+      - 4444:4444
     restart: unless-stopped
     volumes:
-    - ./etc/grid-router:/etc/grid-router:ro
+      - ./etc/grid-router:/etc/grid-router:ro
     command: [
       "-listen", ":4444", "-guests-allowed",
       "-timeout", "300s",
@@ -90,48 +91,41 @@ services:
     image: "aerokube/ggr-ui:1.2.0"
     container_name: ggr-ui
     ports:
-    - 8888:8888
+      - 8888:8888
     volumes:
-    - ./etc/grid-router/quota:/etc/grid-router/quota:ro
+      - ./etc/grid-router/quota:/etc/grid-router/quota:ro
+    command: [
+      "-timeout", "300s", "-response-time", "300s"
+    ]
 
-#  jenkins:
-#    image: jenkins/jenkins:2.289.3-lts-jdk11
-#    container_name: jenkins
-#    network_mode: bridge
-#    user: root
-#    ports:
-#      - "8083:8080"
-#      - "50003:50000"
-#    volumes:
-#      - "/var/run/docker.sock:/var/run/docker.sock"
-#    volumes_from:
-#      - jenkins-data
-#  jenkins-data:
-#    image: liberstein1/jenkinsdata:1.1
-#    container_name: jenkins-data
-#    network_mode: bridge
-#
-#  allure:
-#    image: "frankescobar/allure-docker-service:2.21.0"
-#    container_name: allure
-#    environment:
-#      CHECK_RESULTS_EVERY_SECONDS: 30
-#      KEEP_HISTORY: 1
-#      KEEP_HISTORY_LATEST: 25
-#    ports:
-#      - "5050:5050"
-#    volumes:
-#      - ./allure/allure-reports:/app/default-reports
-#      - ../target/allure-results:/app/allure-results
-#
-#  allure-ui:
-#    image: "frankescobar/allure-docker-service-ui:7.0.3"
-#    container_name: allure-ui
-#    environment:
-#      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
-#      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
-#    ports:
-#      - "5252:5252"
+  registry:
+    restart: always
+    image: registry
+    container_name: registry
+    hostname: registry
+    volumes:
+      - ../jenkins/registry:/var/lib/registry
+    ports:
+      - "5005:5005"
+    environment:
+      - REGISTRY_HTTP_ADDR=0.0.0.0:5005
+
+  jenkins:
+    restart: always
+    image: jenkins/jenkins
+    container_name: jenkins
+    hostname: jenkins
+    user: root
+    ports:
+      - 8080:8080
+    environment:
+      #- JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true -Dcasc.jenkins.config=/var/jenkins/home/casc_configs -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Moscow -Duser.timeZone=Europe/Moscow"
+      - JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true"
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - /var/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
 #
 #  wiremock:
 #    image: "wiremock/wiremock:3.4.2"

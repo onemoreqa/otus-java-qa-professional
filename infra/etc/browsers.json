@@ -15,13 +15,8 @@
         }
     },
     "opera": {
-        "default": "106.0",
+        "default": "105.0",
         "versions": {
-            "106.0": {
-                "image": "selenoid/opera:106.0",
-                "port": "4444",
-                "path": "/"
-            },
             "105.0": {
                 "image": "selenoid/opera:105.0",
                 "port": "4444",
@@ -33,7 +28,7 @@
         "default": "8.1",
         "versions": {
             "8.1": {
-                "image": "selenoid/android:8.1",
+                "image": "selenoid/android:8.1.2",
                 "port": "4444",
                 "path": "/wd/hub",
                 "privileged": true,
