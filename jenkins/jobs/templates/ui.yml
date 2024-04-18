@@ -1,6 +1,6 @@
 - job-template:
     name: 'ui'
-    description: '<h3 style="color: yellow;">UI job from homework-1</h3>'
+    description: '<h3 style="color: red;">UI job from homework-1</h3>'
     project-type: pipeline
     concurrent: true
     logrotate:

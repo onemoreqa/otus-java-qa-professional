@@ -119,9 +119,10 @@ services:
     ports:
       - 8080:8080
     environment:
-      #- JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true -Dcasc.jenkins.config=/var/jenkins/home/casc_configs -Dorg.apache.commons.jelly.tags.fmt.timeZone=Europe/Moscow -Duser.timeZone=Europe/Moscow"
+      - JENKINS_OPTS="--prefix=/jenkins"
       - JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true"
-      - DOCKER_HOST=unix:///var/run/docker.sock
+      #- DOCKER_HOST=unix:///var/run/docker.sock
+      - DOCKER_HOST=tcp://172.17.0.1:4243
     volumes:
       - /var/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
