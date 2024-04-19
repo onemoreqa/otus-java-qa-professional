@@ -4,6 +4,7 @@ target
 infra/video
 infra/logs
 infra/allure
+infra/allure-results
 .allure
 .attach_*
 build
@@ -12,3 +13,4 @@ lib
 /jenkins/registry/
 results/
 surefire-reports/
+/infra/allure-results/

@@ -17,8 +17,12 @@ branch: $BRANCH
         }
 
         stage("UI tests in docker image") {
-            sh "docker run -v /root/.m2/repository:/root/.m2/repository -v ./surefire-reports:/home/ubuntu/ui_tests/target/surefire-reports -v ./allure-results:/home/ubuntu/ui_tests/target/allure-results localhost:5005/uitests:${env.getProperty('TEST_VERSION')} ${env.getProperty('PARALLEL')} ${env.getProperty('BROWSER_NAME')} ${env.getProperty('SELENOID_URL')} ${env.getProperty('BROWSER_VERSION')}"
-            //sh "sleep 300"
+            sh "docker run --rm \
+            --network=host \
+            -v /root/.m2/repository:/root/.m2/repository \
+            -v ./surefire-reports:/home/ubuntu/ui_tests/target/surefire-reports \
+            -v ./allure-results:/home/ubuntu/ui_tests/target/allure-results \
+            localhost:5005/uitests:${env.getProperty('TEST_VERSION')} ${env.getProperty('PARALLEL')} ${env.getProperty('BROWSER_NAME')} ${env.getProperty('SELENOID_URL')} ${env.getProperty('BROWSER_VERSION')}"
         }
 
         stage("Publish Allure Reports") {
@@ -35,7 +39,13 @@ branch: $BRANCH
             summary = junit testResults: "**/surefire-reports/*.xml", skipPublishingChecks: true
             resultText = "\u2705 Passed: ${summary.passCount} \n\uD83D\uDD34 Failed: ${summary.failCount} \n\u26AA Skipped: ${summary.skipCount}"
             withCredentials([string(credentialsId: 'telegram_chat', variable: 'CHAT_ID'), string(credentialsId: 'telegram_token', variable: 'TOKEN_BOT')]) {
-                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": ${CHAT_ID}, \"text\": \"UI tests result:\n\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \", \"disable_notification\": true}'      https://api.telegram.org/bot${TOKEN_BOT}/sendMessage"
+                sh "curl -X POST -H 'Content-Type: application/json' \
+                -d '{ \
+                \"chat_id\": ${CHAT_ID}, \
+                \"text\": \"UI tests result:\n\nRunning by ${BUILD_USER_EMAIL}\n${resultText}\nReport: ${env.BUILD_URL}allure/\nDuration: ${currentBuild.durationString} \", \
+                \"disable_notification\": true \
+                }' \
+                https://api.telegram.org/bot${TOKEN_BOT}/sendMessage"
             }
         }
     }
