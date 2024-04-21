@@ -4,7 +4,7 @@
 # В рамках шестой домашки локаль с Appium server
 # mvn test -Dremote.url=http://0.0.0.0:4723/wd/hub -Dplatform.name=Android -Dplatform.version=8.1 -Davd.name=nexus -Ddevice.name=emulator-5554 -Dapp.package=com.pyankoff.andy -Dapp.activity=.MainActivity -Dapk.path=/home/egor/Desktop/otus-java-qa-professional/src/main/java/resources/Andy.apk
 
-remote_url=http://0.0.0.0:4723/wd/hub
+remote_url=http://0.0.0.0/wd/hub
 platform_name=Android
 platform_version=8.1
 avd_name=android8.1-1
