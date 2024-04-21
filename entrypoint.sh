@@ -9,8 +9,12 @@ do
 
   case $key in
     --parallel)
-    parallel="$2"
-    shift # past argument
+    if [[ "$2" == "null" ]]; then
+      echo "Use default value: parallel=$parallel"
+    else
+      parallel="$2"
+      shift # past argument
+    fi
     ;;
     --help)
     echo "Usage: $0 [--parallel <parallel>]"
