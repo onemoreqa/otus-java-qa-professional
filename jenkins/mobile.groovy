@@ -22,7 +22,15 @@ branch: $BRANCH
             -v /root/.m2/repository:/root/.m2/repository \
             -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports \
             -v ./allure-results:/home/ubuntu/mobile_tests/target/allure-results \
-            localhost:5005/mobiletests:${env.getProperty('TEST_VERSION')} ${env.getProperty('REMOTE_URL')} ${env.getProperty('PLATFORM_NAME')} ${env.getProperty('PLATFORM_VERSION')} ${env.getProperty('AVD_NAME')} ${env.getProperty('DEVICE_NAME')} ${env.getProperty('APP_PACKAGE')} ${env.getProperty('APP_ACTIVITY')} ${env.getProperty('APP_PATH')}"
+            localhost:5005/mobiletests:${env.getProperty('TEST_VERSION')} \
+            --remote_url ${env.getProperty('REMOTE_URL')} \
+            --platform_name ${env.getProperty('PLATFORM_NAME')} \
+            --platform_version ${env.getProperty('PLATFORM_VERSION')} \
+            --avd_name ${env.getProperty('AVD_NAME')} \
+            --device_name ${env.getProperty('DEVICE_NAME')} \
+            --app_package ${env.getProperty('APP_PACKAGE')} \
+            --app_activity ${env.getProperty('APP_ACTIVITY')} \
+            --apk_path ${env.getProperty('APP_PATH')}"
         }
 
         stage("Publish Allure Reports") {
