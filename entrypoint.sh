@@ -50,7 +50,7 @@ do
 done
 
 # Run mvn test with specified keys
-command="mvn test -Dwebdriver.remote.url=$remote_url -Dparallel=$parallel -Dbrowser=$browser -Dbrowser_version=$browser_version"
+command="mvn test -Dwebdriver.remote.url=$remote_url -Dparallel=$parallel -Dbrowser=$browser -Dbrowser.version=$browser_version"
 
 echo "Run: " $command
 eval $command
