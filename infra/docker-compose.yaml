@@ -70,7 +70,7 @@ services:
     network_mode: host
     restart: unless-stopped
     volumes:
-      - ./etc/nginx/ggr.conf:/etc/nginx/conf.d/ggr.conf:ro
+      - ./etc/nginx/:/etc/nginx/conf.d/:rw
 
   ggr:
     image: "aerokube/ggr:1.7.2"
