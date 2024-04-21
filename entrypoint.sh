@@ -18,20 +18,37 @@ do
 
   case $key in
     --remote_url)
-    remote_url="$2"
-    shift # past argument
+    # shellcheck disable=SC2077
+    if [[ "$2" == "null" ]]; then
+      echo "Use default value: remote_url=$remote_url"
+    else
+      remote_url="$2"
+      shift # past argument
+    fi
     ;;
     --parallel)
-    parallel="$2"
-    shift # past argument
+    if [[ "$2" == "null" ]]; then
+      echo "Use default value: parallel=$parallel"
+    else
+      parallel="$2"
+      shift # past argument
+    fi
     ;;
     --browser)
-    browser="$2"
-    shift # past argument
+    if [[ "$2" == "null" ]]; then
+      echo "Use default value: browser=$browser"
+    else
+      browser="$2"
+      shift # past argument
+    fi
     ;;
     --browser_version)
-    browser_version="$2"
-    shift # past argument
+    if [[ "$2" == "null" ]]; then
+      echo "Use default value: browser_version=$browser_version"
+    else
+      browser_version="$2"
+      shift # past argument
+    fi
     ;;
     --help)
     echo "Usage: $0 [--remote_url <remote_url>] [--parallel <parallel>] [--browser <browser>] [--browser_version <browser_version>]"
