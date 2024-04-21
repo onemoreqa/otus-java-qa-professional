@@ -5,3 +5,5 @@ infra
 jenkins/registry
 lib
 .allure/
+/results/
+/surefire-reports/
