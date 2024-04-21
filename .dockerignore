@@ -7,3 +7,5 @@
 .Dockerfile
 .gitignore
 .README.md
+**/results
+**/surefire-reports
