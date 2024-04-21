@@ -22,7 +22,7 @@ branch: $BRANCH
             -v /root/.m2/repository:/root/.m2/repository \
             -v ./surefire-reports:/home/ubuntu/api_tests/target/surefire-reports \
             -v ./allure-results:/home/ubuntu/api_tests/target/allure-results \
-            localhost:5005/apitests:${env.getProperty('TEST_VERSION')} \
+            onemoreqa/apitests:${env.getProperty('TEST_VERSION')} \
             --parallel ${env.getProperty('PARALLEL')}"
         }
 

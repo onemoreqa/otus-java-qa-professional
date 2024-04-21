@@ -22,7 +22,7 @@ branch: $BRANCH
             -v /root/.m2/repository:/root/.m2/repository \
             -v ./surefire-reports:/home/ubuntu/ui_tests/target/surefire-reports \
             -v ./allure-results:/home/ubuntu/ui_tests/target/allure-results \
-            localhost:5005/uitests:${env.getProperty('TEST_VERSION')} \
+            onemoreqa/uitests:${env.getProperty('TEST_VERSION')} \
             --parallel ${env.getProperty('PARALLEL')} \
             --browser ${env.getProperty('BROWSER_NAME')} \
             --remote_url ${env.getProperty('SELENOID_URL')} \

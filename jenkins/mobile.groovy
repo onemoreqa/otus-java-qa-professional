@@ -22,7 +22,7 @@ branch: $BRANCH
             -v /root/.m2/repository:/root/.m2/repository \
             -v ./surefire-reports:/home/ubuntu/mobile_tests/target/surefire-reports \
             -v ./allure-results:/home/ubuntu/mobile_tests/target/allure-results \
-            localhost:5005/mobiletests:${env.getProperty('TEST_VERSION')} \
+            onemoreqa/mobiletests:${env.getProperty('TEST_VERSION')} \
             --remote_url ${env.getProperty('REMOTE_URL')} \
             --platform_name ${env.getProperty('PLATFORM_NAME')} \
             --platform_version ${env.getProperty('PLATFORM_VERSION')} \
