@@ -27,3 +27,4 @@ curl -v -X GET http://127.0.0.1:5005/v2/_catalog
 ```
 
 - Плагины: docker, git, allure, Build user vars, http requests, pipeline utility steps
+- [infraSchema](infra/docs/infra-schema.md)
