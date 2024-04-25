@@ -14,3 +14,4 @@ lib
 results/
 surefire-reports/
 /infra/allure-results/
+/jenkins/jenkinsdata/
