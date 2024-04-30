@@ -129,7 +129,8 @@ services:
     volumes_from:
       - jenkins-data
   jenkins-data:
-    image: onemoreqa/jenkinsdata:2.452
+    #image: onemoreqa/jenkinsdata:2.452
+    image: onemoreqa/jenkinsdata:0.0.2
     container_name: jenkins-data
 
 #
