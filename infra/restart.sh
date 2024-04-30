@@ -18,3 +18,6 @@ docker-compose restart ggr || docker compose restart ggr
 sh './scripts/sh/update_nginx.sh'
 docker-compose restart nginx || docker compose restart nginx
 # ожидается, что на порту 80 должно всё открываться
+
+# удаляем старые вольюмы, чтоб не было переполнения
+docker volume prune -f

@@ -71,6 +71,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./etc/nginx/:/etc/nginx/conf.d/:rw
+      - /etc/ssl/:/etc/ssl
 
   ggr:
     image: "aerokube/ggr:1.7.2"

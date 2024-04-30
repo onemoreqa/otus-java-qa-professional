@@ -3,9 +3,13 @@
     description: '<h3 style="color: red;">UI job from homework-1</h3>'
     project-type: pipeline
     concurrent: true
-    logrotate:
-      daysToKeep: 30
-      numToKeep: 10
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    triggers:
+      - timed: 'H */1 * * *'
+      - github:
+          trigger: true
     parameters:
       - string:
           name: BRANCH

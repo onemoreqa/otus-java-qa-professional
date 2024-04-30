@@ -15,6 +15,7 @@ server {
     listen 80 default_server;
     server_name localhost;
     server_name 127.0.0.1;
+    server_name onqa.su;
 
     location / {
       proxy_pass http://${SELENOID_UI_IP}:8080;
@@ -35,6 +36,11 @@ server {
       location /jenkins {
         proxy_pass http://0.0.0.0:8080;
       }
+
+      location /portainer {
+        proxy_pass http://0.0.0.0:9443;
+      }
+
    }
 }
 

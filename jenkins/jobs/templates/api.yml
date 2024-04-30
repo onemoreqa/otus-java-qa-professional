@@ -7,7 +7,9 @@
       - build-discarder:
           num-to-keep: 10
     triggers:
-      - timed: 'H 0 * * *'
+      - timed: 'H */1 * * *'
+      - github:
+          trigger: true
     parameters:
       - text:
           name: YAML_CONFIG
