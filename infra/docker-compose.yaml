@@ -18,7 +18,7 @@ services:
     volumes:
       - "./etc/browsers.json:/etc/selenoid/browsers.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "$PWD/video:/opt/selenoid/video"
+      - "./video:/opt/selenoid/video"
       - "./logs:/opt/selenoid/logs"
     environment:
       - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
@@ -43,7 +43,7 @@ services:
     volumes:
       - "./etc/browsers.json:/etc/selenoid/browsers.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "$PWD/video:/opt/selenoid/video"
+      - "./video:/opt/selenoid/video"
       - "./logs:/opt/selenoid/logs"
     environment:
       - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video

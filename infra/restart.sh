@@ -21,3 +21,4 @@ docker-compose restart nginx || docker compose restart nginx
 
 # удаляем старые вольюмы, чтоб не было переполнения!
 docker volume prune -f
+docker image prune -f
