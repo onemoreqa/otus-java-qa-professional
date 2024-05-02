@@ -42,7 +42,7 @@ cat > "${GGR_CONF_PATH}" <<- EOM
         </version>
         <version number="120.0">
             <region>
-                <host name="$SELENOID_2" port="$SELENOID_2_PORT" count="1"/>
+                <host name="$SELENOID_1" port="$SELENOID_1_PORT" count="1"/>
             </region>
         </version>
     </browser>
