@@ -22,7 +22,7 @@
             BROWSER_NAME: chrome
             BROWSER_VERSION: 121.0
             SELENOID_ENABLED: true
-            SELENOID_URL: http://95.181.151.41/wd/hub
+            SELENOID_URL: https://onqa.su/wd/hub
             TEST_VERSION: 0.0.1
             PARALLEL: 1
     pipeline-scm:

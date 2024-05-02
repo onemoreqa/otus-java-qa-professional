@@ -16,12 +16,12 @@ services:
     ports:
       - "4445:4444"
     volumes:
-      - "./etc/browsers.json:/etc/selenoid/browsers.json"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./video:/opt/selenoid/video"
-      - "./logs:/opt/selenoid/logs"
+      - ./etc/browsers.json:/etc/selenoid/browsers.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./video:/opt/selenoid/video
+      - ./logs:/opt/selenoid/logs
     environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
+      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
       - TZ=Asia/Yekaterinburg
     command: [
       "-conf", "/etc/selenoid/browsers.json",
@@ -41,12 +41,12 @@ services:
     ports:
       - "4446:4444"
     volumes:
-      - "./etc/browsers.json:/etc/selenoid/browsers.json"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./video:/opt/selenoid/video"
-      - "./logs:/opt/selenoid/logs"
+      - ./etc/browsers.json:/etc/selenoid/browsers.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./video:/opt/selenoid/video
+      - ./logs:/opt/selenoid/logs
     environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
+      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
       - TZ=Asia/Yekaterinburg
     command: [
       "-conf", "/etc/selenoid/browsers.json",
