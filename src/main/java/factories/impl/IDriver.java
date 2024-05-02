@@ -4,6 +4,7 @@ import exceptions.BrowserNotSupportedException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.Config;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;
@@ -13,7 +14,7 @@ public interface IDriver {
   String REMOTE_URL = System.getProperty("webdriver.remote.url");
   boolean HEADLESS = Boolean.valueOf(System.getProperty("webdriver.headless"));
 
-  public WebDriver newDriver();
+  public WebDriver newDriver(ExtensionContext extensionContext);
 
   default URL getRemoteUrl() {
     try {

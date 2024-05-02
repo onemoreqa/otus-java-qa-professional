@@ -40,7 +40,7 @@ public class UIExtensions implements BeforeAllCallback, BeforeEachCallback, Afte
 
   @Override
   public void beforeEach(ExtensionContext extensionContext) {
-    driver = new DriverFactory().getDriver();
+    driver = new DriverFactory().getDriver(extensionContext);
     driver.register(new WebDriverListener());
     allure = new AllureMethods(driver);
 
@@ -74,6 +74,7 @@ public class UIExtensions implements BeforeAllCallback, BeforeEachCallback, Afte
   @Override
   public void afterEach(ExtensionContext extensionContext) {
     allure.createScreenshot("Финальный скрин");
+    allure.addVideo(extensionContext);
     if(driver != null) {
       driver.close();
       driver.quit();

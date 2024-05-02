@@ -6,7 +6,7 @@
 # В рамках перовой домашки локаль с поднятным selenoid
 #mvn clean test -Dparallel=1 -Dbrowser=chrome -Dwebdriver.remote.url=http://0.0.0.0/wd/hub -Dbrowser.version=121.0
 
-remote_url=http://95.181.151.41/wd/hub
+remote_url=https://onqa.su/wd/hub
 parallel=1
 browser=chrome
 browser_version=120.0
