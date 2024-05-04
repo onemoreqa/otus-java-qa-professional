@@ -35,7 +35,10 @@ stateDiagram
     }
     SelenoidInfra --> REPORTS
     REPORTS --> TelegramNotification
-    REPORTS --> Allure
+    TelegramNotification --> ShellBotChat
+    ShellBotChat --> run_tests
+    run_tests --> runnerTests.groovy
+REPORTS --> Allure
     Allure --> Jenkins
     Allure --> [*]
 
