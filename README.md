@@ -1,30 +1,14 @@
-#### ДЗ #6: Разворачивание Jenkins'a и подключение джоб:
+#### Описание проектной работы:
 
-#### Цель: Необходимо настроить Jenkins, который будет запускать тесты по тригеру и выдавать читаемый отчет в Allure.
+- [Схема инфраструктуры](infra/docs/infra-schema.md)
+- [goGridRouter ui](https://onqa.su/)
+- [Видосы пройденных ui тестов](https://onqa.su/video/)
+- [Jenkins](https://onqa.su/jenkins/) -> admin:admin
+- Запуск тестов возможен из Jenkins'а
+- Запуск тестов возможен из чата в telegram (через shellbot)
+- <img alt="MarineGEO circle logo" src="./infra/docs/screenshots/tg.png"/>
 
-#### Описание/Пошаговая инструкция выполнения домашнего задания:
-- Сдача проекта будет происходить путем выдачи xml с настроенными job'ами
-- Джоба с запуском Selenium/Selenide тестов по тестированию Otus'a (можно из ранее сделанных) с возможностью выбора браузера
-- Джоба с запуском Apppium тестов по тестированию мобильного приложения (можно из ранее сделанных)
-- Обратите внимание, в п.2 должна быть реализована автоматическое скачивание приложения.
-
-###### Критерии оценки (из 10 баллов):
-- 4 балла за джобу с запуском Selenium
-- 4 балла за джобу с appium
-- 2 балла за читаемые отчеты
-
-```shell
-pip install --user jenkins-job-builder
-jenkins-jobs --conf ./jobs/jobs.ini update ./jobs
-
-#build slave:
-docker build -f ./Dockerfile.maven -t localhost:5005/maven_slave:1.0.0 .
-#push to registry
-docker push localhost:5005/maven_slave:1.0.0
-# check slave state: {"repositories":['maven_slave']}
-curl -v -X GET http://127.0.0.1:5005/v2/_catalog
-
-```
-
-- Плагины: docker, git, allure, Build user vars, http requests, pipeline utility steps
-- [infraSchema](infra/docs/infra-schema.md)
+#### Может пригодиться:
+- [Локальный запуск окружения вручную](infra/docs/create_docker_run.md)
+- [Локальный запуск окружения композом](infra/docs/create_docker_compose.md)
+- [Jenkins со своим dataVolume из docker Hub](https://github.com/onemoreqa/JenkinsImageTutorial)
