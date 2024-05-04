@@ -1,0 +1,44 @@
+- job-template:
+    name: 'runner-tests'
+    description: '<h3 style="color: red;">Running tests</h3>'
+    project-type: pipeline
+    concurrent: true
+    logrotate:
+      daysToKeep: 30
+      numToKeep: 10
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BASE_URL: https://otus.ru
+            BROWSER_NAME: chrome
+            BROWSER_VERSION: 121.0
+            SELENOID_ENABLED: true
+            SELENOID_URL: http://95.181.151.41/wd/hub
+            TEST_VERSION: 0.0.1
+            PARALLEL: 1
+            REMOTE_URL: http://0.0.0.0:4723/wd/hub
+            PLATFORM_NAME: Android
+            PLATFORM_VERSION: 8.1
+            AVD_NAME: nexus
+            DEVICE_NAME: emulator-5554
+            APP_PACKAGE: com.pyankoff.andy
+            APP_ACTIVITY: .MainActivity
+            APP_PATH: /home/ubuntu/mobile_tests/src/main/java/resources/Andy.apk
+            TEST_TYPES:
+              - api
+              - ui
+              - mobile
+      - string:
+          name: BRANCH
+          default: hw-7
+          description: "Branch"
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/runner-tests.groovy
+
+

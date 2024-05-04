@@ -1,0 +1,156 @@
+version: '3'
+networks:
+  selenoid:
+    external:
+      name: selenoid # This assumes network is already created
+  selenoid2:
+    external:
+      name: selenoid2 # This assumes network is already created
+
+services:
+  selenoid:
+    image: "aerokube/selenoid:1.11.2"
+    container_name: selenoid
+    networks:
+      selenoid: null
+    ports:
+      - "4445:4444"
+    volumes:
+      - ./etc/browsers.json:/etc/selenoid/browsers.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./video:/opt/selenoid/video
+      - ./logs:/opt/selenoid/logs
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
+      - TZ=Asia/Yekaterinburg
+    command: [
+      "-conf", "/etc/selenoid/browsers.json",
+      "-limit", "4", "-cpu", "0.7", "-mem", "2048m",
+      "-timeout", "5m0s", "-service-startup-timeout", "5m0s",
+      "-session-attempt-timeout", "5m0s", "-session-delete-timeout", "5m0s",
+      "-log-output-dir", "/opt/selenoid/logs",
+      "-video-output-dir", "/opt/selenoid/video",
+      "-container-network", "selenoid"
+    ]
+
+  selenoid2:
+    image: "aerokube/selenoid:1.11.2"
+    container_name: selenoid2
+    networks:
+      selenoid2: null
+    ports:
+      - "4446:4444"
+    volumes:
+      - ./etc/browsers.json:/etc/selenoid/browsers.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./video:/opt/selenoid/video
+      - ./logs:/opt/selenoid/logs
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
+      - TZ=Asia/Yekaterinburg
+    command: [
+      "-conf", "/etc/selenoid/browsers.json",
+      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
+      "-log-output-dir", "/opt/selenoid/logs",
+      "-video-output-dir", "/opt/selenoid/video",
+      "-container-network", "selenoid2"
+    ]
+
+  selenoid-ui:
+    image: "aerokube/selenoid-ui:1.10.11"
+    container_name: selenoid-ui
+    links:
+      - ggr
+      - ggr-ui
+    command: ["--selenoid-uri", "http://ggr-ui:8888"]
+
+  nginx:
+    image: "nginx:stable-alpine"
+    container_name: nginx
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./etc/nginx/:/etc/nginx/conf.d/:rw
+      - /etc/ssl/:/etc/ssl
+
+  ggr:
+    image: "aerokube/ggr:1.7.2"
+    container_name: ggr
+    ports:
+      - 4444:4444
+    restart: unless-stopped
+    volumes:
+      - ./etc/grid-router:/etc/grid-router:ro
+    command: [
+      "-listen", ":4444", "-guests-allowed",
+      "-timeout", "300s",
+      "-guests-quota", "test", "-verbose",
+      "-quotaDir", "./etc/grid-router/quota"
+    ]
+
+  ggr-ui:
+    image: "aerokube/ggr-ui:1.2.0"
+    container_name: ggr-ui
+    ports:
+      - 8888:8888
+    volumes:
+      - ./etc/grid-router/quota:/etc/grid-router/quota:ro
+    command: [
+      "-timeout", "300s", "-response-time", "300s"
+    ]
+
+  registry:
+    restart: always
+    image: registry
+    container_name: registry
+    hostname: registry
+    volumes:
+      - ../jenkins/registry:/var/lib/registry
+    ports:
+      - "5005:5005"
+    environment:
+      - REGISTRY_HTTP_ADDR=0.0.0.0:5005
+
+  jenkins:
+    restart: always
+    image: jenkins/jenkins:2.452
+    container_name: jenkins
+    hostname: jenkins
+    user: root
+    ports:
+      - 8080:8080
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
+      - JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true"
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+ #     - /var/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    volumes_from:
+      - jenkins-data
+  jenkins-data:
+    #image: onemoreqa/jenkinsdata:2.452
+    image: onemoreqa/jenkinsdata:0.0.2
+    container_name: jenkins-data
+
+#
+#  wiremock:
+#    image: "wiremock/wiremock:3.4.2"
+#    container_name: wiremock
+#    ports:
+#      - "8880:8080"
+#    volumes:
+#      - ./extensions:/var/wiremock/extensions
+#      - ../src/test/resources/wmstub:/home/wiremock
+#    entrypoint: [ "/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose" ]
+#
+#  postgres:
+#    image: postgres:13.3
+#    environment:
+#      POSTGRES_DB: "otustestdb"
+#      POSTGRES_USER: "randomuser"
+#      POSTGRES_PASSWORD: "randompassword12345!"
+#    volumes:
+#      - ./etc:/docker-entrypoint-initdb.d
+#    ports:
+#      - "54132:5432"

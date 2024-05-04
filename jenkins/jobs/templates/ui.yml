@@ -1,0 +1,34 @@
+- job-template:
+    name: 'ui'
+    description: '<h3 style="color: red;">UI job from homework-1</h3>'
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    triggers:
+      - timed: 'H */1 * * *'
+      - github:
+          trigger: true
+    parameters:
+      - string:
+          name: BRANCH
+          default: hw-7
+          description: "Branch"
+      - text:
+          name: YAML_CONFIG
+          default: |
+            BASE_URL: https://otus.ru
+            BROWSER_NAME: chrome
+            BROWSER_VERSION: 121.0
+            SELENOID_ENABLED: true
+            SELENOID_URL: https://onqa.su/wd/hub
+            TEST_VERSION: 0.0.1
+            PARALLEL: 1
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/ui.groovy
+            
+        
+    

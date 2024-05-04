@@ -1,0 +1,10 @@
+---
+- project:
+    name: 'OTUS autotests'
+    job-description: 'autotests for OTUS'
+    jobs:
+      - 'runner-tests'
+      - 'api'
+      - 'mobile'
+      - 'ui'
+      - 'jobs_uploader'

@@ -1,0 +1,31 @@
+- job-template:
+    name: 'mobile'
+    description: '<h3 style="color: red;">MOBILE job from hw-6</h3>'
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    triggers:
+      - timed: 'H 0 * * *'
+    parameters:
+      - text:
+          name: YAML_CONFIG
+          default: |
+            TEST_VERSION: 0.0.1
+            REMOTE_URL: http://0.0.0.0:4723/wd/hub
+            PLATFORM_NAME: Android
+            PLATFORM_VERSION: 8.1
+            AVD_NAME: nexus
+            DEVICE_NAME: emulator-5554
+            APP_PACKAGE: com.pyankoff.andy
+            APP_ACTIVITY: .MainActivity
+            APP_PATH: /home/ubuntu/mobile_tests/src/main/java/resources/Andy.apk
+      - string:
+          name: BRANCH
+          default: hw-7
+          description: Mobile tests
+    pipeline-scm:
+      scm:
+        - git-runner
+      script-path: jenkins/mobile.groovy

@@ -1,0 +1,11 @@
+---
+    
+- scm:
+    name: git-runner
+    scm:
+    - git:
+        url: git@github.com:onemoreqa/otus-java-qa-professional.git
+        credentials-id: jenkins
+        branches:
+        - FETCH_HEAD
+        refspec: $BRANCH
