@@ -21,7 +21,7 @@ services:
       - ./video:/opt/selenoid/video
       - ./logs:/opt/selenoid/logs
     environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
       - TZ=Asia/Yekaterinburg
     command: [
       "-conf", "/etc/selenoid/browsers.json",
@@ -33,28 +33,28 @@ services:
       "-container-network", "selenoid"
     ]
 
-  selenoid2:
-    image: "aerokube/selenoid:1.11.2"
-    container_name: selenoid2
-    networks:
-      selenoid2: null
-    ports:
-      - "4446:4444"
-    volumes:
-      - ./etc/browsers.json:/etc/selenoid/browsers.json
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./video:/opt/selenoid/video
-      - ./logs:/opt/selenoid/logs
-    environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
-      - TZ=Asia/Yekaterinburg
-    command: [
-      "-conf", "/etc/selenoid/browsers.json",
-      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
-      "-log-output-dir", "/opt/selenoid/logs",
-      "-video-output-dir", "/opt/selenoid/video",
-      "-container-network", "selenoid2"
-    ]
+#  selenoid2:
+#    image: "aerokube/selenoid:1.11.2"
+#    container_name: selenoid2
+#    networks:
+#      selenoid2: null
+#    ports:
+#      - "4446:4444"
+#    volumes:
+#      - ./etc/browsers.json:/etc/selenoid/browsers.json
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ./video:/opt/selenoid/video
+#      - ./logs:/opt/selenoid/logs
+#    environment:
+#      - OVERRIDE_VIDEO_OUTPUT_DIR=./video
+#      - TZ=Asia/Yekaterinburg
+#    command: [
+#      "-conf", "/etc/selenoid/browsers.json",
+#      "-limit", "4", "-cpu", "0.7", "-mem", "1024m",
+#      "-log-output-dir", "/opt/selenoid/logs",
+#      "-video-output-dir", "/opt/selenoid/video",
+#      "-container-network", "selenoid2"
+#    ]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui:1.10.11"

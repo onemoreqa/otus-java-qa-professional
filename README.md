@@ -7,6 +7,10 @@
 - Запуск тестов возможен из Jenkins'а
 - Запуск тестов возможен из чата в telegram (через shellbot)
 - <img alt="MarineGEO circle logo" src="./infra/docs/screenshots/tg.png"/>
+- Поднимать окружение на локали лучше через скрипт командой:
+```bash
+cd infra && ./restart.sh
+```
 
 #### Может пригодиться:
 - [Локальный запуск окружения вручную](infra/docs/create_docker_run.md)
